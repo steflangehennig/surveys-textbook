@@ -10,6 +10,8 @@ book:
     - intro.qmd
     - summary.qmd
     - references.qmd
+    - sampling.qmd
+    - psych_response.qmd
 
 bibliography: references.bib
 
