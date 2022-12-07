@@ -4,4 +4,461 @@ format: html
 editor: visual
 ---
 
-##  
+# Rake Weights
+##### Note: *This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.*
+
+## Step By Step Guide to Creating Basic Rake Weights in R 
+
+Survey weights are widely used in survey research for a variety of purposes. In this tutorial, we will be focusing on one specific form of survey weights called a "rake weight". Rake weights are typically used to make the survey sample match the target population on a set of demographic, and sometimes attitudinal, measures. They are used to ensure the sample's demographics match the target population's demographics. This numerical correction will change how much each individual case in your dataset is contributing to the overall, or sub-group, mean values across your sample data.  
+
+First, we load necessary packages to compute and analyze the weights. If a package is not installed on your machine, you must first install it before this chunk of code will run.  
+
+
+```{r setup, include=FALSE}
+#library(haven)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(knitr)
+library(tidyverse)
+library(skimr)
+library(poliscidata)
+library(srvyr)
+library(survey)
+library(weights)
+library(anesrake)
+library(data.table)
+library(stargazer)
+
+```
+
+### 1. Import your survey data into R 
+We need to import our survey data into R. The way we do this will vary by the format of your data, but in this case the data is saved as a ".dta" file so we will use the `haven` package to import it. 
+
+You should always examine your data and the base R function `head` shows the first 5 cases along with all of your column labels. 
+
+
+```{r , echo=FALSE}
+sample <- read_dta(".data/sample.dta")
+sample<-as.data.frame(sample)#For ANESRAKE to work, data must be in a data.frame
+names(sample)
+```
+
+### 2. Save Your Target Population Demographic Parameters 
+
+You will need to know the target population proportion for each of the variables you wish to weight your sample data on. How easy it will be to find your population values will be based on your specific target population. 
+
+Some populations will be relatively easy to find (e.g. think adult demographic proportions in the United States from the Census, CPS, or ACS results and all the sub-geographic levels that accompany them), but others won't be as easy. Sometimes, you cannot know your target population proportions so in those cases you will not be able to weight your survey sample data.
+
+In this chunk of R code, we are creating the target population parameters for two specific demographic variables measured in our sample political poll data. This was a political poll conducted in October 2018 with the sample consisting of likely Colorado voters in the then upcoming 2018 election. This gubernatorial election year  poll measured multiple things including: 
+- 2018 Colorado Gubernatorial Preference - Jared Polis or Walker Stapleton 
+- Policy Questions: Marijuana Legalization, Fracking, Gun Control laws
+- Approval ratings: President Donald Trump, Governor John Hickenlooper (at the time), US Congress
+- Demographic questions for survey weighting purposes
+
+
+#### Saving New Vectors With Target Population Demographic Values 
+Using this data, let's create some survey weights. To illustrate the principle, we will start with basic weights using just two demographic variables commonly used in calculating survey weights: sex (unfortunately only biological sex was collected in this survey) and age (split into 5 categories). We must save a vector of data with the target population demographic proportions, so in this case we will save two vectors one called `sex` and one called `age_group`. 
+
+There are two critical things to get correct in this step.
+
+**1. Matching Names** 
+The names we give these vectors matter and must match the names of the appropriate demographic variable in your sample data. Since the vector names we chose were sex and age_group, the variable names in the sample data must be exactly sex and age_group. Otherwise, the code will not be able to match the two and will fail. 
+
+**2. Matching Orders**
+The second critical thing to get correct is the order the proportion values are entered into the vector must match the order the proportion values are stored in the sample data. In this example, the order of proportions stored in the sex variable in the sample data is (female, male) so the values we give the sex vector must be in that exact order as well. The same is true for the age_group variable, which has 5 groups in the sample data: 18-29, 30-39, 40-49, 50-64, 65+. The proportion order in our vector for the age_group must match that exactly as well otherwise you are creating incorrect weights or best-case scenario getting an error message.    
+
+
+```{r }
+sex <- c(.525, .475)  #Target values for females and males; label order (female, male)
+sum(sex) #proportions should = 1 so this checks that it does
+age_group  <- c(.182, .203, .17, .218, .227)  #Target values for 5 age groups; 18-29, 30-39, 40-49, 50-64, 65+
+sum(age_group) #proportions should = 1 so this checks that it does
+
+```
+
+First, let's look at the unweighted values in both the age and sex variables. 
+
+```{r}
+#Shows the unweighted size of the age_group demographics
+sample %>%
+  group_by(age_group) %>%
+  summarise(n = n()) %>% 
+  mutate(proportion = n /sum(n))
+
+#Shows the unweighted size of the sex demographics
+sample %>%
+  group_by(sex) %>%
+  summarise(n = n()) %>% 
+  mutate(proportion = n /sum(n))
+
+```
+
+
+### 3. Calculating Your Rake Weights  
+
+Now that we have our target population parameters saved in vectors for each demographic variable we plan to weight our survey data on and our sample data with matching names and orders, we can begin to create our survey weights. 
+
+
+**1. Create List**
+First, we create a list that merges the two demographic vectors for use in the raking process. Remember, this names must match the column names in the sample data. We give this list the name of `targets` to reflect this is the target population parameters we want to match the sample data to. We then give the column names to match with the sample data. 
+
+
+**2. Calculate the Weights**
+Now, it is time to create some survey weights using the `anesrake` function. This function has many possible items that could be used, with all the possible items listed in the following R chunk. You should view the R documentation for all possible things it can do. 
+
+For our purposes, we will be focusing on a few things that will be noted. We will calculate a new dataframe called `myweights` where we input the ~targets~ list, the name of our sample data `cpc`, a caseid value that uniquely identifies each case, the `cap` item tells the function to cape the size of the survey weights at 8 and not allow any case to have a weight larger than that value. The `type` item tells the function how it should handle, if at all, a target population demographic that is very close to the sample value for that same demographic. 
+
+You'll see in the output once you run the `anesrake` function how many iterations it took for the raking to converge on this specific set of weights. Here, it took 15 iterations across the two target demographic variables. 
+
+**3. Save Weights in Sample Data**
+Next, we save that newly created weight as a new variable in our existing sample data, and now we have a weight variable that we can use in our analysis of the data. 
+
+```{r }
+#Now we save these values as a list and call the list targets
+#Step 1: Save the target list 
+targets <- list(sex, age_group)
+# remember, these names will have to match
+names(targets) <- c("sex", "age_group")
+
+#anesrake(targets, dataframe, caseid, weightvec = NULL, cap = 5,
+#verbose = FALSE, maxit = 1000, type = "pctlim", pctlim = 5,
+#nlim = 5, filter = 1, choosemethod = "total", iterate = TRUE)
+
+#Step 2 - Calculate the Rake Weight
+set.seed(1599385) #Set the seed for replication  
+myweights <- anesrake(targets, sample, 
+                      caseid = sample$caseid, cap = 8, type = "nolim", pctlim=.05)
+
+#Step 3 - Save the Rake Weight at the end of your sample data
+sample$weight  <- unlist(myweights[1])
+
+```
+
+### 4. Reviewing the Newly Created Survey Weights  
+
+Before we start the analysis of the weighted data, let's examine the newly created survey weights saved in our sample data. 
+
+With only 2 target weighting variables with 10 total categories combined between them, we can examine the weights individually by group.  To do this, we will use the `srvyr` package to examine the weight size by the target groups. 
+
+
+```{r}
+#Displays summary of the weight size to see range
+summary(sample$weight)
+
+#Shows the weight size by demographic groups used in the weighting scheme
+sample %>% 
+  as_survey(weights = c(weight)) %>%
+  group_by(sex, age_group) %>% 
+  summarise(weight = survey_mean(weight, na.rm = T))
+
+```
+
+Now we see the weight size for each of the 10 groups that we weighted our sample data on. Obviously, with more demographic variables including in the weighting scheme this list would get much more cumbersome but for pedagogical purposes it is important to look at these values to understand their meaning. 
+
+For females between the age of 18-29 the weight equals 4.21. This means that females between the ages of 18-29 are under-represented in the sample data since the value is over 1. Fundamentally what this means is that for each female between the ages of 18-29 in the sample data, they are "speaking" for 4.21 females between the age of 18-29 from the target population. Compare this value to females between the ages of 50 and 64 (group 4) who have a weight value of .53. This means that females in this age group were over-represented in the sample data since the weight value is under 1. 
+
+We should also look at the weighted demographic values to ensure the weights worked as we hope they do - i.e. the weighted sample demographic values match the target population values. 
+
+```{r}
+#Shows the unweighted size of the age_group demographics
+sample %>%
+  group_by(age_group) %>%
+  summarise(n = n()) %>% 
+  mutate(proportion = n /sum(n))
+
+#Shows the weighted size of the age_group demographics
+sample %>%
+  as_survey(weights = c(weight)) %>%
+  group_by(age_group) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(proportion = n /sum(n))
+
+#Saves the weighted & unweighted size of the age_group demographics
+ag_w<-sample %>%
+  as_survey(weights = c(weight)) %>%
+  group_by(age_group) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weighted_sample = n /sum(n))
+
+ag_uw<- sample %>%
+  group_by(age_group) %>%
+  summarise(n = n()) %>% 
+  mutate(unweighted_sample = n /sum(n))
+ag_combo<-left_join(ag_w, ag_uw, by = "age_group", suffix = c("", "_pop")) %>%
+  group_by(age_group)
+
+ag_combo$ag_diff_per<- 100*(ag_combo$weighted_sample-ag_combo$unweighted_sample)
+ag_combo
+print(ag_combo$weighted_sample)
+print(targets)
+
+```
+
+We see that the weighted age_group values match the target population values we inputted earlier so this weighting scheme seems to be working in the way that we hoped it would. 
+
+
+```{r}
+
+#Shows the unweighted size of the sex demographics
+sample %>%
+  group_by(sex) %>%
+  summarise(n = n()) %>% 
+  mutate(proportion = n /sum(n))
+
+#Shows the weighted size of the sex demographics
+sample %>%
+  as_survey(weights = c(weight)) %>%
+  group_by(sex) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(proportion = n /sum(n))
+
+```
+
+For the `sex` measure, the unweighted and weighted values matched nearly identically, but that is because the unweighted sample nearly matched the target population identically without any statistical correction. In these instances, it is common to drop the demographic variable that does not need much adjustment. The standard limit is 5% or less should not get an adjustment meaning that you should only apply weights with the target population values and the sample values are 5% points or more different. 
+
+
+### 5. Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights 
+
+Now let's see what impact these weights have on our sample values. First, we use the `surveys` package must create a new dataframe that incorporates the survey weights. Let's call it `sample.weighted` to signal that this is the weighted version of the sample data. 
+
+We need to calculate the weighted and unweighted means of the same variable. Using the `fracking2` variable which measures support for fracking in the Colorado which various safety measures, we can compare the influence of the survey weights on the conclusions we would draw about support for fracking in Colorado. 
+
+Once we run the following R chunk, we see that there is virtually no difference between the weighted and unweighted estimates of how supportive Coloradoans are of fracking. Why is this? This occurs sometimes when the weights that applied simply do not change the sample composition enough to have an influence on the overall sample mean. 
+
+```{r}
+
+fracking_uw<-sample %>% #Looks at the unweighted support for fracking in CO
+  summarise(unweight_support = mean(fracking2, na.rm = T))
+
+fracking_w<-sample %>% #Looks at the weighted support for fracking in CO
+  as_survey(weights = c(weight)) %>%
+   summarise(weight_support = survey_mean(fracking2, na.rm = T))
+
+
+fracking_combo<-cbind(fracking_uw, fracking_w ) 
+
+fracking_combo <- mutate(fracking_combo, difference = weight_support - unweight_support)
+fracking_combo
+
+#Gubernatorial Vote Choice - Weighted & Unweighted 
+gov_w<-sample %>%
+  as_survey(weights = c(weight)) %>%
+  filter(!is.na(gov_choice)) %>% 
+  group_by(gov_choice) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weight_support = n /sum(n)) 
+
+gov_uw<-sample %>%
+  group_by(gov_choice) %>%
+  filter(!is.na(gov_choice)) %>% 
+  summarise(n = n()) %>% 
+  mutate(unweight_support = n /sum(n))
+
+gov_combo<-cbind(gov_uw, gov_w) 
+
+
+gov_combo$diff <- gov_combo$weight_support - gov_combo$unweight_support
+gov_combo
+
+```
+
+### 6. Crate New Weighting Scheme That Incorporates More Demographic Variables 
+
+Typically, when creating survey weights you will include more than just 2 demographic variables into your weighting scheme. Here, we use 5 variables to create a new weight: sex, age, race/ethnicity, education, and partisanship. 
+
+```{r}
+
+#Save new vectors with target population values for weights 
+sex <- c(.525, .475)  ##Target values for females and males; label order (female, male)
+age_group  <- c(.132, .183, .15, .248, .287)   #Target values for 5 age groups 
+race_4 <-c(.7143, .0501, .1768, .0588) #Target values race/ethnic identities - white, black, Hispanic, all others
+educ <-c(.2075, .2445, .0828, .2398, .2254) #Target values education - HS or less, Some college, AA, BA, Graduate degree
+pid_4 <-c(.3375, .2838, .335, .0437) #Target values Party Registration - (Democrats, Independents, Republicans, All 3rd Parties)  
+
+#Combine the demographic vectors into a list
+targets <- list(sex, age_group, race_4, educ, pid_4)
+# remember, these names will have to match the column names & order in the sample data 
+names(targets) <- c("sex", "age_group", "race_4", "educ", "pid_4")
+
+set.seed(1984)
+myweights <- anesrake(targets, sample, 
+                      caseid = sample$caseid, cap = 8, type = "pctlim", pctlim=.05)    
+
+sample$full_weight  <- unlist(myweights[1])
+
+summary(sample$full_weight)
+
+```
+Let's look at how well the weights worked to match the sample data to the target population values for the `race4` and `educ5` measures. 
+
+```{r}
+#Shows the weighted size of the educ5 demographics
+##We can also bind the two values together to calculate their differences 
+ed_w<-sample %>%
+  as_survey(weights = c(full_weight)) %>%
+  group_by(educ) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weighted_sample = n /sum(n))
+
+ed_uw<- sample %>%
+  group_by(educ) %>%
+  summarise(n = n()) %>% 
+  mutate(unweighted_sample = n /sum(n))
+ed_combo<-left_join(ed_w, ed_uw, by = "educ") %>%
+  group_by(educ)
+
+ed_combo$ed_diff_per<- 100*(ed_combo$weighted_sample-ed_combo$unweighted_sample)
+ed_combo
+
+#Shows the weighted size of the race4 demographics
+##We can also bind the two values together to calculate their differences 
+r_w<-sample %>%
+  as_survey(weights = c(full_weight)) %>%
+  group_by(race_4) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weighted_sample = n /sum(n))
+
+r_uw<- sample %>%
+  group_by(race_4) %>%
+  summarise(n = n()) %>% 
+  mutate(unweighted_sample = n /sum(n))
+r_combo<-left_join(r_w, r_uw, by = "race_4") %>%
+  group_by(race_4)
+
+r_combo$r_diff_per<- 100*(r_combo$weighted_sample-r_combo$unweighted_sample)
+r_combo
+
+#Shows the weighted size of the pid_4 registered voter variable 
+##We can also bind the two values together to calculate their differences 
+pid_w<-sample %>%
+  as_survey(weights = c(full_weight)) %>%
+  group_by(pid_4) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weighted_sample = n /sum(n))
+
+pid_uw<- sample %>%
+  group_by(pid_4) %>%
+  summarise(n = n()) %>% 
+  mutate(unweighted_sample = n /sum(n))
+pid_combo<-left_join(pid_w, pid_uw, by = "pid_4") %>%
+  group_by(pid_4)
+
+pid_combo$pid_diff_per<- 100*(pid_combo$weighted_sample-pid_combo$unweighted_sample)
+pid_combo
+
+```
+
+```{r}
+
+#Gubernatorial Vote Choice - Weighted & Unweighted 
+gov_w<-sample %>%
+  as_survey(weights = c(full_weight)) %>%
+  filter(!is.na(gov_choice)) %>% 
+  group_by(gov_choice) %>%
+  summarise(n = survey_total()) %>% 
+  mutate(weight_support = n /sum(n)) 
+
+gov_uw<-sample %>%
+  group_by(gov_choice) %>%
+  filter(!is.na(gov_choice)) %>% 
+  summarise(n = n()) %>% 
+  mutate(unweight_support = n /sum(n))
+
+gov_combo<-cbind(gov_uw, gov_w) 
+
+
+gov_combo$diff <- gov_combo$weight_support - gov_combo$unweight_support
+
+gov_outcome<-cbind(gov_combo$gov_choice, gov_combo$weight_support, gov_combo$unweight_support, gov_combo$diff) 
+
+colnames(gov_outcome) <- c("candidate", "weighted support", "unewighted support", "diff") 
+gov_outcome
+
+
+####Comparing weighted to unweighted fracking support in Colorado 
+
+fracking_uw<-sample %>% #Looks at the unweighted support for fracking in CO
+  summarise(unweight_support = mean(fracking2, na.rm = T))
+
+fracking_w<-sample %>% #Looks at the weighted support for fracking in CO
+  as_survey(weights = c(full_weight)) %>%
+   summarise(weight_support = survey_mean(fracking2, na.rm = T))
+
+
+fracking_combo<-cbind(fracking_uw, fracking_w ) 
+
+fracking_combo <- mutate(fracking_combo, frack_diff = weight_support - unweight_support)
+
+#Do the same analysis for gun control then pot laws
+gc_uw<-sample %>% #Looks at the unweighted support for fracking in CO
+  summarise(unweight_support = mean(gun_control2, na.rm = T))
+
+gc_w<-sample %>% #Looks at the weighted support for fracking in CO
+  as_survey(weights = c(full_weight)) %>%
+   summarise(weight_support = survey_mean(gun_control2, na.rm = T))
+
+
+gc_combo<-cbind(gc_uw, gc_w ) 
+
+gc_combo <- mutate(gc_combo, gun_control_diff = weight_support - unweight_support)
+
+pl_uw<-sample %>% #Looks at the unweighted support for fracking in CO
+  summarise(unweight_support = mean(pot_law2, na.rm = T))
+
+pl_w<-sample %>% #Looks at the weighted support for fracking in CO
+  as_survey(weights = c(full_weight)) %>%
+   summarise(weight_support = survey_mean(pot_law2, na.rm = T))
+
+
+pl_combo<-cbind(pl_uw, pl_w ) 
+
+pl_combo <- mutate(pl_combo, pot_law_diff = weight_support - unweight_support)
+
+
+combo<-cbind(100*(fracking_combo$frack_diff),100*(gc_combo$gun_control_diff), 100*(pl_combo$pot_law_diff)) 
+
+colnames(combo) <- c("fracking_diff", "gun_control_diff", "pot_law_diff") 
+combo<-round(combo,3)
+combo
+
+```
+
+Above, shows the impact that the new weighting scheme had on the differences in support for fracking, new gun control policies, support for marijuana legalization and a tax revenue proposition on the upcoming ballot. For fracking, the weighted sample supported fracking 3.3 percentage points higher than the unweighted sample. While that might not seem like a large difference, in a polarized American electorate 3.3 percentage points easily be the differences between winning an election or going down in defeat. 
+
+The other three items all saw a decrease in support in the weighted data. Overall, the results showed increased support for a generally conservative supported issue, fracking, while revealing decreased support for 3 more liberal supported issues, gun control, marijuana legalization, and increased governmental spending. This is likely caused by weighting older voters to be
+
+We can also use the newly created survey weights in regression analyses. To do so, you first must create a new weighted survey dataset that you then conduct the analysis on. 
+
+```{r}
+
+#Using srvyr package to create a new weighted dataset for analysis purposes
+#Step 1: Create Weighted Survey Data for Analysis
+sample.weighted <- sample %>% 
+  as_survey_design(ids = 1, # 1 for no cluster ids; use this for a simple random sample 
+                   weights = full_weight, # No weight added
+                   strata = NULL # sampling was simple (no strata) 
+                  )
+
+nonweighted <-lm(gambling ~ pid_x + ideo5 + sex , data=sample)
+weighted <-lm(gambling ~ pid_x + ideo5 + sex, data=sample, weights=sample$weight)
+weighted2 <-lm(gambling ~ pid_x + ideo5 + sex, data=sample, weights=sample$full_weight)
+
+stargazer(nonweighted, weighted,  weighted2, type="text")
+
+```
+
+Results are largely similar across the regression models, but there are some slight differences between the unweighted model and the two weighted ones. This happens because certain respondent's opinions are being given more or less weight to the overall average relationship which can cause the conclusions you draw from your analysis to differ. This is one reason why it is critically important to create your survey weights using defensible target population values. 
+
+### 7. Concluding Thoughts 
+
+This is an important lesson for the application of the survey weights. The target population values that you weight your survey sample data to match can have profound implications on the conclusions you and others draw from your survey results. In the case, the decision to weight the survey to give more voice to the Republican members of the sample influenced the conclusions drawn about support for various policies being debated in the public realm. This makes it critically important to make sure that the target population values that are chosen are as accurate as possible and publicly defensible. 
+
+Overall, this tutorial has taken you through how to calculate survey weights using the `anesrake` package. Using a sample political poll, you hopefully learned how to create target demographic population vectors, which then merge with our sample demographic values. Following this, you learned how to calculate directly survey weights, evaluate the success/failure of the survey weighting process, and compare the impact of using the survey weight on the conclusions drawn from the results.   
+
+```{r}
+
+sessionInfo()
+
+```
+
