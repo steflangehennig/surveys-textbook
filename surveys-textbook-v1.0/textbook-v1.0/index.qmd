@@ -1,5 +1,9 @@
-# Preface
+# Welcome {.unnumbered}
 
-This is a Quarto book.
+This is the github repository for the work-in-progress first edition of **"Survey Methodologies for Social Scientists"**.
 
-To learn more about Quarto books visit <https://quarto.org/docs/books>.
+The goal of this book is to teach you how to do create, conduct, and analyze surveys with R.
+
+## Acknowledgements {.unnumbered}
+
+More to come!

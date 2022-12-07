@@ -6,6 +6,7 @@ book:
   author: "Carey E. Stapleton & Stefani Langehennig"
   date: "10/10/2022"
   chapters:
+    - index.qmd
     - ch01intro.qmd
     - ch02psych_response.qmd
     - ch03ethics.qmd
@@ -16,9 +17,7 @@ book:
     - ch08measurement.qmd
     - ch09hyp_analysis_rep.qmd
     - ch10conclusion.qmd
-    - index.qmd
     - references.qmd
-    - summary.qmd
 
 bibliography: references.bib
 
