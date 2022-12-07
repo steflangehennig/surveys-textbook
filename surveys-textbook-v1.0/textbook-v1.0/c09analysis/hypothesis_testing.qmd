@@ -1,5 +1,5 @@
 ---
-title: "ethics"
+title: "Hypothesis Testing"
 format: html
 editor: visual
 ---
