@@ -5,6 +5,12 @@ book:
   title: "Survey Methodologies for Social Scientists"
   author: "Carey E. Stapleton & Stefani Langehennig"
   date: "10/10/2022"
+  
+  page-footer:
+    left: |
+      Survey Methodologies for Social Scientists (1e) was written by Carey E. Stapleton and Stefani Langehennig.
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
   chapters:
     - index.qmd
     - ch01intro.qmd
