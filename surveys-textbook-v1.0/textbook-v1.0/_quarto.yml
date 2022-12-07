@@ -7,11 +7,8 @@ book:
   date: "10/10/2022"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
     - references.qmd
-    - sampling.qmd
-    - psych_response.qmd
+    - summary.qmd
 
 bibliography: references.bib
 
