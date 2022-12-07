@@ -20,6 +20,69 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -140,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch09hyp_analysis_rep.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hypothesis Testing</span></a>
+  <a href="./ch09hyp_analysis_rep.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Hypothesis Testing, Analysis, &amp; Reporting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -162,7 +225,19 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"><span class="toc-section-number">7.1</span>  </a></li>
+  <li><a href="#rake-weights" id="toc-rake-weights" class="nav-link active" data-scroll-target="#rake-weights"><span class="toc-section-number">8</span>  Rake Weights</a>
+  <ul class="collapse">
+  <li><a href="#step-by-step-guide-to-creating-basic-rake-weights-in-r" id="toc-step-by-step-guide-to-creating-basic-rake-weights-in-r" class="nav-link" data-scroll-target="#step-by-step-guide-to-creating-basic-rake-weights-in-r"><span class="toc-section-number">8.1</span>  Step By Step Guide to Creating Basic Rake Weights in R</a>
+  <ul class="collapse">
+  <li><a href="#import-your-survey-data-into-r" id="toc-import-your-survey-data-into-r" class="nav-link" data-scroll-target="#import-your-survey-data-into-r"><span class="toc-section-number">8.1.1</span>  1. Import your survey data into R</a></li>
+  <li><a href="#save-your-target-population-demographic-parameters" id="toc-save-your-target-population-demographic-parameters" class="nav-link" data-scroll-target="#save-your-target-population-demographic-parameters"><span class="toc-section-number">8.1.2</span>  2. Save Your Target Population Demographic Parameters</a></li>
+  <li><a href="#calculating-your-rake-weights" id="toc-calculating-your-rake-weights" class="nav-link" data-scroll-target="#calculating-your-rake-weights"><span class="toc-section-number">8.1.3</span>  3. Calculating Your Rake Weights</a></li>
+  <li><a href="#reviewing-the-newly-created-survey-weights" id="toc-reviewing-the-newly-created-survey-weights" class="nav-link" data-scroll-target="#reviewing-the-newly-created-survey-weights"><span class="toc-section-number">8.1.4</span>  4. Reviewing the Newly Created Survey Weights</a></li>
+  <li><a href="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" id="toc-evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="nav-link" data-scroll-target="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="toc-section-number">8.1.5</span>  5. Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</a></li>
+  <li><a href="#crate-new-weighting-scheme-that-incorporates-more-demographic-variables" id="toc-crate-new-weighting-scheme-that-incorporates-more-demographic-variables" class="nav-link" data-scroll-target="#crate-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="toc-section-number">8.1.6</span>  6. Crate New Weighting Scheme That Incorporates More Demographic Variables</a></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts"><span class="toc-section-number">8.1.7</span>  7. Concluding Thoughts</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -185,10 +260,627 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="section" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="section"><span class="header-section-number">7.1</span> </h2>
+<section id="rake-weights" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Rake Weights</h1>
+<p><strong>Note: <em>This tutorial uses the <code>anesrake</code> package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.</em></strong></p>
+<section id="step-by-step-guide-to-creating-basic-rake-weights-in-r" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="step-by-step-guide-to-creating-basic-rake-weights-in-r"><span class="header-section-number">8.1</span> Step By Step Guide to Creating Basic Rake Weights in R</h2>
+<p>Survey weights are widely used in survey research for a variety of purposes. In this tutorial, we will be focusing on one specific form of survey weights called a “rake weight”. Rake weights are typically used to make the survey sample match the target population on a set of demographic, and sometimes attitudinal, measures. They are used to ensure the sample’s demographics match the target population’s demographics. This numerical correction will change how much each individual case in your dataset is contributing to the overall, or sub-group, mean values across your sample data.</p>
+<p>First, we load necessary packages to compute and analyze the weights. If a package is not installed on your machine, you must first install it before this chunk of code will run.</p>
+<section id="import-your-survey-data-into-r" class="level3" data-number="8.1.1">
+<h3 data-number="8.1.1" class="anchored" data-anchor-id="import-your-survey-data-into-r"><span class="header-section-number">8.1.1</span> 1. Import your survey data into R</h3>
+<p>We need to import our survey data into R. The way we do this will vary by the format of your data, but in this case the data is saved as a “.dta” file so we will use the <code>haven</code> package to import it.</p>
+<p>You should always examine your data and the base R function <code>head</code> shows the first 5 cases along with all of your column labels.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "caseid"         "pid_4"          "ideo5"          "gov_choice"    
+ [5] "prop_111"       "prop_112"       "trump_app"      "hick_app"      
+ [9] "gardner_app"    "cong_app"       "scotus_app"     "pot_law"       
+[13] "gambling"       "fracking"       "gun_control"    "anger"         
+[17] "pride"          "hope"           "disgust"        "worry"         
+[21] "trump_app2"     "hick_app2"      "gardner_app2"   "cong_app2"     
+[25] "scotus_app2"    "pot_law2"       "gambling2"      "fracking2"     
+[29] "gun_control2"   "old_weight_old" "pid_x"          "sex"           
+[33] "race_4"         "speakspanish"   "marstat"        "child18"       
+[37] "employ"         "faminc_new"     "casscd"         "religiosity"   
+[41] "age_group"      "educ"          </code></pre>
+</div>
+</div>
+</section>
+<section id="save-your-target-population-demographic-parameters" class="level3" data-number="8.1.2">
+<h3 data-number="8.1.2" class="anchored" data-anchor-id="save-your-target-population-demographic-parameters"><span class="header-section-number">8.1.2</span> 2. Save Your Target Population Demographic Parameters</h3>
+<p>You will need to know the target population proportion for each of the variables you wish to weight your sample data on. How easy it will be to find your population values will be based on your specific target population.</p>
+<p>Some populations will be relatively easy to find (e.g.&nbsp;think adult demographic proportions in the United States from the Census, CPS, or ACS results and all the sub-geographic levels that accompany them), but others won’t be as easy. Sometimes, you cannot know your target population proportions so in those cases you will not be able to weight your survey sample data.</p>
+<p>In this chunk of R code, we are creating the target population parameters for two specific demographic variables measured in our sample political poll data. This was a political poll conducted in October 2018 with the sample consisting of likely Colorado voters in the then upcoming 2018 election. This gubernatorial election year poll measured multiple things including: - 2018 Colorado Gubernatorial Preference - Jared Polis or Walker Stapleton - Policy Questions: Marijuana Legalization, Fracking, Gun Control laws - Approval ratings: President Donald Trump, Governor John Hickenlooper (at the time), US Congress - Demographic questions for survey weighting purposes</p>
+<section id="saving-new-vectors-with-target-population-demographic-values" class="level4" data-number="8.1.2.1">
+<h4 data-number="8.1.2.1" class="anchored" data-anchor-id="saving-new-vectors-with-target-population-demographic-values"><span class="header-section-number">8.1.2.1</span> Saving New Vectors With Target Population Demographic Values</h4>
+<p>Using this data, let’s create some survey weights. To illustrate the principle, we will start with basic weights using just two demographic variables commonly used in calculating survey weights: sex (unfortunately only biological sex was collected in this survey) and age (split into 5 categories). We must save a vector of data with the target population demographic proportions, so in this case we will save two vectors one called <code>sex</code> and one called <code>age_group</code>.</p>
+<p>There are two critical things to get correct in this step.</p>
+<p><strong>1. Matching Names</strong> The names we give these vectors matter and must match the names of the appropriate demographic variable in your sample data. Since the vector names we chose were sex and age_group, the variable names in the sample data must be exactly sex and age_group. Otherwise, the code will not be able to match the two and will fail.</p>
+<p><strong>2. Matching Orders</strong> The second critical thing to get correct is the order the proportion values are entered into the vector must match the order the proportion values are stored in the sample data. In this example, the order of proportions stored in the sex variable in the sample data is (female, male) so the values we give the sex vector must be in that exact order as well. The same is true for the age_group variable, which has 5 groups in the sample data: 18-29, 30-39, 40-49, 50-64, 65+. The proportion order in our vector for the age_group must match that exactly as well otherwise you are creating incorrect weights or best-case scenario getting an error message.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">525</span>, .<span class="dv">475</span>)  <span class="co">#Target values for females and males; label order (female, male)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(sex) <span class="co">#proportions should = 1 so this checks that it does</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>age_group  <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">182</span>, .<span class="dv">203</span>, .<span class="dv">17</span>, .<span class="dv">218</span>, .<span class="dv">227</span>)  <span class="co">#Target values for 5 age groups; 18-29, 30-39, 40-49, 50-64, 65+</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(age_group) <span class="co">#proportions should = 1 so this checks that it does</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1</code></pre>
+</div>
+</div>
+<p>First, let’s look at the unweighted values in both the age and sex variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the unweighted size of the age_group demographics</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 3
+  age_group     n proportion
+  &lt;dbl+lbl&gt; &lt;int&gt;      &lt;dbl&gt;
+1 1 [18-29]    33     0.0412
+2 2 [30-39]   101     0.126 
+3 3 [40-49]   118     0.148 
+4 4 [50-64]   306     0.382 
+5 5 [65+]     242     0.302 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the unweighted size of the sex demographics</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 3
+  sex            n proportion
+  &lt;dbl+lbl&gt;  &lt;int&gt;      &lt;dbl&gt;
+1 1 [Female]   423      0.529
+2 2 [Male]     377      0.471</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="calculating-your-rake-weights" class="level3" data-number="8.1.3">
+<h3 data-number="8.1.3" class="anchored" data-anchor-id="calculating-your-rake-weights"><span class="header-section-number">8.1.3</span> 3. Calculating Your Rake Weights</h3>
+<p>Now that we have our target population parameters saved in vectors for each demographic variable we plan to weight our survey data on and our sample data with matching names and orders, we can begin to create our survey weights.</p>
+<p><strong>1. Create List</strong> First, we create a list that merges the two demographic vectors for use in the raking process. Remember, this names must match the column names in the sample data. We give this list the name of <code>targets</code> to reflect this is the target population parameters we want to match the sample data to. We then give the column names to match with the sample data.</p>
+<p><strong>2. Calculate the Weights</strong> Now, it is time to create some survey weights using the <code>anesrake</code> function. This function has many possible items that could be used, with all the possible items listed in the following R chunk. You should view the R documentation for all possible things it can do.</p>
+<p>For our purposes, we will be focusing on a few things that will be noted. We will calculate a new dataframe called <code>myweights</code> where we input the <sub>targets</sub> list, the name of our sample data <code>cpc</code>, a caseid value that uniquely identifies each case, the <code>cap</code> item tells the function to cape the size of the survey weights at 8 and not allow any case to have a weight larger than that value. The <code>type</code> item tells the function how it should handle, if at all, a target population demographic that is very close to the sample value for that same demographic.</p>
+<p>You’ll see in the output once you run the <code>anesrake</code> function how many iterations it took for the raking to converge on this specific set of weights. Here, it took 15 iterations across the two target demographic variables.</p>
+<p><strong>3. Save Weights in Sample Data</strong> Next, we save that newly created weight as a new variable in our existing sample data, and now we have a weight variable that we can use in our analysis of the data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now we save these values as a list and call the list targets</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 1: Save the target list </span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">list</span>(sex, age_group)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># remember, these names will have to match</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(targets) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age_group"</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#anesrake(targets, dataframe, caseid, weightvec = NULL, cap = 5,</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#verbose = FALSE, maxit = 1000, type = "pctlim", pctlim = 5,</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#nlim = 5, filter = 1, choosemethod = "total", iterate = TRUE)</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 2 - Calculate the Rake Weight</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1599385</span>) <span class="co">#Set the seed for replication  </span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>myweights <span class="ot">&lt;-</span> <span class="fu">anesrake</span>(targets, sample, </span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                      <span class="at">caseid =</span> sample<span class="sc">$</span>caseid, <span class="at">cap =</span> <span class="dv">8</span>, <span class="at">type =</span> <span class="st">"nolim"</span>, <span class="at">pctlim=</span>.<span class="dv">05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Raking converged in 12 iterations"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 3 - Save the Rake Weight at the end of your sample data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sample<span class="sc">$</span>weight  <span class="ot">&lt;-</span> <span class="fu">unlist</span>(myweights[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="reviewing-the-newly-created-survey-weights" class="level3" data-number="8.1.4">
+<h3 data-number="8.1.4" class="anchored" data-anchor-id="reviewing-the-newly-created-survey-weights"><span class="header-section-number">8.1.4</span> 4. Reviewing the Newly Created Survey Weights</h3>
+<p>Before we start the analysis of the weighted data, let’s examine the newly created survey weights saved in our sample data.</p>
+<p>With only 2 target weighting variables with 10 total categories combined between them, we can examine the weights individually by group. To do this, we will use the <code>srvyr</code> package to examine the weight size by the target groups.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Displays summary of the weight size to see range</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sample<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5347  0.6086  0.6997  1.0000  1.0912  4.8008 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weight size by demographic groups used in the weighting scheme</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex, age_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">weight =</span> <span class="fu">survey_mean</span>(weight, <span class="at">na.rm =</span> T))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 x 4
+# Groups:   sex [2]
+   sex        age_group weight weight_se
+   &lt;dbl+lbl&gt;  &lt;dbl+lbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;
+ 1 1 [Female] 1 [18-29]  4.22   0       
+ 2 1 [Female] 2 [30-39]  1.51   2.86e-17
+ 3 1 [Female] 3 [40-49]  1.09   0       
+ 4 1 [Female] 4 [50-64]  0.535  0       
+ 5 1 [Female] 5 [65+]    0.700  0       
+ 6 2 [Male]   1 [18-29]  4.80   0       
+ 7 2 [Male]   2 [30-39]  1.72   3.22e-17
+ 8 2 [Male]   3 [40-49]  1.24   0       
+ 9 2 [Male]   4 [50-64]  0.609  0       
+10 2 [Male]   5 [65+]    0.796  0       </code></pre>
+</div>
+</div>
+<p>Now we see the weight size for each of the 10 groups that we weighted our sample data on. Obviously, with more demographic variables including in the weighting scheme this list would get much more cumbersome but for pedagogical purposes it is important to look at these values to understand their meaning.</p>
+<p>For females between the age of 18-29 the weight equals 4.21. This means that females between the ages of 18-29 are under-represented in the sample data since the value is over 1. Fundamentally what this means is that for each female between the ages of 18-29 in the sample data, they are “speaking” for 4.21 females between the age of 18-29 from the target population. Compare this value to females between the ages of 50 and 64 (group 4) who have a weight value of .53. This means that females in this age group were over-represented in the sample data since the weight value is under 1.</p>
+<p>We should also look at the weighted demographic values to ensure the weights worked as we hope they do - i.e.&nbsp;the weighted sample demographic values match the target population values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the unweighted size of the age_group demographics</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 3
+  age_group     n proportion
+  &lt;dbl+lbl&gt; &lt;int&gt;      &lt;dbl&gt;
+1 1 [18-29]    33     0.0412
+2 2 [30-39]   101     0.126 
+3 3 [40-49]   118     0.148 
+4 4 [50-64]   306     0.382 
+5 5 [65+]     242     0.302 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weighted size of the age_group demographics</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">%&gt;%</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 4
+  age_group     n  n_se proportion
+  &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1 1 [18-29]  146. 24.9       0.182
+2 2 [30-39]  162. 15.2       0.203
+3 3 [40-49]  136  11.6       0.17 
+4 4 [50-64]  174.  7.87      0.218
+5 5 [65+]    182.  9.78      0.227</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Saves the weighted &amp; unweighted size of the age_group demographics</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>ag_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>ag_uw<span class="ot">&lt;-</span> sample <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group) <span class="sc">%&gt;%</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>ag_combo<span class="ot">&lt;-</span><span class="fu">left_join</span>(ag_w, ag_uw, <span class="at">by =</span> <span class="st">"age_group"</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"_pop"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_group)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>ag_combo<span class="sc">$</span>ag_diff_per<span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>(ag_combo<span class="sc">$</span>weighted_sample<span class="sc">-</span>ag_combo<span class="sc">$</span>unweighted_sample)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>ag_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 7
+# Groups:   age_group [5]
+  age_group     n  n_se weighted_sample n_pop unweighted_sample ag_diff_per
+  &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;             &lt;dbl&gt;       &lt;dbl&gt;
+1 1 [18-29]  146. 24.9            0.182    33            0.0412       14.1 
+2 2 [30-39]  162. 15.2            0.203   101            0.126         7.68
+3 3 [40-49]  136  11.6            0.17    118            0.148         2.25
+4 4 [50-64]  174.  7.87           0.218   306            0.382       -16.4 
+5 5 [65+]    182.  9.78           0.227   242            0.302        -7.55</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(ag_combo<span class="sc">$</span>weighted_sample)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.182 0.203 0.170 0.218 0.227</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(targets)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$sex
+[1] 0.525 0.475
+
+$age_group
+[1] 0.182 0.203 0.170 0.218 0.227</code></pre>
+</div>
+</div>
+<p>We see that the weighted age_group values match the target population values we inputted earlier so this weighting scheme seems to be working in the way that we hoped it would.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the unweighted size of the sex demographics</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 3
+  sex            n proportion
+  &lt;dbl+lbl&gt;  &lt;int&gt;      &lt;dbl&gt;
+1 1 [Female]   423      0.529
+2 2 [Male]     377      0.471</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weighted size of the sex demographics</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>sample <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(sex) <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 x 4
+  sex            n  n_se proportion
+  &lt;dbl+lbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;
+1 1 [Female]   420  22.0      0.525
+2 2 [Male]     380  20.4      0.475</code></pre>
+</div>
+</div>
+<p>For the <code>sex</code> measure, the unweighted and weighted values matched nearly identically, but that is because the unweighted sample nearly matched the target population identically without any statistical correction. In these instances, it is common to drop the demographic variable that does not need much adjustment. The standard limit is 5% or less should not get an adjustment meaning that you should only apply weights with the target population values and the sample values are 5% points or more different.</p>
+</section>
+<section id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="level3" data-number="8.1.5">
+<h3 data-number="8.1.5" class="anchored" data-anchor-id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="header-section-number">8.1.5</span> 5. Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</h3>
+<p>Now let’s see what impact these weights have on our sample values. First, we use the <code>surveys</code> package must create a new dataframe that incorporates the survey weights. Let’s call it <code>sample.weighted</code> to signal that this is the weighted version of the sample data.</p>
+<p>We need to calculate the weighted and unweighted means of the same variable. Using the <code>fracking2</code> variable which measures support for fracking in the Colorado which various safety measures, we can compare the influence of the survey weights on the conclusions we would draw about support for fracking in Colorado.</p>
+<p>Once we run the following R chunk, we see that there is virtually no difference between the weighted and unweighted estimates of how supportive Coloradoans are of fracking. Why is this? This occurs sometimes when the weights that applied simply do not change the sample composition enough to have an influence on the overall sample mean.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>fracking_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the unweighted support for fracking in CO</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unweight_support =</span> <span class="fu">mean</span>(fracking2, <span class="at">na.rm =</span> T))</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>fracking_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the weighted support for fracking in CO</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">weight_support =</span> <span class="fu">survey_mean</span>(fracking2, <span class="at">na.rm =</span> T))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>fracking_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(fracking_uw, fracking_w ) </span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>fracking_combo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(fracking_combo, <span class="at">difference =</span> weight_support <span class="sc">-</span> unweight_support)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>fracking_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  unweight_support weight_support weight_support_se  difference
+1        0.5277778      0.5025514         0.0229558 -0.02522642</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gubernatorial Vote Choice - Weighted &amp; Unweighted </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>gov_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gov_choice)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gov_choice) <span class="sc">%&gt;%</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_support =</span> n <span class="sc">/</span><span class="fu">sum</span>(n)) </span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>gov_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gov_choice) <span class="sc">%&gt;%</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gov_choice)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweight_support =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>gov_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(gov_uw, gov_w) </span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-17"><a href="#cb33-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-18"><a href="#cb33-18" aria-hidden="true" tabindex="-1"></a>gov_combo<span class="sc">$</span>diff <span class="ot">&lt;-</span> gov_combo<span class="sc">$</span>weight_support <span class="sc">-</span> gov_combo<span class="sc">$</span>unweight_support</span>
+<span id="cb33-19"><a href="#cb33-19" aria-hidden="true" tabindex="-1"></a>gov_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  gov_choice   n unweight_support gov_choice         n      n_se weight_support
+1          1 413          0.51625          1 438.30863 22.858613     0.54788579
+2          2 346          0.43250          2 312.66152 17.843921     0.39082691
+3          3  30          0.03750          3  31.10659  6.029889     0.03888324
+4          4  11          0.01375          4  17.92325  7.817047     0.02240406
+          diff
+1  0.031635792
+2 -0.041673095
+3  0.001383243
+4  0.008654059</code></pre>
+</div>
+</div>
+</section>
+<section id="crate-new-weighting-scheme-that-incorporates-more-demographic-variables" class="level3" data-number="8.1.6">
+<h3 data-number="8.1.6" class="anchored" data-anchor-id="crate-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="header-section-number">8.1.6</span> 6. Crate New Weighting Scheme That Incorporates More Demographic Variables</h3>
+<p>Typically, when creating survey weights you will include more than just 2 demographic variables into your weighting scheme. Here, we use 5 variables to create a new weight: sex, age, race/ethnicity, education, and partisanship.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Save new vectors with target population values for weights </span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>sex <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">525</span>, .<span class="dv">475</span>)  <span class="do">##Target values for females and males; label order (female, male)</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>age_group  <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">132</span>, .<span class="dv">183</span>, .<span class="dv">15</span>, .<span class="dv">248</span>, .<span class="dv">287</span>)   <span class="co">#Target values for 5 age groups </span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>race_4 <span class="ot">&lt;-</span><span class="fu">c</span>(.<span class="dv">7143</span>, .<span class="dv">0501</span>, .<span class="dv">1768</span>, .<span class="dv">0588</span>) <span class="co">#Target values race/ethnic identities - white, black, Hispanic, all others</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>educ <span class="ot">&lt;-</span><span class="fu">c</span>(.<span class="dv">2075</span>, .<span class="dv">2445</span>, .<span class="dv">0828</span>, .<span class="dv">2398</span>, .<span class="dv">2254</span>) <span class="co">#Target values education - HS or less, Some college, AA, BA, Graduate degree</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>pid_4 <span class="ot">&lt;-</span><span class="fu">c</span>(.<span class="dv">3375</span>, .<span class="dv">2838</span>, .<span class="dv">335</span>, .<span class="dv">0437</span>) <span class="co">#Target values Party Registration - (Democrats, Independents, Republicans, All 3rd Parties)  </span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Combine the demographic vectors into a list</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>targets <span class="ot">&lt;-</span> <span class="fu">list</span>(sex, age_group, race_4, educ, pid_4)</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># remember, these names will have to match the column names &amp; order in the sample data </span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(targets) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age_group"</span>, <span class="st">"race_4"</span>, <span class="st">"educ"</span>, <span class="st">"pid_4"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1984</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>myweights <span class="ot">&lt;-</span> <span class="fu">anesrake</span>(targets, sample, </span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>                      <span class="at">caseid =</span> sample<span class="sc">$</span>caseid, <span class="at">cap =</span> <span class="dv">8</span>, <span class="at">type =</span> <span class="st">"pctlim"</span>, <span class="at">pctlim=</span>.<span class="dv">05</span>)    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Raking converged in 20 iterations"
+[1] "Raking converged in 21 iterations"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>sample<span class="sc">$</span>full_weight  <span class="ot">&lt;-</span> <span class="fu">unlist</span>(myweights[<span class="dv">1</span>])</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sample<span class="sc">$</span>full_weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3218  0.5685  0.7672  1.0000  1.0729  7.9999 </code></pre>
+</div>
+</div>
+<p>Let’s look at how well the weights worked to match the sample data to the target population values for the <code>race4</code> and <code>educ5</code> measures.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weighted size of the educ5 demographics</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="do">##We can also bind the two values together to calculate their differences </span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>ed_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(educ) <span class="sc">%&gt;%</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>ed_uw<span class="ot">&lt;-</span> sample <span class="sc">%&gt;%</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(educ) <span class="sc">%&gt;%</span></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>ed_combo<span class="ot">&lt;-</span><span class="fu">left_join</span>(ed_w, ed_uw, <span class="at">by =</span> <span class="st">"educ"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(educ)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>ed_combo<span class="sc">$</span>ed_diff_per<span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>(ed_combo<span class="sc">$</span>weighted_sample<span class="sc">-</span>ed_combo<span class="sc">$</span>unweighted_sample)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>ed_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 x 7
+# Groups:   educ [5]
+  educ                  n.x  n_se weighted_sample   n.y unweighted_sam~1 ed_di~2
+  &lt;dbl+lbl&gt;           &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;            &lt;dbl&gt;   &lt;dbl&gt;
+1 1 [HS grad or less] 166.  22.1           0.208     92            0.115   9.25 
+2 2 [Some college]    196.  17.2           0.244    187            0.234   1.07 
+3 3 [AA degree]        66.2  7.29          0.0828    96            0.12   -3.72 
+4 4 [BA]              192.  14.3           0.240    249            0.311  -7.15 
+5 5 [Post-grad]       180.  14.3           0.225    176            0.22    0.540
+# ... with abbreviated variable names 1: unweighted_sample, 2: ed_diff_per</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weighted size of the race4 demographics</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="do">##We can also bind the two values together to calculate their differences </span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>r_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race_4) <span class="sc">%&gt;%</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>r_uw<span class="ot">&lt;-</span> sample <span class="sc">%&gt;%</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race_4) <span class="sc">%&gt;%</span></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>r_combo<span class="ot">&lt;-</span><span class="fu">left_join</span>(r_w, r_uw, <span class="at">by =</span> <span class="st">"race_4"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(race_4)</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>r_combo<span class="sc">$</span>r_diff_per<span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>(r_combo<span class="sc">$</span>weighted_sample<span class="sc">-</span>r_combo<span class="sc">$</span>unweighted_sample)</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>r_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 7
+# Groups:   race_4 [4]
+  race_4          n.x  n_se weighted_sample   n.y unweighted_sample r_diff_per
+  &lt;dbl+lbl&gt;     &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+1 1 [White]     571.  14.0           0.714    692            0.865     -15.1  
+2 2 [Black]      40.1  9.97          0.0501    22            0.0275      2.26 
+3 3 [Hispanic]  141.  25.1           0.177     41            0.0512     12.6  
+4 4 [Other POC]  47.0  7.56          0.0588    45            0.0562      0.255</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Shows the weighted size of the pid_4 registered voter variable </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="do">##We can also bind the two values together to calculate their differences </span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>pid_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_4) <span class="sc">%&gt;%</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>pid_uw<span class="ot">&lt;-</span> sample <span class="sc">%&gt;%</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_4) <span class="sc">%&gt;%</span></span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb43-12"><a href="#cb43-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweighted_sample =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb43-13"><a href="#cb43-13" aria-hidden="true" tabindex="-1"></a>pid_combo<span class="ot">&lt;-</span><span class="fu">left_join</span>(pid_w, pid_uw, <span class="at">by =</span> <span class="st">"pid_4"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb43-14"><a href="#cb43-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pid_4)</span>
+<span id="cb43-15"><a href="#cb43-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-16"><a href="#cb43-16" aria-hidden="true" tabindex="-1"></a>pid_combo<span class="sc">$</span>pid_diff_per<span class="ot">&lt;-</span> <span class="dv">100</span><span class="sc">*</span>(pid_combo<span class="sc">$</span>weighted_sample<span class="sc">-</span>pid_combo<span class="sc">$</span>unweighted_sample)</span>
+<span id="cb43-17"><a href="#cb43-17" aria-hidden="true" tabindex="-1"></a>pid_combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 x 7
+# Groups:   pid_4 [4]
+  pid_4             n.x  n_se weighted_sample   n.y unweighted_sample pid_diff~1
+  &lt;dbl+lbl&gt;       &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt; &lt;int&gt;             &lt;dbl&gt;      &lt;dbl&gt;
+1 1 [Democrat]    270.  21.1           0.338    283            0.354      -1.62 
+2 2 [Independent] 227.  17.2           0.284    214            0.268       1.63 
+3 3 [Republican]  268.  19.8           0.335    266            0.332       0.250
+4 4 [Other]        35.0  6.55          0.0437    37            0.0462     -0.255
+# ... with abbreviated variable name 1: pid_diff_per</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Gubernatorial Vote Choice - Weighted &amp; Unweighted </span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>gov_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gov_choice)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gov_choice) <span class="sc">%&gt;%</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">survey_total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">weight_support =</span> n <span class="sc">/</span><span class="fu">sum</span>(n)) </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>gov_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gov_choice) <span class="sc">%&gt;%</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(gov_choice)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">unweight_support =</span> n <span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>gov_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(gov_uw, gov_w) </span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>gov_combo<span class="sc">$</span>diff <span class="ot">&lt;-</span> gov_combo<span class="sc">$</span>weight_support <span class="sc">-</span> gov_combo<span class="sc">$</span>unweight_support</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>gov_outcome<span class="ot">&lt;-</span><span class="fu">cbind</span>(gov_combo<span class="sc">$</span>gov_choice, gov_combo<span class="sc">$</span>weight_support, gov_combo<span class="sc">$</span>unweight_support, gov_combo<span class="sc">$</span>diff) </span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(gov_outcome) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"candidate"</span>, <span class="st">"weighted support"</span>, <span class="st">"unewighted support"</span>, <span class="st">"diff"</span>) </span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>gov_outcome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     candidate weighted support unewighted support         diff
+[1,]         1       0.50298793            0.51625 -0.013262068
+[2,]         2       0.43459577            0.43250  0.002095774
+[3,]         3       0.04328807            0.03750  0.005788066
+[4,]         4       0.01912823            0.01375  0.005378227</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Comparing weighted to unweighted fracking support in Colorado </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>fracking_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the unweighted support for fracking in CO</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unweight_support =</span> <span class="fu">mean</span>(fracking2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>fracking_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the weighted support for fracking in CO</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">weight_support =</span> <span class="fu">survey_mean</span>(fracking2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>fracking_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(fracking_uw, fracking_w ) </span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>fracking_combo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(fracking_combo, <span class="at">frack_diff =</span> weight_support <span class="sc">-</span> unweight_support)</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Do the same analysis for gun control then pot laws</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>gc_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the unweighted support for fracking in CO</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unweight_support =</span> <span class="fu">mean</span>(gun_control2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>gc_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the weighted support for fracking in CO</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">weight_support =</span> <span class="fu">survey_mean</span>(gun_control2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>gc_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(gc_uw, gc_w ) </span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>gc_combo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(gc_combo, <span class="at">gun_control_diff =</span> weight_support <span class="sc">-</span> unweight_support)</span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>pl_uw<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the unweighted support for fracking in CO</span></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">unweight_support =</span> <span class="fu">mean</span>(pot_law2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>pl_w<span class="ot">&lt;-</span>sample <span class="sc">%&gt;%</span> <span class="co">#Looks at the weighted support for fracking in CO</span></span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey</span>(<span class="at">weights =</span> <span class="fu">c</span>(full_weight)) <span class="sc">%&gt;%</span></span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>   <span class="fu">summarise</span>(<span class="at">weight_support =</span> <span class="fu">survey_mean</span>(pot_law2, <span class="at">na.rm =</span> T))</span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>pl_combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(pl_uw, pl_w ) </span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>pl_combo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(pl_combo, <span class="at">pot_law_diff =</span> weight_support <span class="sc">-</span> unweight_support)</span>
+<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>combo<span class="ot">&lt;-</span><span class="fu">cbind</span>(<span class="dv">100</span><span class="sc">*</span>(fracking_combo<span class="sc">$</span>frack_diff),<span class="dv">100</span><span class="sc">*</span>(gc_combo<span class="sc">$</span>gun_control_diff), <span class="dv">100</span><span class="sc">*</span>(pl_combo<span class="sc">$</span>pot_law_diff)) </span>
+<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(combo) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"fracking_diff"</span>, <span class="st">"gun_control_diff"</span>, <span class="st">"pot_law_diff"</span>) </span>
+<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a>combo<span class="ot">&lt;-</span><span class="fu">round</span>(combo,<span class="dv">3</span>)</span>
+<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a>combo</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     fracking_diff gun_control_diff pot_law_diff
+[1,]         2.651            0.531       -0.303</code></pre>
+</div>
+</div>
+<p>Above, shows the impact that the new weighting scheme had on the differences in support for fracking, new gun control policies, support for marijuana legalization and a tax revenue proposition on the upcoming ballot. For fracking, the weighted sample supported fracking 3.3 percentage points higher than the unweighted sample. While that might not seem like a large difference, in a polarized American electorate 3.3 percentage points easily be the differences between winning an election or going down in defeat.</p>
+<p>The other three items all saw a decrease in support in the weighted data. Overall, the results showed increased support for a generally conservative supported issue, fracking, while revealing decreased support for 3 more liberal supported issues, gun control, marijuana legalization, and increased governmental spending. This is likely caused by weighting older voters to be</p>
+<p>We can also use the newly created survey weights in regression analyses. To do so, you first must create a new weighted survey dataset that you then conduct the analysis on.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Using srvyr package to create a new weighted dataset for analysis purposes</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 1: Create Weighted Survey Data for Analysis</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>sample.weighted <span class="ot">&lt;-</span> sample <span class="sc">%&gt;%</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>, <span class="co"># 1 for no cluster ids; use this for a simple random sample </span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">weights =</span> full_weight, <span class="co"># No weight added</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">strata =</span> <span class="cn">NULL</span> <span class="co"># sampling was simple (no strata) </span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>                  )</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>nonweighted <span class="ot">&lt;-</span><span class="fu">lm</span>(gambling <span class="sc">~</span> pid_x <span class="sc">+</span> ideo5 <span class="sc">+</span> sex , <span class="at">data=</span>sample)</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>weighted <span class="ot">&lt;-</span><span class="fu">lm</span>(gambling <span class="sc">~</span> pid_x <span class="sc">+</span> ideo5 <span class="sc">+</span> sex, <span class="at">data=</span>sample, <span class="at">weights=</span>sample<span class="sc">$</span>weight)</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>weighted2 <span class="ot">&lt;-</span><span class="fu">lm</span>(gambling <span class="sc">~</span> pid_x <span class="sc">+</span> ideo5 <span class="sc">+</span> sex, <span class="at">data=</span>sample, <span class="at">weights=</span>sample<span class="sc">$</span>full_weight)</span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(nonweighted, weighted,  weighted2, <span class="at">type=</span><span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+============================================================
+                                    Dependent variable:     
+                               -----------------------------
+                                         gambling           
+                                  (1)       (2)       (3)   
+------------------------------------------------------------
+pid_x                           -0.017    -0.010    -0.013  
+                                (0.031)   (0.032)   (0.029) 
+                                                            
+ideo5                           -0.059    -0.065   -0.096** 
+                                (0.051)   (0.051)   (0.047) 
+                                                            
+sex                             0.184**  0.215***   0.188** 
+                                (0.080)   (0.080)   (0.079) 
+                                                            
+Constant                       2.391***  2.441***  2.591*** 
+                                (0.153)   (0.154)   (0.157) 
+                                                            
+------------------------------------------------------------
+Observations                      669       669       669   
+R2                               0.015     0.018     0.025  
+Adjusted R2                      0.011     0.013     0.021  
+Residual Std. Error (df = 665)   1.030     1.020     0.998  
+F Statistic (df = 3; 665)       3.481**  4.032***  5.678*** 
+============================================================
+Note:                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Results are largely similar across the regression models, but there are some slight differences between the unweighted model and the two weighted ones. This happens because certain respondent’s opinions are being given more or less weight to the overall average relationship which can cause the conclusions you draw from your analysis to differ. This is one reason why it is critically important to create your survey weights using defensible target population values.</p>
+</section>
+<section id="concluding-thoughts" class="level3" data-number="8.1.7">
+<h3 data-number="8.1.7" class="anchored" data-anchor-id="concluding-thoughts"><span class="header-section-number">8.1.7</span> 7. Concluding Thoughts</h3>
+<p>This is an important lesson for the application of the survey weights. The target population values that you weight your survey sample data to match can have profound implications on the conclusions you and others draw from your survey results. In the case, the decision to weight the survey to give more voice to the Republican members of the sample influenced the conclusions drawn about support for various policies being debated in the public realm. This makes it critically important to make sure that the target population values that are chosen are as accurate as possible and publicly defensible.</p>
+<p>Overall, this tutorial has taken you through how to calculate survey weights using the <code>anesrake</code> package. Using a sample political poll, you hopefully learned how to create target demographic population vectors, which then merge with our sample demographic values. Following this, you learned how to calculate directly survey weights, evaluate the success/failure of the survey weighting process, and compare the impact of using the survey weight on the conclusions drawn from the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.1.2 (2021-11-01)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United Kingdom.1252 
+[2] LC_CTYPE=English_United Kingdom.1252   
+[3] LC_MONETARY=English_United Kingdom.1252
+[4] LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.1252    
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] stargazer_5.2.2   data.table_1.14.2 anesrake_0.80     weights_1.0.4    
+ [5] Hmisc_4.6-0       Formula_1.2-4     lattice_0.20-45   survey_4.1-1     
+ [9] survival_3.2-13   Matrix_1.3-4      srvyr_1.1.2       poliscidata_2.3.0
+[13] skimr_2.1.4       forcats_0.5.1     stringr_1.4.0     purrr_0.3.4      
+[17] readr_2.1.1       tibble_3.1.6      tidyverse_1.3.1   knitr_1.37       
+[21] tidyr_1.1.4       dplyr_1.0.7       ggplot2_3.3.5     haven_2.5.1      
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-153        bitops_1.0-7        fs_1.5.0           
+ [4] lubridate_1.7.10    RColorBrewer_1.1-2  httr_1.4.2         
+ [7] repr_1.1.3          tools_4.1.2         backports_1.2.1    
+[10] utf8_1.2.2          R6_2.5.1            KernSmooth_2.23-20 
+[13] rpart_4.1.16        DBI_1.1.2           colorspace_2.0-2   
+[16] nnet_7.3-16         withr_2.4.2         tidyselect_1.1.1   
+[19] gridExtra_2.3       compiler_4.1.2      cli_3.0.1          
+[22] rvest_1.0.2         htmlTable_2.2.1     mice_3.14.0        
+[25] xml2_1.3.3          caTools_1.18.2      scales_1.1.1       
+[28] checkmate_2.0.0     digest_0.6.27       minqa_1.2.4        
+[31] foreign_0.8-82      rmarkdown_2.11      base64enc_0.1-3    
+[34] jpeg_0.1-9          pkgconfig_2.0.3     htmltools_0.5.2    
+[37] lme4_1.1-27.1       plotrix_3.8-2       dbplyr_2.1.1       
+[40] fastmap_1.1.0       htmlwidgets_1.5.4   rlang_1.0.6        
+[43] readxl_1.3.1        rstudioapi_0.13     generics_0.1.0     
+[46] jsonlite_1.7.3      gtools_3.9.2        car_3.0-12         
+[49] magrittr_2.0.2      Rcpp_1.0.7          munsell_0.5.0      
+[52] fansi_0.5.0         abind_1.4-5         lifecycle_1.0.0    
+[55] stringi_1.7.4       yaml_2.2.1          carData_3.0-4      
+[58] MASS_7.3-55         plyr_1.8.6          gplots_3.1.1       
+[61] gdata_2.18.0.1      crayon_1.4.1        splines_4.1.2      
+[64] hms_1.1.1           pillar_1.8.1        boot_1.3-28        
+[67] reprex_2.0.1        glue_1.4.2          evaluate_0.14      
+[70] mitools_2.4         latticeExtra_0.6-29 modelr_0.1.8       
+[73] nloptr_1.2.2.2      png_0.1-7           vctrs_0.3.8        
+[76] tzdb_0.1.2          descr_1.1.5         cellranger_1.1.0   
+[79] gtable_0.3.0        assertthat_0.2.1    xfun_0.29          
+[82] xtable_1.8-4        broom_0.7.9         cluster_2.1.2      
+[85] ellipsis_0.3.2     </code></pre>
+</div>
+</div>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
