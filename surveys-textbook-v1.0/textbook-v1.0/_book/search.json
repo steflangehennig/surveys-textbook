@@ -47,5 +47,54 @@
     "title": "1  Introduction",
     "section": "",
     "text": "This book is geared toward undergraduates learning survey methodologies. This includes, but is not limited to, the psychology of the survey response process; creating and disseminating survey questions; survey modes; sampling and weighting; ethics; and survey analysis and reporting."
+  },
+  {
+    "objectID": "ch02psych_response.html",
+    "href": "ch02psych_response.html",
+    "title": "2  Psychology of Survey Response Response",
+    "section": "",
+    "text": "Outlines the psychology processes that occur when a participant responds to a survey."
+  },
+  {
+    "objectID": "ch06sampling.html",
+    "href": "ch06sampling.html",
+    "title": "6  Survey Sampling",
+    "section": "",
+    "text": "What is the sample you need for the research questions you have?"
+  },
+  {
+    "objectID": "ch06sampling.html#probability-sampling",
+    "href": "ch06sampling.html#probability-sampling",
+    "title": "6  Survey Sampling",
+    "section": "6.1 Probability sampling",
+    "text": "6.1 Probability sampling"
+  },
+  {
+    "objectID": "ch06sampling.html#non-probability-sampling",
+    "href": "ch06sampling.html#non-probability-sampling",
+    "title": "6  Survey Sampling",
+    "section": "6.2 Non-probability sampling",
+    "text": "6.2 Non-probability sampling"
+  },
+  {
+    "objectID": "ch08measurement.html#item-scaling",
+    "href": "ch08measurement.html#item-scaling",
+    "title": "8  Measurement & Item Scaling",
+    "section": "8.2 Item Scaling",
+    "text": "8.2 Item Scaling"
+  },
+  {
+    "objectID": "ch09hyp_analysis_rep.html#analysis",
+    "href": "ch09hyp_analysis_rep.html#analysis",
+    "title": "9  Hypothesis Testing, Analysis, & Reporting",
+    "section": "9.2 Analysis",
+    "text": "9.2 Analysis"
+  },
+  {
+    "objectID": "ch09hyp_analysis_rep.html#reporting",
+    "href": "ch09hyp_analysis_rep.html#reporting",
+    "title": "9  Hypothesis Testing, Analysis, & Reporting",
+    "section": "9.3 Reporting",
+    "text": "9.3 Reporting"
   }
 ]

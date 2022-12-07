@@ -1,4 +1,3 @@
-# Pyschology of Survey Response Response
+# Psychology of Survey Response Response
 
-Outlines the psychology processes that occur when a participant responds to a
-survey. 
+Outlines the psychology processes that occur when a participant responds to a survey.
