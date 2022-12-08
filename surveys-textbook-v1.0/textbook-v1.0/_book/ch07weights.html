@@ -225,19 +225,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#step-by-step-guide-to-creating-basic-rake-weights-in-r" id="toc-step-by-step-guide-to-creating-basic-rake-weights-in-r" class="nav-link active" data-scroll-target="#step-by-step-guide-to-creating-basic-rake-weights-in-r"><span class="toc-section-number">8</span>  Step By Step Guide to Creating Basic Rake Weights in R</a>
+  <li><a href="#step-by-step-guide-to-creating-basic-rake-weights-in-r" id="toc-step-by-step-guide-to-creating-basic-rake-weights-in-r" class="nav-link active" data-scroll-target="#step-by-step-guide-to-creating-basic-rake-weights-in-r"><span class="toc-section-number">7.1</span>  Step By Step Guide to Creating Basic Rake Weights in R</a></li>
+  <li><a href="#import-your-survey-data-into-r" id="toc-import-your-survey-data-into-r" class="nav-link" data-scroll-target="#import-your-survey-data-into-r"><span class="toc-section-number">7.2</span>  Import your survey data into R</a></li>
+  <li><a href="#save-your-target-population-demographic-parameters" id="toc-save-your-target-population-demographic-parameters" class="nav-link" data-scroll-target="#save-your-target-population-demographic-parameters"><span class="toc-section-number">7.3</span>  Save Your Target Population Demographic Parameters</a>
   <ul class="collapse">
-  <li><a href="#import-your-survey-data-into-r" id="toc-import-your-survey-data-into-r" class="nav-link" data-scroll-target="#import-your-survey-data-into-r"><span class="toc-section-number">8.1</span>  Import your survey data into R</a></li>
-  <li><a href="#save-your-target-population-demographic-parameters" id="toc-save-your-target-population-demographic-parameters" class="nav-link" data-scroll-target="#save-your-target-population-demographic-parameters"><span class="toc-section-number">8.2</span>  Save Your Target Population Demographic Parameters</a>
-  <ul class="collapse">
-  <li><a href="#saving-new-vectors-with-target-population-demographic-values" id="toc-saving-new-vectors-with-target-population-demographic-values" class="nav-link" data-scroll-target="#saving-new-vectors-with-target-population-demographic-values"><span class="toc-section-number">8.2.1</span>  Saving New Vectors With Target Population Demographic Values</a></li>
+  <li><a href="#saving-new-vectors-with-target-population-demographic-values" id="toc-saving-new-vectors-with-target-population-demographic-values" class="nav-link" data-scroll-target="#saving-new-vectors-with-target-population-demographic-values"><span class="toc-section-number">7.3.1</span>  Saving New Vectors With Target Population Demographic Values</a></li>
   </ul></li>
-  <li><a href="#calculating-your-rake-weights" id="toc-calculating-your-rake-weights" class="nav-link" data-scroll-target="#calculating-your-rake-weights"><span class="toc-section-number">8.3</span>  Calculating Your Rake Weights</a></li>
-  <li><a href="#reviewing-the-newly-created-survey-weights" id="toc-reviewing-the-newly-created-survey-weights" class="nav-link" data-scroll-target="#reviewing-the-newly-created-survey-weights"><span class="toc-section-number">8.4</span>  Reviewing the Newly Created Survey Weights</a></li>
-  <li><a href="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" id="toc-evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="nav-link" data-scroll-target="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="toc-section-number">8.5</span>  Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</a></li>
-  <li><a href="#create-new-weighting-scheme-that-incorporates-more-demographic-variables" id="toc-create-new-weighting-scheme-that-incorporates-more-demographic-variables" class="nav-link" data-scroll-target="#create-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="toc-section-number">8.6</span>  Create New Weighting Scheme That Incorporates More Demographic Variables</a></li>
-  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts"><span class="toc-section-number">8.7</span>  Concluding Thoughts</a></li>
-  </ul></li>
+  <li><a href="#calculating-your-rake-weights" id="toc-calculating-your-rake-weights" class="nav-link" data-scroll-target="#calculating-your-rake-weights"><span class="toc-section-number">7.4</span>  Calculating Your Rake Weights</a></li>
+  <li><a href="#reviewing-the-newly-created-survey-weights" id="toc-reviewing-the-newly-created-survey-weights" class="nav-link" data-scroll-target="#reviewing-the-newly-created-survey-weights"><span class="toc-section-number">7.5</span>  Reviewing the Newly Created Survey Weights</a></li>
+  <li><a href="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" id="toc-evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="nav-link" data-scroll-target="#evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="toc-section-number">7.6</span>  Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</a></li>
+  <li><a href="#create-new-weighting-scheme-that-incorporates-more-demographic-variables" id="toc-create-new-weighting-scheme-that-incorporates-more-demographic-variables" class="nav-link" data-scroll-target="#create-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="toc-section-number">7.7</span>  Create New Weighting Scheme That Incorporates More Demographic Variables</a></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts"><span class="toc-section-number">7.8</span>  Concluding Thoughts</a></li>
   </ul>
 </nav>
     </div>
@@ -260,13 +258,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="step-by-step-guide-to-creating-basic-rake-weights-in-r" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Step By Step Guide to Creating Basic Rake Weights in R</h1>
+<section id="step-by-step-guide-to-creating-basic-rake-weights-in-r" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="step-by-step-guide-to-creating-basic-rake-weights-in-r"><span class="header-section-number">7.1</span> Step By Step Guide to Creating Basic Rake Weights in R</h2>
 <p>**Note: *This tutorial uses the <code>anesrake</code> package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.**</p>
 <p>Survey weights are widely used in survey research for a variety of purposes. In this tutorial, we will be focusing on one specific form of survey weights called a “rake weight”. Rake weights are typically used to make the survey sample match the target population on a set of demographic, and sometimes attitudinal, measures. They are used to ensure the sample’s demographics match the target population’s demographics. This numerical correction will change how much each individual case in your dataset is contributing to the overall, or sub-group, mean values across your sample data.</p>
 <p>First, we load necessary packages to compute and analyze the weights. If a package is not installed on your machine, you must first install it before this chunk of code will run.</p>
-<section id="import-your-survey-data-into-r" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="import-your-survey-data-into-r"><span class="header-section-number">8.1</span> Import your survey data into R</h2>
+</section>
+<section id="import-your-survey-data-into-r" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="import-your-survey-data-into-r"><span class="header-section-number">7.2</span> Import your survey data into R</h2>
 <p>We need to import our survey data into R. The way we do this will vary by the format of your data, but in this case the data is saved as a “.dta” file so we will use the <code>haven</code> package to import it.</p>
 <p>You should always examine your data and the base R function <code>head</code> shows the first 5 cases along with all of your column labels.</p>
 <div class="cell">
@@ -285,13 +284,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </section>
-<section id="save-your-target-population-demographic-parameters" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="save-your-target-population-demographic-parameters"><span class="header-section-number">8.2</span> Save Your Target Population Demographic Parameters</h2>
+<section id="save-your-target-population-demographic-parameters" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="save-your-target-population-demographic-parameters"><span class="header-section-number">7.3</span> Save Your Target Population Demographic Parameters</h2>
 <p>You will need to know the target population proportion for each of the variables you wish to weight your sample data on. How easy it will be to find your population values will be based on your specific target population.</p>
 <p>Some populations will be relatively easy to find (e.g.&nbsp;think adult demographic proportions in the United States from the Census, CPS, or ACS results and all the sub-geographic levels that accompany them), but others won’t be as easy. Sometimes, you cannot know your target population proportions so in those cases you will not be able to weight your survey sample data.</p>
 <p>In this chunk of R code, we are creating the target population parameters for two specific demographic variables measured in our sample political poll data. This was a political poll conducted in October 2018 with the sample consisting of likely Colorado voters in the then upcoming 2018 election. This gubernatorial election year poll measured multiple things including: - 2018 Colorado Gubernatorial Preference - Jared Polis or Walker Stapleton - Policy Questions: Marijuana Legalization, Fracking, Gun Control laws - Approval ratings: President Donald Trump, Governor John Hickenlooper (at the time), US Congress - Demographic questions for survey weighting purposes</p>
-<section id="saving-new-vectors-with-target-population-demographic-values" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="saving-new-vectors-with-target-population-demographic-values"><span class="header-section-number">8.2.1</span> Saving New Vectors With Target Population Demographic Values</h3>
+<section id="saving-new-vectors-with-target-population-demographic-values" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="saving-new-vectors-with-target-population-demographic-values"><span class="header-section-number">7.3.1</span> Saving New Vectors With Target Population Demographic Values</h3>
 <p>Using this data, let’s create some survey weights. To illustrate the principle, we will start with basic weights using just two demographic variables commonly used in calculating survey weights: sex (unfortunately only biological sex was collected in this survey) and age (split into 5 categories). We must save a vector of data with the target population demographic proportions, so in this case we will save two vectors one called <code>sex</code> and one called <code>age_group</code>.</p>
 <p>There are two critical things to get correct in this step.</p>
 <p><strong>1. Matching Names</strong> The names we give these vectors matter and must match the names of the appropriate demographic variable in your sample data. Since the vector names we chose were sex and age_group, the variable names in the sample data must be exactly sex and age_group. Otherwise, the code will not be able to match the two and will fail.</p>
@@ -340,8 +339,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </section>
 </section>
-<section id="calculating-your-rake-weights" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="calculating-your-rake-weights"><span class="header-section-number">8.3</span> Calculating Your Rake Weights</h2>
+<section id="calculating-your-rake-weights" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="calculating-your-rake-weights"><span class="header-section-number">7.4</span> Calculating Your Rake Weights</h2>
 <p>Now that we have our target population parameters saved in vectors for each demographic variable we plan to weight our survey data on and our sample data with matching names and orders, we can begin to create our survey weights.</p>
 <p><strong>1. Create List</strong> First, we create a list that merges the two demographic vectors for use in the raking process. Remember, this names must match the column names in the sample data. We give this list the name of <code>targets</code> to reflect this is the target population parameters we want to match the sample data to. We then give the column names to match with the sample data.</p>
 <p><strong>2. Calculate the Weights</strong> Now, it is time to create some survey weights using the <code>anesrake</code> function. This function has many possible items that could be used, with all the possible items listed in the following R chunk. You should view the R documentation for all possible things it can do.</p>
@@ -370,8 +369,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>sample<span class="sc">$</span>weight  <span class="ot">&lt;-</span> <span class="fu">unlist</span>(myweights[<span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="reviewing-the-newly-created-survey-weights" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="reviewing-the-newly-created-survey-weights"><span class="header-section-number">8.4</span> Reviewing the Newly Created Survey Weights</h2>
+<section id="reviewing-the-newly-created-survey-weights" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="reviewing-the-newly-created-survey-weights"><span class="header-section-number">7.5</span> Reviewing the Newly Created Survey Weights</h2>
 <p>Before we start the analysis of the weighted data, let’s examine the newly created survey weights saved in our sample data.</p>
 <p>With only 2 target weighting variables with 10 total categories combined between them, we can examine the weights individually by group. To do this, we will use the <code>srvyr</code> package to examine the weight size by the target groups.</p>
 <div class="cell">
@@ -508,8 +507,8 @@ $age_group
 </div>
 <p>For the <code>sex</code> measure, the unweighted and weighted values matched nearly identically, but that is because the unweighted sample nearly matched the target population identically without any statistical correction. In these instances, it is common to drop the demographic variable that does not need much adjustment. The standard limit is 5% or less should not get an adjustment meaning that you should only apply weights with the target population values and the sample values are 5% points or more different.</p>
 </section>
-<section id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="header-section-number">8.5</span> Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</h2>
+<section id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights"><span class="header-section-number">7.6</span> Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights</h2>
 <p>Now let’s see what impact these weights have on our sample values. First, we use the <code>surveys</code> package must create a new dataframe that incorporates the survey weights. Let’s call it <code>sample.weighted</code> to signal that this is the weighted version of the sample data.</p>
 <p>We need to calculate the weighted and unweighted means of the same variable. Using the <code>fracking2</code> variable which measures support for fracking in the Colorado which various safety measures, we can compare the influence of the survey weights on the conclusions we would draw about support for fracking in Colorado.</p>
 <p>Once we run the following R chunk, we see that there is virtually no difference between the weighted and unweighted estimates of how supportive Coloradoans are of fracking. Why is this? This occurs sometimes when the weights that applied simply do not change the sample composition enough to have an influence on the overall sample mean.</p>
@@ -563,8 +562,8 @@ $age_group
 </div>
 </div>
 </section>
-<section id="create-new-weighting-scheme-that-incorporates-more-demographic-variables" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="create-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="header-section-number">8.6</span> Create New Weighting Scheme That Incorporates More Demographic Variables</h2>
+<section id="create-new-weighting-scheme-that-incorporates-more-demographic-variables" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="create-new-weighting-scheme-that-incorporates-more-demographic-variables"><span class="header-section-number">7.7</span> Create New Weighting Scheme That Incorporates More Demographic Variables</h2>
 <p>Typically, when creating survey weights you will include more than just 2 demographic variables into your weighting scheme. Here, we use 5 variables to create a new weight: sex, age, race/ethnicity, education, and partisanship.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Save new vectors with target population values for weights </span></span>
@@ -811,8 +810,8 @@ Note:                            *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pr
 </div>
 <p>Results are largely similar across the regression models, but there are some slight differences between the unweighted model and the two weighted ones. This happens because certain respondent’s opinions are being given more or less weight to the overall average relationship which can cause the conclusions you draw from your analysis to differ. This is one reason why it is critically important to create your survey weights using defensible target population values.</p>
 </section>
-<section id="concluding-thoughts" class="level2" data-number="8.7">
-<h2 data-number="8.7" class="anchored" data-anchor-id="concluding-thoughts"><span class="header-section-number">8.7</span> Concluding Thoughts</h2>
+<section id="concluding-thoughts" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="concluding-thoughts"><span class="header-section-number">7.8</span> Concluding Thoughts</h2>
 <p>This is an important lesson for the application of the survey weights. The target population values that you weight your survey sample data to match can have profound implications on the conclusions you and others draw from your survey results. In the case, the decision to weight the survey to give more voice to the Republican members of the sample influenced the conclusions drawn about support for various policies being debated in the public realm. This makes it critically important to make sure that the target population values that are chosen are as accurate as possible and publicly defensible.</p>
 <p>Overall, this tutorial has taken you through how to calculate survey weights using the <code>anesrake</code> package. Using a sample political poll, you hopefully learned how to create target demographic population vectors, which then merge with our sample demographic values. Following this, you learned how to calculate directly survey weights, evaluate the success/failure of the survey weighting process, and compare the impact of using the survey weight on the conclusions drawn from the results.</p>
 <div class="cell">
@@ -847,8 +846,8 @@ loaded via a namespace (and not attached):
  [1] nlme_3.1-153        bitops_1.0-7        fs_1.5.0           
  [4] lubridate_1.7.10    RColorBrewer_1.1-2  httr_1.4.2         
  [7] repr_1.1.3          tools_4.1.2         backports_1.2.1    
-[10] utf8_1.2.2          R6_2.5.1            KernSmooth_2.23-20 
-[13] rpart_4.1.16        DBI_1.1.2           colorspace_2.0-2   
+[10] utf8_1.2.2          R6_2.5.1            rpart_4.1.16       
+[13] KernSmooth_2.23-20  DBI_1.1.2           colorspace_2.0-2   
 [16] nnet_7.3-16         withr_2.4.2         tidyselect_1.1.1   
 [19] gridExtra_2.3       compiler_4.1.2      cli_3.0.1          
 [22] rvest_1.0.2         htmlTable_2.2.1     mice_3.14.0        
@@ -862,22 +861,20 @@ loaded via a namespace (and not attached):
 [46] jsonlite_1.7.3      gtools_3.9.2        car_3.0-12         
 [49] magrittr_2.0.2      Rcpp_1.0.7          munsell_0.5.0      
 [52] fansi_0.5.0         abind_1.4-5         lifecycle_1.0.0    
-[55] stringi_1.7.4       yaml_2.2.1          carData_3.0-4      
-[58] MASS_7.3-55         plyr_1.8.6          gplots_3.1.1       
-[61] gdata_2.18.0.1      crayon_1.4.1        splines_4.1.2      
-[64] hms_1.1.1           pillar_1.8.1        boot_1.3-28        
-[67] reprex_2.0.1        glue_1.4.2          evaluate_0.14      
-[70] mitools_2.4         latticeExtra_0.6-29 modelr_0.1.8       
-[73] nloptr_1.2.2.2      png_0.1-7           vctrs_0.3.8        
-[76] tzdb_0.1.2          descr_1.1.5         cellranger_1.1.0   
-[79] gtable_0.3.0        assertthat_0.2.1    xfun_0.29          
-[82] xtable_1.8-4        broom_0.7.9         cluster_2.1.2      
-[85] ellipsis_0.3.2     </code></pre>
+[55] stringi_1.7.4       carData_3.0-4       MASS_7.3-55        
+[58] plyr_1.8.6          gplots_3.1.1        gdata_2.18.0.1     
+[61] crayon_1.4.1        splines_4.1.2       hms_1.1.1          
+[64] pillar_1.8.1        boot_1.3-28         reprex_2.0.1       
+[67] glue_1.4.2          evaluate_0.14       mitools_2.4        
+[70] latticeExtra_0.6-29 modelr_0.1.8        nloptr_1.2.2.2     
+[73] png_0.1-7           vctrs_0.3.8         tzdb_0.1.2         
+[76] descr_1.1.5         cellranger_1.1.0    gtable_0.3.0       
+[79] assertthat_0.2.1    xfun_0.29           xtable_1.8-4       
+[82] broom_0.7.9         cluster_2.1.2       ellipsis_0.3.2     </code></pre>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
