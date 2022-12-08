@@ -1,10 +1,6 @@
----
-title: "Survey Weighting"
-format: html
-editor: visual
----
+# Survey Weighting
 
-# Step By Step Guide to Creating Basic Rake Weights in R
+## Step By Step Guide to Creating Basic Rake Weights in R
 
 **Note: *This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.**
 
