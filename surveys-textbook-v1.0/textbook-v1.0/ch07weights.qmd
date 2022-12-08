@@ -4,11 +4,9 @@ format: html
 editor: visual
 ---
 
-# Rake Weights
+# Step By Step Guide to Creating Basic Rake Weights in R
 
-**Note: *This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.***
-
-## Step By Step Guide to Creating Basic Rake Weights in R
+**Note: *This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.**
 
 Survey weights are widely used in survey research for a variety of purposes. In this tutorial, we will be focusing on one specific form of survey weights called a "rake weight". Rake weights are typically used to make the survey sample match the target population on a set of demographic, and sometimes attitudinal, measures. They are used to ensure the sample's demographics match the target population's demographics. This numerical correction will change how much each individual case in your dataset is contributing to the overall, or sub-group, mean values across your sample data.
 
@@ -32,7 +30,7 @@ library(stargazer)
 
 ```
 
-### 1. Import your survey data into R
+## Import your survey data into R
 
 We need to import our survey data into R. The way we do this will vary by the format of your data, but in this case the data is saved as a ".dta" file so we will use the `haven` package to import it.
 
@@ -44,7 +42,7 @@ sample<-as.data.frame(sample)#For ANESRAKE to work, data must be in a data.frame
 names(sample)
 ```
 
-### 2. Save Your Target Population Demographic Parameters
+## Save Your Target Population Demographic Parameters
 
 You will need to know the target population proportion for each of the variables you wish to weight your sample data on. How easy it will be to find your population values will be based on your specific target population.
 
@@ -52,7 +50,7 @@ Some populations will be relatively easy to find (e.g. think adult demographic p
 
 In this chunk of R code, we are creating the target population parameters for two specific demographic variables measured in our sample political poll data. This was a political poll conducted in October 2018 with the sample consisting of likely Colorado voters in the then upcoming 2018 election. This gubernatorial election year poll measured multiple things including: - 2018 Colorado Gubernatorial Preference - Jared Polis or Walker Stapleton - Policy Questions: Marijuana Legalization, Fracking, Gun Control laws - Approval ratings: President Donald Trump, Governor John Hickenlooper (at the time), US Congress - Demographic questions for survey weighting purposes
 
-#### Saving New Vectors With Target Population Demographic Values
+### Saving New Vectors With Target Population Demographic Values
 
 Using this data, let's create some survey weights. To illustrate the principle, we will start with basic weights using just two demographic variables commonly used in calculating survey weights: sex (unfortunately only biological sex was collected in this survey) and age (split into 5 categories). We must save a vector of data with the target population demographic proportions, so in this case we will save two vectors one called `sex` and one called `age_group`.
 
@@ -87,7 +85,7 @@ sample %>%
 
 ```
 
-### 3. Calculating Your Rake Weights
+## Calculating Your Rake Weights
 
 Now that we have our target population parameters saved in vectors for each demographic variable we plan to weight our survey data on and our sample data with matching names and orders, we can begin to create our survey weights.
 
@@ -122,7 +120,7 @@ sample$weight  <- unlist(myweights[1])
 
 ```
 
-### 4. Reviewing the Newly Created Survey Weights
+## Reviewing the Newly Created Survey Weights
 
 Before we start the analysis of the weighted data, let's examine the newly created survey weights saved in our sample data.
 
@@ -202,7 +200,7 @@ sample %>%
 
 For the `sex` measure, the unweighted and weighted values matched nearly identically, but that is because the unweighted sample nearly matched the target population identically without any statistical correction. In these instances, it is common to drop the demographic variable that does not need much adjustment. The standard limit is 5% or less should not get an adjustment meaning that you should only apply weights with the target population values and the sample values are 5% points or more different.
 
-### 5. Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights
+## Evaluating Influence of Weights on Reported Mean Values in the Sample Data - Smallish Weights
 
 Now let's see what impact these weights have on our sample values. First, we use the `surveys` package must create a new dataframe that incorporates the survey weights. Let's call it `sample.weighted` to signal that this is the weighted version of the sample data.
 
@@ -247,7 +245,7 @@ gov_combo
 
 ```
 
-### 6. Crate New Weighting Scheme That Incorporates More Demographic Variables
+## Create New Weighting Scheme That Incorporates More Demographic Variables
 
 Typically, when creating survey weights you will include more than just 2 demographic variables into your weighting scheme. Here, we use 5 variables to create a new weight: sex, age, race/ethnicity, education, and partisanship.
 
@@ -435,7 +433,7 @@ stargazer(nonweighted, weighted,  weighted2, type="text")
 
 Results are largely similar across the regression models, but there are some slight differences between the unweighted model and the two weighted ones. This happens because certain respondent's opinions are being given more or less weight to the overall average relationship which can cause the conclusions you draw from your analysis to differ. This is one reason why it is critically important to create your survey weights using defensible target population values.
 
-### 7. Concluding Thoughts
+## Concluding Thoughts
 
 This is an important lesson for the application of the survey weights. The target population values that you weight your survey sample data to match can have profound implications on the conclusions you and others draw from your survey results. In the case, the decision to weight the survey to give more voice to the Republican members of the sample influenced the conclusions drawn about support for various policies being debated in the public realm. This makes it critically important to make sure that the target population values that are chosen are as accurate as possible and publicly defensible.
 
