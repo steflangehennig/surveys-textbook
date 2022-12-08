@@ -1,9 +1,3 @@
----
-editor: 
-  markdown: 
-    wrap: 72
----
-
 # Introduction {#ch01intro}
 
 This book is geared toward undergraduates learning survey methodologies.
@@ -11,3 +5,5 @@ This includes, but is not limited to, the psychology of the survey
 response process; creating and disseminating survey questions; survey
 modes; sampling and weighting; ethics; and survey analysis and
 reporting.
+
+## Learning Objectives

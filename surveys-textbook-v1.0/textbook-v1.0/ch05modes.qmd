@@ -1,7 +1,4 @@
----
-title: "Survey Modes"
-format: html
-editor: visual
----
+# Survey Modes
 
-## 
+
+## Learning Objectives

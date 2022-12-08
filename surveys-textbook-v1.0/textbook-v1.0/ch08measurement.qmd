@@ -1,8 +1,7 @@
----
-title: "Measurement & Item Scaling"
-format: html
-editor: visual
----
+# Measurement & Item Scaling
+
+
+## Learning Objectives
 
 ## Measurement
 

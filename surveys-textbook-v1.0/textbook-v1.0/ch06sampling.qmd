@@ -6,6 +6,8 @@ What is the sample you need for the research questions you have?
 * Convenience
 * Online platforms
 
+## Learning Objectives
+
 ## Probability sampling
 
 ## Non-probability sampling

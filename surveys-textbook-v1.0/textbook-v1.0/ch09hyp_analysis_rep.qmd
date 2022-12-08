@@ -1,8 +1,7 @@
----
-title: "Hypothesis Testing, Analysis, & Reporting"
-format: html
-editor: visual
----
+#Hypothesis Testing, Analysis, & Reporting
+
+
+## Learning Objectives 
 
 ## Hypothesis Testing
 

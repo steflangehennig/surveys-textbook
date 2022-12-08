@@ -1,3 +1,5 @@
 # Psychology of Survey Response Response
 
 Outlines the psychology processes that occur when a participant responds to a survey.
+
+## Learning Objectives
