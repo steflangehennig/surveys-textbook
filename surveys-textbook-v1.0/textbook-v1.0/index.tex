@@ -1,0 +1,1326 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{5}
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{bookmark}{}{\usepackage{bookmark}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Survey Methodologies for Social Scientists},
+  pdfauthor={Carey E. Stapleton \& Stefani Langehennig},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Survey Methodologies for Social Scientists}
+\author{Carey E. Stapleton \& Stefani Langehennig}
+\date{10/10/2022}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, sharp corners, enhanced, boxrule=0pt, breakable, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\bookmarksetup{startatroot}
+
+\hypertarget{welcome}{%
+\chapter*{Welcome}\label{welcome}}
+\addcontentsline{toc}{chapter}{Welcome}
+
+This is the github repository for the work-in-progress first edition of
+\textbf{Survey Methodologies for Social Scientists}.
+
+The goal of this book is to teach you how to do create, conduct, and
+analyze surveys with R.
+
+\hypertarget{acknowledgements}{%
+\section*{Acknowledgements}\label{acknowledgements}}
+\addcontentsline{toc}{section}{Acknowledgements}
+
+More to come!
+
+\bookmarksetup{startatroot}
+
+\hypertarget{ch01intro}{%
+\chapter{Introduction}\label{ch01intro}}
+
+This book is geared toward undergraduates learning survey methodologies.
+This includes, but is not limited to, the psychology of the survey
+response process; creating and disseminating survey questions; survey
+modes; sampling and weighting; ethics; and survey analysis and
+reporting.
+
+\hypertarget{learning-objectives}{%
+\section{Learning Objectives}\label{learning-objectives}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{psychology-of-survey-response-response}{%
+\chapter{Psychology of Survey Response
+Response}\label{psychology-of-survey-response-response}}
+
+Outlines the psychology processes that occur when a participant responds
+to a survey.
+
+\hypertarget{learning-objectives-1}{%
+\section{Learning Objectives}\label{learning-objectives-1}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{survey-ethics}{%
+\chapter{Survey Ethics}\label{survey-ethics}}
+
+\hypertarget{learning-objectives-2}{%
+\section{Learning Objectives}\label{learning-objectives-2}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{questionnaire-design}{%
+\chapter{Questionnaire Design}\label{questionnaire-design}}
+
+\hypertarget{learning-objectives-3}{%
+\section{Learning Objectives}\label{learning-objectives-3}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{survey-modes}{%
+\chapter{Survey Modes}\label{survey-modes}}
+
+\hypertarget{learning-objectives-4}{%
+\section{Learning Objectives}\label{learning-objectives-4}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{survey-sampling}{%
+\chapter{Survey Sampling}\label{survey-sampling}}
+
+What is the sample you need for the research questions you have?
+
+\begin{itemize}
+\tightlist
+\item
+  Nationally representative
+\item
+  Convenience
+\item
+  Online platforms
+\end{itemize}
+
+\hypertarget{learning-objectives-5}{%
+\section{Learning Objectives}\label{learning-objectives-5}}
+
+\hypertarget{probability-sampling}{%
+\section{Probability sampling}\label{probability-sampling}}
+
+\hypertarget{non-probability-sampling}{%
+\section{Non-probability sampling}\label{non-probability-sampling}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{survey-weighting}{%
+\chapter{Survey Weighting}\label{survey-weighting}}
+
+\hypertarget{step-by-step-guide-to-creating-basic-rake-weights-in-r}{%
+\section{Step-By-Step Guide to Creating Basic Rake Weights in
+R}\label{step-by-step-guide-to-creating-basic-rake-weights-in-r}}
+
+\textbf{Note: This tutorial uses the \texttt{anesrake} package to
+calculate the survey weights. They are many other packages to calculate
+weights so this is just one possible approach that could successfully be
+used to create survey weights.}
+
+Survey weights are widely used in survey research for a variety of
+purposes. In this tutorial, we will be focusing on one specific form of
+survey weights called a ``rake weight''. Rake weights are typically used
+to make the survey sample match the target population on a set of
+demographic, and sometimes attitudinal, measures. They are used to
+ensure the sample's demographics match the target population's
+demographics. This numerical correction will change how much each
+individual case in your dataset is contributing to the overall, or
+sub-group, mean values across your sample data.
+
+First, we load necessary packages to compute and analyze the weights. If
+a package is not installed on your machine, you must first install it
+before this chunk of code will run.
+
+\hypertarget{import-your-survey-data-into-r}{%
+\section{Import your survey data into
+R}\label{import-your-survey-data-into-r}}
+
+We need to import our survey data into R. The way we do this will vary
+by the format of your data, but in this case the data is saved as a
+``.dta'' file so we will use the \texttt{haven} package to import it.
+
+You should always examine your data and the base R function
+\texttt{head} shows the first 5 cases along with all of your column
+labels.
+
+\begin{verbatim}
+ [1] "caseid"         "pid_4"          "ideo5"          "gov_choice"    
+ [5] "prop_111"       "prop_112"       "trump_app"      "hick_app"      
+ [9] "gardner_app"    "cong_app"       "scotus_app"     "pot_law"       
+[13] "gambling"       "fracking"       "gun_control"    "anger"         
+[17] "pride"          "hope"           "disgust"        "worry"         
+[21] "trump_app2"     "hick_app2"      "gardner_app2"   "cong_app2"     
+[25] "scotus_app2"    "pot_law2"       "gambling2"      "fracking2"     
+[29] "gun_control2"   "old_weight_old" "pid_x"          "sex"           
+[33] "race_4"         "speakspanish"   "marstat"        "child18"       
+[37] "employ"         "faminc_new"     "casscd"         "religiosity"   
+[41] "age_group"      "educ"          
+\end{verbatim}
+
+\hypertarget{save-your-target-population-demographic-parameters}{%
+\section{Save Your Target Population Demographic
+Parameters}\label{save-your-target-population-demographic-parameters}}
+
+You will need to know the target population proportion for each of the
+variables you wish to weight your sample data on. How easy it will be to
+find your population values will be based on your specific target
+population.
+
+Some populations will be relatively easy to find (e.g.~think adult
+demographic proportions in the United States from the Census, CPS, or
+ACS results and all the sub-geographic levels that accompany them), but
+others won't be as easy. Sometimes, you cannot know your target
+population proportions so in those cases you will not be able to weight
+your survey sample data.
+
+In this chunk of R code, we are creating the target population
+parameters for two specific demographic variables measured in our sample
+political poll data. This was a political poll conducted in October 2018
+with the sample consisting of likely Colorado voters in the then
+upcoming 2018 election. This gubernatorial election year poll measured
+multiple things including: - 2018 Colorado Gubernatorial Preference -
+Jared Polis or Walker Stapleton - Policy Questions: Marijuana
+Legalization, Fracking, Gun Control laws - Approval ratings: President
+Donald Trump, Governor John Hickenlooper (at the time), US Congress -
+Demographic questions for survey weighting purposes
+
+\hypertarget{saving-new-vectors-with-target-population-demographic-values}{%
+\subsection{Saving New Vectors With Target Population Demographic
+Values}\label{saving-new-vectors-with-target-population-demographic-values}}
+
+Using this data, let's create some survey weights. To illustrate the
+principle, we will start with basic weights using just two demographic
+variables commonly used in calculating survey weights: sex
+(unfortunately only biological sex was collected in this survey) and age
+(split into 5 categories). We must save a vector of data with the target
+population demographic proportions, so in this case we will save two
+vectors one called \texttt{sex} and one called \texttt{age\_group}.
+
+There are two critical things to get correct in this step.
+
+\textbf{1. Matching Names} The names we give these vectors matter and
+must match the names of the appropriate demographic variable in your
+sample data. Since the vector names we chose were sex and age\_group,
+the variable names in the sample data must be exactly sex and
+age\_group. Otherwise, the code will not be able to match the two and
+will fail.
+
+\textbf{2. Matching Orders} The second critical thing to get correct is
+the order the proportion values are entered into the vector must match
+the order the proportion values are stored in the sample data. In this
+example, the order of proportions stored in the sex variable in the
+sample data is (female, male) so the values we give the sex vector must
+be in that exact order as well. The same is true for the age\_group
+variable, which has 5 groups in the sample data: 18-29, 30-39, 40-49,
+50-64, 65+. The proportion order in our vector for the age\_group must
+match that exactly as well otherwise you are creating incorrect weights
+or best-case scenario getting an error message.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{525}\NormalTok{, .}\DecValTok{475}\NormalTok{)  }\CommentTok{\#Target values for females and males; label order (female, male)}
+\FunctionTok{sum}\NormalTok{(sex) }\CommentTok{\#proportions should = 1 so this checks that it does}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{age\_group  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{182}\NormalTok{, .}\DecValTok{203}\NormalTok{, .}\DecValTok{17}\NormalTok{, .}\DecValTok{218}\NormalTok{, .}\DecValTok{227}\NormalTok{)  }\CommentTok{\#Target values for 5 age groups; 18{-}29, 30{-}39, 40{-}49, 50{-}64, 65+}
+\FunctionTok{sum}\NormalTok{(age\_group) }\CommentTok{\#proportions should = 1 so this checks that it does}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 1
+\end{verbatim}
+
+First, let's look at the unweighted values in both the age and sex
+variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the unweighted size of the age\_group demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 3
+  age_group     n proportion
+  <dbl+lbl> <int>      <dbl>
+1 1 [18-29]    33     0.0412
+2 2 [30-39]   101     0.126 
+3 3 [40-49]   118     0.148 
+4 4 [50-64]   306     0.382 
+5 5 [65+]     242     0.302 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the unweighted size of the sex demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 3
+  sex            n proportion
+  <dbl+lbl>  <int>      <dbl>
+1 1 [Female]   423      0.529
+2 2 [Male]     377      0.471
+\end{verbatim}
+
+\hypertarget{calculating-your-rake-weights}{%
+\section{Calculating Your Rake
+Weights}\label{calculating-your-rake-weights}}
+
+Now that we have our target population parameters saved in vectors for
+each demographic variable we plan to weight our survey data on and our
+sample data with matching names and orders, we can begin to create our
+survey weights.
+
+\textbf{1. Create List} First, we create a list that merges the two
+demographic vectors for use in the raking process. Remember, this names
+must match the column names in the sample data. We give this list the
+name of \texttt{targets} to reflect this is the target population
+parameters we want to match the sample data to. We then give the column
+names to match with the sample data.
+
+\textbf{2. Calculate the Weights} Now, it is time to create some survey
+weights using the \texttt{anesrake} function. This function has many
+possible items that could be used, with all the possible items listed in
+the following R chunk. You should view the R documentation for all
+possible things it can do.
+
+For our purposes, we will be focusing on a few things that will be
+noted. We will calculate a new dataframe called \texttt{myweights} where
+we input the \textsubscript{targets} list, the name of our sample data
+\texttt{cpc}, a caseid value that uniquely identifies each case, the
+\texttt{cap} item tells the function to cape the size of the survey
+weights at 8 and not allow any case to have a weight larger than that
+value. The \texttt{type} item tells the function how it should handle,
+if at all, a target population demographic that is very close to the
+sample value for that same demographic.
+
+You'll see in the output once you run the \texttt{anesrake} function how
+many iterations it took for the raking to converge on this specific set
+of weights. Here, it took 15 iterations across the two target
+demographic variables.
+
+\textbf{3. Save Weights in Sample Data} Next, we save that newly created
+weight as a new variable in our existing sample data, and now we have a
+weight variable that we can use in our analysis of the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Now we save these values as a list and call the list targets}
+\CommentTok{\#Step 1: Save the target list }
+\NormalTok{targets }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(sex, age\_group)}
+\CommentTok{\# remember, these names will have to match}
+\FunctionTok{names}\NormalTok{(targets) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"age\_group"}\NormalTok{)}
+
+\CommentTok{\#anesrake(targets, dataframe, caseid, weightvec = NULL, cap = 5,}
+\CommentTok{\#verbose = FALSE, maxit = 1000, type = "pctlim", pctlim = 5,}
+\CommentTok{\#nlim = 5, filter = 1, choosemethod = "total", iterate = TRUE)}
+
+\CommentTok{\#Step 2 {-} Calculate the Rake Weight}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1599385}\NormalTok{) }\CommentTok{\#Set the seed for replication  }
+\NormalTok{myweights }\OtherTok{\textless{}{-}} \FunctionTok{anesrake}\NormalTok{(targets, sample, }
+                      \AttributeTok{caseid =}\NormalTok{ sample}\SpecialCharTok{$}\NormalTok{caseid, }\AttributeTok{cap =} \DecValTok{8}\NormalTok{, }\AttributeTok{type =} \StringTok{"nolim"}\NormalTok{, }\AttributeTok{pctlim=}\NormalTok{.}\DecValTok{05}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Raking converged in 12 iterations"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Step 3 {-} Save the Rake Weight at the end of your sample data}
+\NormalTok{sample}\SpecialCharTok{$}\NormalTok{weight  }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(myweights[}\DecValTok{1}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{reviewing-the-newly-created-survey-weights}{%
+\section{Reviewing the Newly Created Survey
+Weights}\label{reviewing-the-newly-created-survey-weights}}
+
+Before we start the analysis of the weighted data, let's examine the
+newly created survey weights saved in our sample data.
+
+With only 2 target weighting variables with 10 total categories combined
+between them, we can examine the weights individually by group. To do
+this, we will use the \texttt{srvyr} package to examine the weight size
+by the target groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Displays summary of the weight size to see range}
+\FunctionTok{summary}\NormalTok{(sample}\SpecialCharTok{$}\NormalTok{weight)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.5347  0.6086  0.6997  1.0000  1.0912  4.8008 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weight size by demographic groups used in the weighting scheme}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(sex, age\_group) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{weight =} \FunctionTok{survey\_mean}\NormalTok{(weight, }\AttributeTok{na.rm =}\NormalTok{ T))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 10 x 4
+# Groups:   sex [2]
+   sex        age_group weight weight_se
+   <dbl+lbl>  <dbl+lbl>  <dbl>     <dbl>
+ 1 1 [Female] 1 [18-29]  4.22   0       
+ 2 1 [Female] 2 [30-39]  1.51   2.86e-17
+ 3 1 [Female] 3 [40-49]  1.09   0       
+ 4 1 [Female] 4 [50-64]  0.535  0       
+ 5 1 [Female] 5 [65+]    0.700  0       
+ 6 2 [Male]   1 [18-29]  4.80   0       
+ 7 2 [Male]   2 [30-39]  1.72   3.22e-17
+ 8 2 [Male]   3 [40-49]  1.24   0       
+ 9 2 [Male]   4 [50-64]  0.609  0       
+10 2 [Male]   5 [65+]    0.796  0       
+\end{verbatim}
+
+Now we see the weight size for each of the 10 groups that we weighted
+our sample data on. Obviously, with more demographic variables including
+in the weighting scheme this list would get much more cumbersome but for
+pedagogical purposes it is important to look at these values to
+understand their meaning.
+
+For females between the age of 18-29 the weight equals 4.21. This means
+that females between the ages of 18-29 are under-represented in the
+sample data since the value is over 1. Fundamentally what this means is
+that for each female between the ages of 18-29 in the sample data, they
+are ``speaking'' for 4.21 females between the age of 18-29 from the
+target population. Compare this value to females between the ages of 50
+and 64 (group 4) who have a weight value of .53. This means that females
+in this age group were over-represented in the sample data since the
+weight value is under 1.
+
+We should also look at the weighted demographic values to ensure the
+weights worked as we hope they do - i.e.~the weighted sample demographic
+values match the target population values.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the unweighted size of the age\_group demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 3
+  age_group     n proportion
+  <dbl+lbl> <int>      <dbl>
+1 1 [18-29]    33     0.0412
+2 2 [30-39]   101     0.126 
+3 3 [40-49]   118     0.148 
+4 4 [50-64]   306     0.382 
+5 5 [65+]     242     0.302 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weighted size of the age\_group demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 4
+  age_group     n  n_se proportion
+  <dbl+lbl> <dbl> <dbl>      <dbl>
+1 1 [18-29]  146. 24.9       0.182
+2 2 [30-39]  162. 15.2       0.203
+3 3 [40-49]  136  11.6       0.17 
+4 4 [50-64]  174.  7.87      0.218
+5 5 [65+]    182.  9.78      0.227
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Saves the weighted \& unweighted size of the age\_group demographics}
+\NormalTok{ag\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{ag\_uw}\OtherTok{\textless{}{-}}\NormalTok{ sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\NormalTok{ag\_combo}\OtherTok{\textless{}{-}}\FunctionTok{left\_join}\NormalTok{(ag\_w, ag\_uw, }\AttributeTok{by =} \StringTok{"age\_group"}\NormalTok{, }\AttributeTok{suffix =} \FunctionTok{c}\NormalTok{(}\StringTok{""}\NormalTok{, }\StringTok{"\_pop"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(age\_group)}
+
+\NormalTok{ag\_combo}\SpecialCharTok{$}\NormalTok{ag\_diff\_per}\OtherTok{\textless{}{-}} \DecValTok{100}\SpecialCharTok{*}\NormalTok{(ag\_combo}\SpecialCharTok{$}\NormalTok{weighted\_sample}\SpecialCharTok{{-}}\NormalTok{ag\_combo}\SpecialCharTok{$}\NormalTok{unweighted\_sample)}
+\NormalTok{ag\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 7
+# Groups:   age_group [5]
+  age_group     n  n_se weighted_sample n_pop unweighted_sample ag_diff_per
+  <dbl+lbl> <dbl> <dbl>           <dbl> <int>             <dbl>       <dbl>
+1 1 [18-29]  146. 24.9            0.182    33            0.0412       14.1 
+2 2 [30-39]  162. 15.2            0.203   101            0.126         7.68
+3 3 [40-49]  136  11.6            0.17    118            0.148         2.25
+4 4 [50-64]  174.  7.87           0.218   306            0.382       -16.4 
+5 5 [65+]    182.  9.78           0.227   242            0.302        -7.55
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(ag\_combo}\SpecialCharTok{$}\NormalTok{weighted\_sample)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.182 0.203 0.170 0.218 0.227
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(targets)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+$sex
+[1] 0.525 0.475
+
+$age_group
+[1] 0.182 0.203 0.170 0.218 0.227
+\end{verbatim}
+
+We see that the weighted age\_group values match the target population
+values we inputted earlier so this weighting scheme seems to be working
+in the way that we hoped it would.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the unweighted size of the sex demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 3
+  sex            n proportion
+  <dbl+lbl>  <int>      <dbl>
+1 1 [Female]   423      0.529
+2 2 [Male]     377      0.471
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weighted size of the sex demographics}
+\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(sex) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{proportion =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 4
+  sex            n  n_se proportion
+  <dbl+lbl>  <dbl> <dbl>      <dbl>
+1 1 [Female]   420  22.0      0.525
+2 2 [Male]     380  20.4      0.475
+\end{verbatim}
+
+For the \texttt{sex} measure, the unweighted and weighted values matched
+nearly identically, but that is because the unweighted sample nearly
+matched the target population identically without any statistical
+correction. In these instances, it is common to drop the demographic
+variable that does not need much adjustment. The standard limit is 5\%
+or less should not get an adjustment meaning that you should only apply
+weights with the target population values and the sample values are 5\%
+points or more different.
+
+\hypertarget{evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights}{%
+\section{Evaluating Influence of Weights on Reported Mean Values in the
+Sample Data - Smallish
+Weights}\label{evaluating-influence-of-weights-on-reported-mean-values-in-the-sample-data---smallish-weights}}
+
+Now let's see what impact these weights have on our sample values.
+First, we use the \texttt{surveys} package must create a new dataframe
+that incorporates the survey weights. Let's call it
+\texttt{sample.weighted} to signal that this is the weighted version of
+the sample data.
+
+We need to calculate the weighted and unweighted means of the same
+variable. Using the \texttt{fracking2} variable which measures support
+for fracking in the Colorado which various safety measures, we can
+compare the influence of the survey weights on the conclusions we would
+draw about support for fracking in Colorado.
+
+Once we run the following R chunk, we see that there is virtually no
+difference between the weighted and unweighted estimates of how
+supportive Coloradoans are of fracking. Why is this? This occurs
+sometimes when the weights that applied simply do not change the sample
+composition enough to have an influence on the overall sample mean.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fracking\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the unweighted support for fracking in CO}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{unweight\_support =} \FunctionTok{mean}\NormalTok{(fracking2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+\NormalTok{fracking\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the weighted support for fracking in CO}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{weight\_support =} \FunctionTok{survey\_mean}\NormalTok{(fracking2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+
+\NormalTok{fracking\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(fracking\_uw, fracking\_w ) }
+
+\NormalTok{fracking\_combo }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(fracking\_combo, }\AttributeTok{difference =}\NormalTok{ weight\_support }\SpecialCharTok{{-}}\NormalTok{ unweight\_support)}
+\NormalTok{fracking\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  unweight_support weight_support weight_support_se  difference
+1        0.5277778      0.5025514         0.0229558 -0.02522642
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Gubernatorial Vote Choice {-} Weighted \& Unweighted }
+\NormalTok{gov\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(gov\_choice)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(gov\_choice) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weight\_support =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)) }
+
+\NormalTok{gov\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(gov\_choice) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(gov\_choice)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweight\_support =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{gov\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(gov\_uw, gov\_w) }
+
+
+\NormalTok{gov\_combo}\SpecialCharTok{$}\NormalTok{diff }\OtherTok{\textless{}{-}}\NormalTok{ gov\_combo}\SpecialCharTok{$}\NormalTok{weight\_support }\SpecialCharTok{{-}}\NormalTok{ gov\_combo}\SpecialCharTok{$}\NormalTok{unweight\_support}
+\NormalTok{gov\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  gov_choice   n unweight_support gov_choice         n      n_se weight_support
+1          1 413          0.51625          1 438.30863 22.858613     0.54788579
+2          2 346          0.43250          2 312.66152 17.843921     0.39082691
+3          3  30          0.03750          3  31.10659  6.029889     0.03888324
+4          4  11          0.01375          4  17.92325  7.817047     0.02240406
+          diff
+1  0.031635792
+2 -0.041673095
+3  0.001383243
+4  0.008654059
+\end{verbatim}
+
+\hypertarget{create-new-weighting-scheme-that-incorporates-more-demographic-variables}{%
+\section{Create New Weighting Scheme That Incorporates More Demographic
+Variables}\label{create-new-weighting-scheme-that-incorporates-more-demographic-variables}}
+
+Typically, when creating survey weights you will include more than just
+2 demographic variables into your weighting scheme. Here, we use 5
+variables to create a new weight: sex, age, race/ethnicity, education,
+and partisanship.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Save new vectors with target population values for weights }
+\NormalTok{sex }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{525}\NormalTok{, .}\DecValTok{475}\NormalTok{)  }\DocumentationTok{\#\#Target values for females and males; label order (female, male)}
+\NormalTok{age\_group  }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(.}\DecValTok{132}\NormalTok{, .}\DecValTok{183}\NormalTok{, .}\DecValTok{15}\NormalTok{, .}\DecValTok{248}\NormalTok{, .}\DecValTok{287}\NormalTok{)   }\CommentTok{\#Target values for 5 age groups }
+\NormalTok{race\_4 }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(.}\DecValTok{7143}\NormalTok{, .}\DecValTok{0501}\NormalTok{, .}\DecValTok{1768}\NormalTok{, .}\DecValTok{0588}\NormalTok{) }\CommentTok{\#Target values race/ethnic identities {-} white, black, Hispanic, all others}
+\NormalTok{educ }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(.}\DecValTok{2075}\NormalTok{, .}\DecValTok{2445}\NormalTok{, .}\DecValTok{0828}\NormalTok{, .}\DecValTok{2398}\NormalTok{, .}\DecValTok{2254}\NormalTok{) }\CommentTok{\#Target values education {-} HS or less, Some college, AA, BA, Graduate degree}
+\NormalTok{pid\_4 }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(.}\DecValTok{3375}\NormalTok{, .}\DecValTok{2838}\NormalTok{, .}\DecValTok{335}\NormalTok{, .}\DecValTok{0437}\NormalTok{) }\CommentTok{\#Target values Party Registration {-} (Democrats, Independents, Republicans, All 3rd Parties)  }
+
+\CommentTok{\#Combine the demographic vectors into a list}
+\NormalTok{targets }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(sex, age\_group, race\_4, educ, pid\_4)}
+\CommentTok{\# remember, these names will have to match the column names \& order in the sample data }
+\FunctionTok{names}\NormalTok{(targets) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"sex"}\NormalTok{, }\StringTok{"age\_group"}\NormalTok{, }\StringTok{"race\_4"}\NormalTok{, }\StringTok{"educ"}\NormalTok{, }\StringTok{"pid\_4"}\NormalTok{)}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1984}\NormalTok{)}
+\NormalTok{myweights }\OtherTok{\textless{}{-}} \FunctionTok{anesrake}\NormalTok{(targets, sample, }
+                      \AttributeTok{caseid =}\NormalTok{ sample}\SpecialCharTok{$}\NormalTok{caseid, }\AttributeTok{cap =} \DecValTok{8}\NormalTok{, }\AttributeTok{type =} \StringTok{"pctlim"}\NormalTok{, }\AttributeTok{pctlim=}\NormalTok{.}\DecValTok{05}\NormalTok{)    }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] "Raking converged in 20 iterations"
+[1] "Raking converged in 21 iterations"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sample}\SpecialCharTok{$}\NormalTok{full\_weight  }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(myweights[}\DecValTok{1}\NormalTok{])}
+
+\FunctionTok{summary}\NormalTok{(sample}\SpecialCharTok{$}\NormalTok{full\_weight)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.3218  0.5685  0.7672  1.0000  1.0729  7.9999 
+\end{verbatim}
+
+Let's look at how well the weights worked to match the sample data to
+the target population values for the \texttt{race4} and \texttt{educ5}
+measures.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weighted size of the educ5 demographics}
+\DocumentationTok{\#\#We can also bind the two values together to calculate their differences }
+\NormalTok{ed\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(educ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{ed\_uw}\OtherTok{\textless{}{-}}\NormalTok{ sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(educ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\NormalTok{ed\_combo}\OtherTok{\textless{}{-}}\FunctionTok{left\_join}\NormalTok{(ed\_w, ed\_uw, }\AttributeTok{by =} \StringTok{"educ"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(educ)}
+
+\NormalTok{ed\_combo}\SpecialCharTok{$}\NormalTok{ed\_diff\_per}\OtherTok{\textless{}{-}} \DecValTok{100}\SpecialCharTok{*}\NormalTok{(ed\_combo}\SpecialCharTok{$}\NormalTok{weighted\_sample}\SpecialCharTok{{-}}\NormalTok{ed\_combo}\SpecialCharTok{$}\NormalTok{unweighted\_sample)}
+\NormalTok{ed\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 5 x 7
+# Groups:   educ [5]
+  educ                  n.x  n_se weighted_sample   n.y unweighted_sam~1 ed_di~2
+  <dbl+lbl>           <dbl> <dbl>           <dbl> <int>            <dbl>   <dbl>
+1 1 [HS grad or less] 166.  22.1           0.208     92            0.115   9.25 
+2 2 [Some college]    196.  17.2           0.244    187            0.234   1.07 
+3 3 [AA degree]        66.2  7.29          0.0828    96            0.12   -3.72 
+4 4 [BA]              192.  14.3           0.240    249            0.311  -7.15 
+5 5 [Post-grad]       180.  14.3           0.225    176            0.22    0.540
+# ... with abbreviated variable names 1: unweighted_sample, 2: ed_diff_per
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weighted size of the race4 demographics}
+\DocumentationTok{\#\#We can also bind the two values together to calculate their differences }
+\NormalTok{r\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(race\_4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{r\_uw}\OtherTok{\textless{}{-}}\NormalTok{ sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(race\_4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\NormalTok{r\_combo}\OtherTok{\textless{}{-}}\FunctionTok{left\_join}\NormalTok{(r\_w, r\_uw, }\AttributeTok{by =} \StringTok{"race\_4"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(race\_4)}
+
+\NormalTok{r\_combo}\SpecialCharTok{$}\NormalTok{r\_diff\_per}\OtherTok{\textless{}{-}} \DecValTok{100}\SpecialCharTok{*}\NormalTok{(r\_combo}\SpecialCharTok{$}\NormalTok{weighted\_sample}\SpecialCharTok{{-}}\NormalTok{r\_combo}\SpecialCharTok{$}\NormalTok{unweighted\_sample)}
+\NormalTok{r\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 7
+# Groups:   race_4 [4]
+  race_4          n.x  n_se weighted_sample   n.y unweighted_sample r_diff_per
+  <dbl+lbl>     <dbl> <dbl>           <dbl> <int>             <dbl>      <dbl>
+1 1 [White]     571.  14.0           0.714    692            0.865     -15.1  
+2 2 [Black]      40.1  9.97          0.0501    22            0.0275      2.26 
+3 3 [Hispanic]  141.  25.1           0.177     41            0.0512     12.6  
+4 4 [Other POC]  47.0  7.56          0.0588    45            0.0562      0.255
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Shows the weighted size of the pid\_4 registered voter variable }
+\DocumentationTok{\#\#We can also bind the two values together to calculate their differences }
+\NormalTok{pid\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(pid\_4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{pid\_uw}\OtherTok{\textless{}{-}}\NormalTok{ sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(pid\_4) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweighted\_sample =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+\NormalTok{pid\_combo}\OtherTok{\textless{}{-}}\FunctionTok{left\_join}\NormalTok{(pid\_w, pid\_uw, }\AttributeTok{by =} \StringTok{"pid\_4"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(pid\_4)}
+
+\NormalTok{pid\_combo}\SpecialCharTok{$}\NormalTok{pid\_diff\_per}\OtherTok{\textless{}{-}} \DecValTok{100}\SpecialCharTok{*}\NormalTok{(pid\_combo}\SpecialCharTok{$}\NormalTok{weighted\_sample}\SpecialCharTok{{-}}\NormalTok{pid\_combo}\SpecialCharTok{$}\NormalTok{unweighted\_sample)}
+\NormalTok{pid\_combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 4 x 7
+# Groups:   pid_4 [4]
+  pid_4             n.x  n_se weighted_sample   n.y unweighted_sample pid_diff~1
+  <dbl+lbl>       <dbl> <dbl>           <dbl> <int>             <dbl>      <dbl>
+1 1 [Democrat]    270.  21.1           0.338    283            0.354      -1.62 
+2 2 [Independent] 227.  17.2           0.284    214            0.268       1.63 
+3 3 [Republican]  268.  19.8           0.335    266            0.332       0.250
+4 4 [Other]        35.0  6.55          0.0437    37            0.0462     -0.255
+# ... with abbreviated variable name 1: pid_diff_per
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Gubernatorial Vote Choice {-} Weighted \& Unweighted }
+\NormalTok{gov\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(gov\_choice)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{group\_by}\NormalTok{(gov\_choice) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{survey\_total}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{weight\_support =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n)) }
+
+\NormalTok{gov\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(gov\_choice) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(gov\_choice)) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{n =} \FunctionTok{n}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{unweight\_support =}\NormalTok{ n }\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(n))}
+
+\NormalTok{gov\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(gov\_uw, gov\_w) }
+
+
+\NormalTok{gov\_combo}\SpecialCharTok{$}\NormalTok{diff }\OtherTok{\textless{}{-}}\NormalTok{ gov\_combo}\SpecialCharTok{$}\NormalTok{weight\_support }\SpecialCharTok{{-}}\NormalTok{ gov\_combo}\SpecialCharTok{$}\NormalTok{unweight\_support}
+
+\NormalTok{gov\_outcome}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(gov\_combo}\SpecialCharTok{$}\NormalTok{gov\_choice, gov\_combo}\SpecialCharTok{$}\NormalTok{weight\_support, gov\_combo}\SpecialCharTok{$}\NormalTok{unweight\_support, gov\_combo}\SpecialCharTok{$}\NormalTok{diff) }
+
+\FunctionTok{colnames}\NormalTok{(gov\_outcome) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"candidate"}\NormalTok{, }\StringTok{"weighted support"}\NormalTok{, }\StringTok{"unewighted support"}\NormalTok{, }\StringTok{"diff"}\NormalTok{) }
+\NormalTok{gov\_outcome}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     candidate weighted support unewighted support         diff
+[1,]         1       0.50298793            0.51625 -0.013262068
+[2,]         2       0.43459577            0.43250  0.002095774
+[3,]         3       0.04328807            0.03750  0.005788066
+[4,]         4       0.01912823            0.01375  0.005378227
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\#\#\#Comparing weighted to unweighted fracking support in Colorado }
+
+\NormalTok{fracking\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the unweighted support for fracking in CO}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{unweight\_support =} \FunctionTok{mean}\NormalTok{(fracking2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+\NormalTok{fracking\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the weighted support for fracking in CO}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{weight\_support =} \FunctionTok{survey\_mean}\NormalTok{(fracking2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+
+\NormalTok{fracking\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(fracking\_uw, fracking\_w ) }
+
+\NormalTok{fracking\_combo }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(fracking\_combo, }\AttributeTok{frack\_diff =}\NormalTok{ weight\_support }\SpecialCharTok{{-}}\NormalTok{ unweight\_support)}
+
+\CommentTok{\#Do the same analysis for gun control then pot laws}
+\NormalTok{gc\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the unweighted support for fracking in CO}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{unweight\_support =} \FunctionTok{mean}\NormalTok{(gun\_control2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+\NormalTok{gc\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the weighted support for fracking in CO}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{weight\_support =} \FunctionTok{survey\_mean}\NormalTok{(gun\_control2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+
+\NormalTok{gc\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(gc\_uw, gc\_w ) }
+
+\NormalTok{gc\_combo }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(gc\_combo, }\AttributeTok{gun\_control\_diff =}\NormalTok{ weight\_support }\SpecialCharTok{{-}}\NormalTok{ unweight\_support)}
+
+\NormalTok{pl\_uw}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the unweighted support for fracking in CO}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{unweight\_support =} \FunctionTok{mean}\NormalTok{(pot\_law2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+\NormalTok{pl\_w}\OtherTok{\textless{}{-}}\NormalTok{sample }\SpecialCharTok{\%\textgreater{}\%} \CommentTok{\#Looks at the weighted support for fracking in CO}
+  \FunctionTok{as\_survey}\NormalTok{(}\AttributeTok{weights =} \FunctionTok{c}\NormalTok{(full\_weight)) }\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{weight\_support =} \FunctionTok{survey\_mean}\NormalTok{(pot\_law2, }\AttributeTok{na.rm =}\NormalTok{ T))}
+
+
+\NormalTok{pl\_combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(pl\_uw, pl\_w ) }
+
+\NormalTok{pl\_combo }\OtherTok{\textless{}{-}} \FunctionTok{mutate}\NormalTok{(pl\_combo, }\AttributeTok{pot\_law\_diff =}\NormalTok{ weight\_support }\SpecialCharTok{{-}}\NormalTok{ unweight\_support)}
+
+
+\NormalTok{combo}\OtherTok{\textless{}{-}}\FunctionTok{cbind}\NormalTok{(}\DecValTok{100}\SpecialCharTok{*}\NormalTok{(fracking\_combo}\SpecialCharTok{$}\NormalTok{frack\_diff),}\DecValTok{100}\SpecialCharTok{*}\NormalTok{(gc\_combo}\SpecialCharTok{$}\NormalTok{gun\_control\_diff), }\DecValTok{100}\SpecialCharTok{*}\NormalTok{(pl\_combo}\SpecialCharTok{$}\NormalTok{pot\_law\_diff)) }
+
+\FunctionTok{colnames}\NormalTok{(combo) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"fracking\_diff"}\NormalTok{, }\StringTok{"gun\_control\_diff"}\NormalTok{, }\StringTok{"pot\_law\_diff"}\NormalTok{) }
+\NormalTok{combo}\OtherTok{\textless{}{-}}\FunctionTok{round}\NormalTok{(combo,}\DecValTok{3}\NormalTok{)}
+\NormalTok{combo}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     fracking_diff gun_control_diff pot_law_diff
+[1,]         2.651            0.531       -0.303
+\end{verbatim}
+
+Above, shows the impact that the new weighting scheme had on the
+differences in support for fracking, new gun control policies, support
+for marijuana legalization and a tax revenue proposition on the upcoming
+ballot. For fracking, the weighted sample supported fracking 3.3
+percentage points higher than the unweighted sample. While that might
+not seem like a large difference, in a polarized American electorate 3.3
+percentage points easily be the differences between winning an election
+or going down in defeat.
+
+The other three items all saw a decrease in support in the weighted
+data. Overall, the results showed increased support for a generally
+conservative supported issue, fracking, while revealing decreased
+support for 3 more liberal supported issues, gun control, marijuana
+legalization, and increased governmental spending. This is likely caused
+by weighting older voters to be
+
+We can also use the newly created survey weights in regression analyses.
+To do so, you first must create a new weighted survey dataset that you
+then conduct the analysis on.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Using srvyr package to create a new weighted dataset for analysis purposes}
+\CommentTok{\#Step 1: Create Weighted Survey Data for Analysis}
+\NormalTok{sample.weighted }\OtherTok{\textless{}{-}}\NormalTok{ sample }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{as\_survey\_design}\NormalTok{(}\AttributeTok{ids =} \DecValTok{1}\NormalTok{, }\CommentTok{\# 1 for no cluster ids; use this for a simple random sample }
+                   \AttributeTok{weights =}\NormalTok{ full\_weight, }\CommentTok{\# No weight added}
+                   \AttributeTok{strata =} \ConstantTok{NULL} \CommentTok{\# sampling was simple (no strata) }
+\NormalTok{                  )}
+
+\NormalTok{nonweighted }\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(gambling }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pid\_x }\SpecialCharTok{+}\NormalTok{ ideo5 }\SpecialCharTok{+}\NormalTok{ sex , }\AttributeTok{data=}\NormalTok{sample)}
+\NormalTok{weighted }\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(gambling }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pid\_x }\SpecialCharTok{+}\NormalTok{ ideo5 }\SpecialCharTok{+}\NormalTok{ sex, }\AttributeTok{data=}\NormalTok{sample, }\AttributeTok{weights=}\NormalTok{sample}\SpecialCharTok{$}\NormalTok{weight)}
+\NormalTok{weighted2 }\OtherTok{\textless{}{-}}\FunctionTok{lm}\NormalTok{(gambling }\SpecialCharTok{\textasciitilde{}}\NormalTok{ pid\_x }\SpecialCharTok{+}\NormalTok{ ideo5 }\SpecialCharTok{+}\NormalTok{ sex, }\AttributeTok{data=}\NormalTok{sample, }\AttributeTok{weights=}\NormalTok{sample}\SpecialCharTok{$}\NormalTok{full\_weight)}
+
+\FunctionTok{stargazer}\NormalTok{(nonweighted, weighted,  weighted2, }\AttributeTok{type=}\StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+============================================================
+                                    Dependent variable:     
+                               -----------------------------
+                                         gambling           
+                                  (1)       (2)       (3)   
+------------------------------------------------------------
+pid_x                           -0.017    -0.010    -0.013  
+                                (0.031)   (0.032)   (0.029) 
+                                                            
+ideo5                           -0.059    -0.065   -0.096** 
+                                (0.051)   (0.051)   (0.047) 
+                                                            
+sex                             0.184**  0.215***   0.188** 
+                                (0.080)   (0.080)   (0.079) 
+                                                            
+Constant                       2.391***  2.441***  2.591*** 
+                                (0.153)   (0.154)   (0.157) 
+                                                            
+------------------------------------------------------------
+Observations                      669       669       669   
+R2                               0.015     0.018     0.025  
+Adjusted R2                      0.011     0.013     0.021  
+Residual Std. Error (df = 665)   1.030     1.020     0.998  
+F Statistic (df = 3; 665)       3.481**  4.032***  5.678*** 
+============================================================
+Note:                            *p<0.1; **p<0.05; ***p<0.01
+\end{verbatim}
+
+Results are largely similar across the regression models, but there are
+some slight differences between the unweighted model and the two
+weighted ones. This happens because certain respondent's opinions are
+being given more or less weight to the overall average relationship
+which can cause the conclusions you draw from your analysis to differ.
+This is one reason why it is critically important to create your survey
+weights using defensible target population values.
+
+\hypertarget{concluding-thoughts}{%
+\section{Concluding Thoughts}\label{concluding-thoughts}}
+
+This is an important lesson for the application of the survey weights.
+The target population values that you weight your survey sample data to
+match can have profound implications on the conclusions you and others
+draw from your survey results. In the case, the decision to weight the
+survey to give more voice to the Republican members of the sample
+influenced the conclusions drawn about support for various policies
+being debated in the public realm. This makes it critically important to
+make sure that the target population values that are chosen are as
+accurate as possible and publicly defensible.
+
+Overall, this tutorial has taken you through how to calculate survey
+weights using the \texttt{anesrake} package. Using a sample political
+poll, you hopefully learned how to create target demographic population
+vectors, which then merge with our sample demographic values. Following
+this, you learned how to calculate directly survey weights, evaluate the
+success/failure of the survey weighting process, and compare the impact
+of using the survey weight on the conclusions drawn from the results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sessionInfo}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+R version 4.1.2 (2021-11-01)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 19042)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=English_United Kingdom.1252 
+[2] LC_CTYPE=English_United Kingdom.1252   
+[3] LC_MONETARY=English_United Kingdom.1252
+[4] LC_NUMERIC=C                           
+[5] LC_TIME=English_United Kingdom.1252    
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] stargazer_5.2.2   data.table_1.14.2 anesrake_0.80     weights_1.0.4    
+ [5] Hmisc_4.6-0       Formula_1.2-4     lattice_0.20-45   survey_4.1-1     
+ [9] survival_3.2-13   Matrix_1.3-4      srvyr_1.1.2       poliscidata_2.3.0
+[13] skimr_2.1.4       forcats_0.5.1     stringr_1.4.0     purrr_0.3.4      
+[17] readr_2.1.1       tibble_3.1.6      tidyverse_1.3.1   knitr_1.37       
+[21] tidyr_1.1.4       dplyr_1.0.7       ggplot2_3.3.5     haven_2.5.1      
+
+loaded via a namespace (and not attached):
+ [1] nlme_3.1-153        bitops_1.0-7        fs_1.5.0           
+ [4] lubridate_1.7.10    RColorBrewer_1.1-2  httr_1.4.2         
+ [7] repr_1.1.3          tools_4.1.2         backports_1.2.1    
+[10] utf8_1.2.2          R6_2.5.1            rpart_4.1.16       
+[13] KernSmooth_2.23-20  DBI_1.1.2           colorspace_2.0-2   
+[16] nnet_7.3-16         withr_2.4.2         tidyselect_1.1.1   
+[19] gridExtra_2.3       compiler_4.1.2      cli_3.0.1          
+[22] rvest_1.0.2         htmlTable_2.2.1     mice_3.14.0        
+[25] xml2_1.3.3          caTools_1.18.2      scales_1.1.1       
+[28] checkmate_2.0.0     digest_0.6.27       minqa_1.2.4        
+[31] foreign_0.8-82      rmarkdown_2.11      base64enc_0.1-3    
+[34] jpeg_0.1-9          pkgconfig_2.0.3     htmltools_0.5.2    
+[37] lme4_1.1-27.1       plotrix_3.8-2       dbplyr_2.1.1       
+[40] fastmap_1.1.0       htmlwidgets_1.5.4   rlang_1.0.6        
+[43] readxl_1.3.1        rstudioapi_0.13     generics_0.1.0     
+[46] jsonlite_1.7.3      gtools_3.9.2        car_3.0-12         
+[49] magrittr_2.0.2      Rcpp_1.0.7          munsell_0.5.0      
+[52] fansi_0.5.0         abind_1.4-5         lifecycle_1.0.0    
+[55] stringi_1.7.4       carData_3.0-4       MASS_7.3-55        
+[58] plyr_1.8.6          gplots_3.1.1        gdata_2.18.0.1     
+[61] crayon_1.4.1        splines_4.1.2       hms_1.1.1          
+[64] pillar_1.8.1        boot_1.3-28         reprex_2.0.1       
+[67] glue_1.4.2          evaluate_0.14       mitools_2.4        
+[70] latticeExtra_0.6-29 modelr_0.1.8        nloptr_1.2.2.2     
+[73] png_0.1-7           vctrs_0.3.8         tzdb_0.1.2         
+[76] descr_1.1.5         cellranger_1.1.0    gtable_0.3.0       
+[79] assertthat_0.2.1    xfun_0.29           xtable_1.8-4       
+[82] broom_0.7.9         cluster_2.1.2       ellipsis_0.3.2     
+\end{verbatim}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{measurement-item-scaling}{%
+\chapter{Measurement \& Item Scaling}\label{measurement-item-scaling}}
+
+\hypertarget{learning-objectives-6}{%
+\section{Learning Objectives}\label{learning-objectives-6}}
+
+\hypertarget{measurement}{%
+\section{Measurement}\label{measurement}}
+
+\hypertarget{item-scaling}{%
+\section{Item Scaling}\label{item-scaling}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{hypothesis-testing-analysis-reporting}{%
+\chapter{Hypothesis Testing, Analysis, \&
+Reporting}\label{hypothesis-testing-analysis-reporting}}
+
+\hypertarget{learning-objectives-7}{%
+\section{Learning Objectives}\label{learning-objectives-7}}
+
+\hypertarget{hypothesis-testing}{%
+\section{Hypothesis Testing}\label{hypothesis-testing}}
+
+\hypertarget{analysis}{%
+\section{Analysis}\label{analysis}}
+
+\hypertarget{reporting}{%
+\section{Reporting}\label{reporting}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{conclusion}{%
+\chapter{Conclusion}\label{conclusion}}
+
+\hypertarget{benefits-of-survey-design-analysis-in-r}{%
+\section{Benefits of Survey Design \& Analysis in
+R}\label{benefits-of-survey-design-analysis-in-r}}
+
+\bookmarksetup{startatroot}
+
+\hypertarget{references}{%
+\chapter*{References}\label{references}}
+\addcontentsline{toc}{chapter}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{0}{0}
+\end{CSLReferences}
+
+
+
+\end{document}
