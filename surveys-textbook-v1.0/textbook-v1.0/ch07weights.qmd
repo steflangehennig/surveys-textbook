@@ -2,7 +2,7 @@
 
 ## Step-By-Step Guide to Creating Basic Rake Weights in R
 
-**Note: _This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights._**
+**Note: This tutorial uses the `anesrake` package to calculate the survey weights. They are many other packages to calculate weights so this is just one possible approach that could successfully be used to create survey weights.**
 
 Survey weights are widely used in survey research for a variety of purposes. In this tutorial, we will be focusing on one specific form of survey weights called a "rake weight". Rake weights are typically used to make the survey sample match the target population on a set of demographic, and sometimes attitudinal, measures. They are used to ensure the sample's demographics match the target population's demographics. This numerical correction will change how much each individual case in your dataset is contributing to the overall, or sub-group, mean values across your sample data.
 
