@@ -89,5 +89,26 @@
     "title": "7  Survey Weighting",
     "section": "7.8 Concluding Thoughts",
     "text": "7.8 Concluding Thoughts\nThis is an important lesson for the application of the survey weights. The target population values that you weight your survey sample data to match can have profound implications on the conclusions you and others draw from your survey results. In the case, the decision to weight the survey to give more voice to the Republican members of the sample influenced the conclusions drawn about support for various policies being debated in the public realm. This makes it critically important to make sure that the target population values that are chosen are as accurate as possible and publicly defensible.\nOverall, this tutorial has taken you through how to calculate survey weights using the anesrake package. Using a sample political poll, you hopefully learned how to create target demographic population vectors, which then merge with our sample demographic values. Following this, you learned how to calculate directly survey weights, evaluate the success/failure of the survey weighting process, and compare the impact of using the survey weight on the conclusions drawn from the results.\n\nsessionInfo()\n\nR version 4.1.2 (2021-11-01)\nPlatform: x86_64-w64-mingw32/x64 (64-bit)\nRunning under: Windows 10 x64 (build 19042)\n\nMatrix products: default\n\nlocale:\n[1] LC_COLLATE=English_United Kingdom.1252 \n[2] LC_CTYPE=English_United Kingdom.1252   \n[3] LC_MONETARY=English_United Kingdom.1252\n[4] LC_NUMERIC=C                           \n[5] LC_TIME=English_United Kingdom.1252    \n\nattached base packages:\n[1] grid      stats     graphics  grDevices utils     datasets  methods  \n[8] base     \n\nother attached packages:\n [1] stargazer_5.2.2   data.table_1.14.2 anesrake_0.80     weights_1.0.4    \n [5] Hmisc_4.6-0       Formula_1.2-4     lattice_0.20-45   survey_4.1-1     \n [9] survival_3.2-13   Matrix_1.3-4      srvyr_1.1.2       poliscidata_2.3.0\n[13] skimr_2.1.4       forcats_0.5.1     stringr_1.4.0     purrr_0.3.4      \n[17] readr_2.1.1       tibble_3.1.6      tidyverse_1.3.1   knitr_1.37       \n[21] tidyr_1.1.4       dplyr_1.0.7       ggplot2_3.3.5     haven_2.5.1      \n\nloaded via a namespace (and not attached):\n [1] nlme_3.1-153        bitops_1.0-7        fs_1.5.0           \n [4] lubridate_1.7.10    RColorBrewer_1.1-2  httr_1.4.2         \n [7] repr_1.1.3          tools_4.1.2         backports_1.2.1    \n[10] utf8_1.2.2          R6_2.5.1            rpart_4.1.16       \n[13] KernSmooth_2.23-20  DBI_1.1.2           colorspace_2.0-2   \n[16] nnet_7.3-16         withr_2.4.2         tidyselect_1.1.1   \n[19] gridExtra_2.3       compiler_4.1.2      cli_3.0.1          \n[22] rvest_1.0.2         htmlTable_2.2.1     mice_3.14.0        \n[25] xml2_1.3.3          caTools_1.18.2      scales_1.1.1       \n[28] checkmate_2.0.0     digest_0.6.27       minqa_1.2.4        \n[31] foreign_0.8-82      rmarkdown_2.11      base64enc_0.1-3    \n[34] jpeg_0.1-9          pkgconfig_2.0.3     htmltools_0.5.2    \n[37] lme4_1.1-27.1       plotrix_3.8-2       dbplyr_2.1.1       \n[40] fastmap_1.1.0       htmlwidgets_1.5.4   rlang_1.0.6        \n[43] readxl_1.3.1        rstudioapi_0.13     generics_0.1.0     \n[46] jsonlite_1.7.3      gtools_3.9.2        car_3.0-12         \n[49] magrittr_2.0.2      Rcpp_1.0.7          munsell_0.5.0      \n[52] fansi_0.5.0         abind_1.4-5         lifecycle_1.0.0    \n[55] stringi_1.7.4       carData_3.0-4       MASS_7.3-55        \n[58] plyr_1.8.6          gplots_3.1.1        gdata_2.18.0.1     \n[61] crayon_1.4.1        splines_4.1.2       hms_1.1.1          \n[64] pillar_1.8.1        boot_1.3-28         reprex_2.0.1       \n[67] glue_1.4.2          evaluate_0.14       mitools_2.4        \n[70] latticeExtra_0.6-29 modelr_0.1.8        nloptr_1.2.2.2     \n[73] png_0.1-7           vctrs_0.3.8         tzdb_0.1.2         \n[76] descr_1.1.5         cellranger_1.1.0    gtable_0.3.0       \n[79] assertthat_0.2.1    xfun_0.29           xtable_1.8-4       \n[82] broom_0.7.9         cluster_2.1.2       ellipsis_0.3.2"
+  },
+  {
+    "objectID": "ch09hyp_analysis_rep.html#hypothesis-testing",
+    "href": "ch09hyp_analysis_rep.html#hypothesis-testing",
+    "title": "9  Hypothesis Testing, Analysis, & Reporting",
+    "section": "9.2 Hypothesis Testing",
+    "text": "9.2 Hypothesis Testing"
+  },
+  {
+    "objectID": "ch09hyp_analysis_rep.html#analysis",
+    "href": "ch09hyp_analysis_rep.html#analysis",
+    "title": "9  Hypothesis Testing, Analysis, & Reporting",
+    "section": "9.3 Analysis",
+    "text": "9.3 Analysis"
+  },
+  {
+    "objectID": "ch09hyp_analysis_rep.html#reporting",
+    "href": "ch09hyp_analysis_rep.html#reporting",
+    "title": "9  Hypothesis Testing, Analysis, & Reporting",
+    "section": "9.4 Reporting",
+    "text": "9.4 Reporting"
   }
 ]
