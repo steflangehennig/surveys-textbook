@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>ch00setup</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="ch00setup_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch00setup_files/libs/quarto-html/quarto.js"></script>
+<script src="ch00setup_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch00setup_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ch00setup_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ch00setup_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch00setup_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ch00setup_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ch00setup_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ch00setup_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="data-cleaning-and-recoding" class="level1">
+<h1>Data Cleaning and Recoding</h1>
+<section id="cleaning-and-recoding-data-prior-to-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis">Cleaning and Recoding Data Prior to Analysis</h2>
+</section>
+<section id="cleaning-and-recoding-data-prior-to-analysis-1" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis-1">Cleaning and Recoding Data Prior to Analysis</h2>
+<p>Anytime you import survey, or really any kind of, data into R, you should always ask yourself what you need to do to get it prepared for analysis. With survey data specifically, there are usually a few things that should always be checked and usually changed prior to conducting any type of analysis.</p>
+<p>We will cover several of them here including the following: - Reordering a survey scale so higher values = more of something - Reorder incorrectly coded ordinal scales - Combine multiple questions into one response - Change the name of a variable to indicate what it measures - Combine multiple options into fewer groups - How to set specific values to NAs - How to apply survey weights</p>
+</section>
+<section id="importing-data" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data">Importing Data</h2>
+<p>We will be importing data from a Stata file downloaded from the American National Election Survey website for the 2020 presidential election in the United States. This survey interviewed over 8,000 US residents asking over 1,000 questions combined between a pre and post survey.</p>
+<p>You should always start a new analysis with a clean data set, meaning one that has not been previously altered. This allows for easier replication by other researchers and ensures that all of the changes made to variables and cases in your data set can be followed.</p>
+<p>Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The ‘haven’ package handles this unique aspect well by reading both the number and the variable label into R. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.</p>
+<p>You should always download the code book for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recoding-variables" class="level2">
+<h2 class="anchored" data-anchor-id="recoding-variables">Recoding Variables</h2>
+<section id="naming-conventions" class="level3">
+<h3 class="anchored" data-anchor-id="naming-conventions">Naming Conventions</h3>
+<p>It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use ‘snake_case’ which means connecting words with underscore ‘_’. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like ‘pres_app’ where pres = presidential and app = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.</p>
+<p>Keep this in mind as we work through this code.</p>
+</section>
+<section id="flipping-order-of-scale" class="level3">
+<h3 class="anchored" data-anchor-id="flipping-order-of-scale">Flipping Order of Scale</h3>
+<p>To simplify, we will focus only on a few variables in the 2020 ANES data. Let’s start with examining how this survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is ‘V201129x’, and it is coded where 1 = Strongly Approve and 4 = Strongly Disapprove. This is a classic example of when we would want to flip the scale so that higher values equals approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.</p>
+<p>First, let’s examine the attributes of the variable so that we can learn more about it before the transformations.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(anes<span class="sc">$</span>V201129x) <span class="co">#This gives you the variable label, class, and value labels for a survey object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$label
+[1] "PRE: SUMMARY: Approve or disapprove President handling job"
+
+$format.stata
+[1] "%12.0g"
+
+$class
+[1] "haven_labelled" "vctrs_vctr"     "double"        
+
+$labels
+-2. DK/RF in V201127 or V201128             1. Approve strongly 
+                             -2                               1 
+        2. Approve not strongly      3. Disapprove not strongly 
+                              2                               3 
+         4. Disapprove strongly 
+                              4 </code></pre>
+</div>
+</div>
+<p>Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in ‘haven_labelled’ format and the labels tells us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.</p>
+<p>Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the ‘tidyverse’.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(V201129x) <span class="sc">%&gt;%</span>                            <span class="co"># Variable we want the distribution for </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="co"># calculate percent  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  V201129x                                 n percent
+  &lt;dbl+lbl&gt;                            &lt;int&gt; &lt;chr&gt;  
+1 -2 [-2. DK/RF in V201127 or V201128]    56 0.7%   
+2  1 [1. Approve strongly]              2603 31.4%  
+3  2 [2. Approve not strongly]           759 9.2%   
+4  3 [3. Disapprove not strongly]        502 6.1%   
+5  4 [4. Disapprove strongly]           4360 52.7%  </code></pre>
+</div>
+</div>
+<p>From this output, we see an important fact - that right now missing data is coded as -2 and if we were to try and analyze this data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results causing us to draw incorrect conclusions. This is why you should always check the frequency distribution of your data prior to analysis.</p>
+<p>We also know from above that 1 = strongly approve while 4 = strongly disapprove. Next, we will flip the scale order while removing the missing data and saving a new variable called ‘pres_app’ for presidential approval.</p>
+<p>Note, that we will use ‘case_when’ here for our recodes rather than explicit ‘recode’ function. This is because ‘case_when’ is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need ‘case_when’ for more complex transformations such as combining two variables into one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">4</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  V201129x <span class="sc">==-</span><span class="dv">2</span> <span class="sc">~</span> <span class="cn">NA_real_</span>)) <span class="co">#This code makes all values of -2 = NA for analysis purposes. </span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Define value labels</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>value_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Strongly Disapprove"</span>, <span class="st">"Disapprove"</span>, <span class="st">"Approve"</span>, <span class="st">"Strongly Approve"</span>) <span class="co">#Add value labels to your new measure. Only use this if you need to as it changes the variable type to 'factor' which influences the types of analysis you can do with it. Previously, it was 'numeric'. </span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign value labels to the Response variable</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>pres_app <span class="ot">&lt;-</span> <span class="fu">factor</span>(anes<span class="sc">$</span>pres_app, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> value_labels)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pres_app) <span class="sc">%&gt;%</span>                            <span class="co"># Variable we want the distribution for </span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> scales<span class="sc">::</span><span class="fu">percent</span>(n <span class="sc">/</span> <span class="fu">sum</span>(n))) <span class="co"># calculate percent </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+  pres_app                n percent
+  &lt;fct&gt;               &lt;int&gt; &lt;chr&gt;  
+1 Strongly Disapprove  4360 52.7%  
+2 Disapprove            502 6.1%   
+3 Approve               759 9.2%   
+4 Strongly Approve     2603 31.4%  
+5 &lt;NA&gt;                   56 0.7%   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(anes<span class="sc">$</span>V201129x, anes<span class="sc">$</span>pres_app, <span class="at">expected =</span> <span class="cn">FALSE</span>, <span class="at">chisq=</span><span class="cn">FALSE</span>,  <span class="at">prop.c=</span><span class="cn">TRUE</span>, <span class="at">prop.r=</span><span class="cn">FALSE</span>, <span class="at">prop.t=</span><span class="cn">FALSE</span>, <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Cell Contents 
+|-------------------------|
+|                       N | 
+|           N / Col Total | 
+|-------------------------|
+
+===============================================================================
+                 anes$pres_app
+anes$V201129x    Strngly Dspprv   Disapprove   Approve   Strongly Apprv   Total
+-------------------------------------------------------------------------------
+-2                            0            0         0                0       0
+                              0            0         0                0        
+-------------------------------------------------------------------------------
+1                             0            0         0             2603    2603
+                              0            0         0                1        
+-------------------------------------------------------------------------------
+2                             0            0       759                0     759
+                              0            0         1                0        
+-------------------------------------------------------------------------------
+3                             0          502         0                0     502
+                              0            1         0                0        
+-------------------------------------------------------------------------------
+4                          4360            0         0                0    4360
+                              1            0         0                0        
+-------------------------------------------------------------------------------
+Total                      4360          502       759             2603    8224
+                          0.530        0.061     0.092            0.317        
+===============================================================================</code></pre>
+</div>
+</div>
+<p>This example showed us how to flip the order of a question scale so that higher values indicates more of whatever the question measures, in this case presidential approval. We named the new variable ‘pres_app’ to keep the label short but also informative of what the question measures then added value labels to ensure we know what each value represents.</p>
+<p>It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks: First, we checked the frequency distribution the new variable to ensure we see what we expect to see. Next, we run a crosstab between our new variable and the original. We expect to see a mirror image in the crosstab which we do. This means our recode was successful and 4=strongly approve while 1=strongly disapprove.</p>
+<p>We then used the ‘haven’ package to label the new ‘pres_app’ with more informative information to ensure we remember what the variable is measuring.</p>
+<p>Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the ‘if_else’ command along with mutate to create a new presidential approval variable ‘pres_app3’, which is the inverse of the original presidential approval variable ‘V201129x’. Here we multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - strongly approve, approve, disapprove, strongly disapprove - so we add 4+1 or five to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Additional way to flip your scale </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app3 =</span> <span class="fu">if_else</span>(V201129x<span class="sc">&gt;=</span><span class="dv">1</span>, (V201129x<span class="sc">*-</span><span class="dv">1</span>)<span class="sc">+</span><span class="dv">5</span>, <span class="cn">NA</span>)) <span class="co">#When original variable &gt;= 1, we will multiply the original variable by -1 and then add 1 more than the total scale points. Since there were 4 scale points in the original scale, we add 5. We also recode anything that was &gt;=1 originally as NA since that reflects a non-substantive response. </span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#1 becomes 4 b/c (1*-1)=-1+5=4</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#2 becomes 3 b/c (2*-1)=-2+5=3</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#3 becomes 2 b/c (3*-1)=-3+5=2</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#4 becomes 1 b/c (4*-1)=-4+5=1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(V201129x)  <span class="sc">%&gt;%</span> <span class="co">#Original variable</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pres_app3)         <span class="co"># New variable </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+# Groups:   V201129x [5]
+  V201129x                             pres_app3     n
+  &lt;dbl+lbl&gt;                                &lt;dbl&gt; &lt;int&gt;
+1 -2 [-2. DK/RF in V201127 or V201128]        NA    56
+2  1 [1. Approve strongly]                     4  2603
+3  2 [2. Approve not strongly]                 3   759
+4  3 [3. Disapprove not strongly]              2   502
+5  4 [4. Disapprove strongly]                  1  4360</code></pre>
+</div>
+</div>
+</section>
+<section id="combining-two-variables-into-one" class="level3">
+<h3 class="anchored" data-anchor-id="combining-two-variables-into-one">Combining Two Variables into One</h3>
+<p>Now, let’s combine two variables into one. Oftentimes, surveys will ask branching questions that need to be combined for analysis purposes. In fact, the presidential approval measure we just analyzed is the combination of two questions. Most survey firms will not pre-combine these two questions into one so it is important to learn how to do so.</p>
+<p>There are two variables to combine:</p>
+<ul>
+<li><p>V201127 (1= approve &amp; 2=disapprove) #Approve/Disapprove of performance</p></li>
+<li><p>V201128 (1=strongly &amp; 2 = not strongly) #How strongly approve/disapprove of performance</p></li>
+</ul>
+<p>Remember, higher values should equal more approval so we want 4 = strongly approve and 1 = strongly disapprove.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First run a crosstab between your two existing variables to get the distribution across cells. </span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(V201128 )  <span class="sc">%&gt;%</span> <span class="co">#X Variable in Crosstab </span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(V201127)         <span class="co"># Y Variable in Crosstab </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+# Groups:   V201128 [4]
+  V201128               V201127                 n
+  &lt;dbl+lbl&gt;             &lt;dbl+lbl&gt;           &lt;int&gt;
+1 -9 [-9. Refused]       1 [1. Approve]         3
+2 -9 [-9. Refused]       2 [2. Disapprove]      1
+3 -1 [-1. Inapplicable] -9 [-9. Refused]       44
+4 -1 [-1. Inapplicable] -8 [-8. Don't know]     8
+5  1 [1. Strongly]       1 [1. Approve]      2603
+6  1 [1. Strongly]       2 [2. Disapprove]   4360
+7  2 [2. Not strongly]   1 [1. Approve]       759
+8  2 [2. Not strongly]   2 [2. Disapprove]    502</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Next, create your new variable based on the 4 possible combinations using a series of &amp; statements. Be careful.</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pid_x' where higher values=more republican </span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">1</span>))</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Now, if we want we can make a new factor variable that saves the labels. </span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pres_app2_f' which is a factorized version of the above pres_app2 measure.  </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app2_f =</span> <span class="fu">case_when</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">'Strong Approve'</span>,</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">1</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="st">'Approve'</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="st">'Disapprove'</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    V201127<span class="sc">==</span><span class="dv">2</span> <span class="sc">&amp;</span> V201128 <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">'Strong Disapprove'</span>))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Check our work against the original variables.</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(V201128, V201127)  <span class="sc">%&gt;%</span> <span class="co">#X Variable in Crosstab </span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pres_app2)         <span class="co"># Y Variable in Crosstab  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+# Groups:   V201128, V201127 [8]
+  V201128               V201127             pres_app2     n
+  &lt;dbl+lbl&gt;             &lt;dbl+lbl&gt;               &lt;dbl&gt; &lt;int&gt;
+1 -9 [-9. Refused]       1 [1. Approve]            NA     3
+2 -9 [-9. Refused]       2 [2. Disapprove]         NA     1
+3 -1 [-1. Inapplicable] -9 [-9. Refused]           NA    44
+4 -1 [-1. Inapplicable] -8 [-8. Don't know]        NA     8
+5  1 [1. Strongly]       1 [1. Approve]             4  2603
+6  1 [1. Strongly]       2 [2. Disapprove]          1  4360
+7  2 [2. Not strongly]   1 [1. Approve]             3   759
+8  2 [2. Not strongly]   2 [2. Disapprove]          2   502</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check our work against our previously created variable.</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(pres_app)  <span class="sc">%&gt;%</span> <span class="co">#X Variable in Crosstab </span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(pres_app2)         <span class="co"># Y Variable in Crosstab  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 3
+# Groups:   pres_app [5]
+  pres_app            pres_app2     n
+  &lt;fct&gt;                   &lt;dbl&gt; &lt;int&gt;
+1 Strongly Disapprove         1  4360
+2 Disapprove                  2   502
+3 Approve                     3   759
+4 Strongly Approve            4  2603
+5 &lt;NA&gt;                       NA    56</code></pre>
+</div>
+</div>
+<p>Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard/piece of paper first.</p>
+</section>
+<section id="collapsing-variables-into-smaller-groups" class="level3">
+<h3 class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups">Collapsing Variables into Smaller Groups</h3>
+<p>Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (V201507x) as the example, let’s look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.</p>
+<p>Start by examining the frequency distribution for the variable you want to transform. For education, we see that ‘less than HS degree’ is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option HS degree. We also see that ‘some college but no degree’ option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.</p>
+<p>First, we will keep the original categories the same but combine the ‘less than HS degree’ with ‘HS degree’ options.</p>
+<p>Then, we will create a dummy variable for college degree or not (0 or 1):</p>
+<ul>
+<li>College Degree = People with Bachelor’s degree or graduate degree</li>
+<li>No College Degree = People with some college but no degree, HS degree, or no HS degree</li>
+</ul>
+<p>Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all: - College Degree = People with Bachelor’s degree or graduate degree - Some College = People with some college but no degree - High school degree or less = HS degree or no HS degree</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First look at the age distribution</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(V201511x)         <span class="co"># Variable to analyze </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 2
+  V201511x                                                              n
+  &lt;dbl+lbl&gt;                                                         &lt;int&gt;
+1 -9 [-9. Refused]                                                     33
+2 -8 [-8. Don't know]                                                   1
+3 -2 [-2. Missing, other specify not coded for preliminary release]    97
+4  1 [1. Less than high school credential]                            376
+5  2 [2. High school credential]                                     1336
+6  3 [3. Some post-high school, no bachelor's degree]                2790
+7  4 [4. Bachelor's degree]                                          2055
+8  5 [5. Graduate degree]                                            1592</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college =</span> <span class="fu">ifelse</span>(V201511x <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">1</span>, V201511x<span class="dv">-1</span>)) <span class="co">#Recodes all values from the original education variables that are 1 or 2 to be = 1 and then sets all other values to their original value - 1 t0 keep the order in tact of 1, 2, 3, 4. </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>value_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"HS or Less"</span>, <span class="st">"Some College"</span>, <span class="st">"College Degree"</span>, <span class="st">"Graduate Degree"</span>) <span class="co">#Add value labels to your new measure. Only use this if you need to as it changes the variable type to 'factor' which influences the types of analysis you can do with it. Previously, it was 'numeric'. </span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Assign value labels to the Response variable</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>anes<span class="sc">$</span>college <span class="ot">&lt;-</span> <span class="fu">factor</span>(anes<span class="sc">$</span>college, <span class="at">levels =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>, <span class="at">labels =</span> value_labels)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">#You should notice that -9 = missing data. -9 will automatically become NA in the new variable if you simply do nothing with it in this code. </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="do">##Second way to recode our college variable; this time to create a dummy variable. </span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co"># </span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">'No College Degree'</span>,</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">2</span>  <span class="sc">~</span> <span class="st">'No College Degree'</span>,</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">3</span>  <span class="sc">~</span> <span class="st">'No College Degree'</span>,</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">4</span>  <span class="sc">~</span> <span class="st">'College Degree'</span>,</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">5</span>  <span class="sc">~</span> <span class="st">'College Degree'</span>))</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co"># </span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">2</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">3</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">4</span>  <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">5</span>  <span class="sc">~</span> <span class="dv">1</span>))</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(anes<span class="sc">$</span>college)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "factor"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Checks distribution of new variable </span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(college)         <span class="co">#  New Variable </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  college             n
+  &lt;fct&gt;           &lt;int&gt;
+1 HS or Less       1712
+2 Some College     2790
+3 College Degree   2055
+4 Graduate Degree  1592
+5 &lt;NA&gt;              131</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Crosstab between original and new variable to ensure recode success</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using    </span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(V201511x) <span class="sc">%&gt;%</span> <span class="co">#Original Variable </span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(college)         <span class="co"># New Variable </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+# Groups:   V201511x [8]
+  V201511x                                                         college     n
+  &lt;dbl+lbl&gt;                                                        &lt;fct&gt;   &lt;int&gt;
+1 -9 [-9. Refused]                                                 &lt;NA&gt;       33
+2 -8 [-8. Don't know]                                              &lt;NA&gt;        1
+3 -2 [-2. Missing, other specify not coded for preliminary releas… &lt;NA&gt;       97
+4  1 [1. Less than high school credential]                         HS or …   376
+5  2 [2. High school credential]                                   HS or …  1336
+6  3 [3. Some post-high school, no bachelor's degree]              Some C…  2790
+7  4 [4. Bachelor's degree]                                        Colleg…  2055
+8  5 [5. Graduate degree]                                          Gradua…  1592</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">###Different approach to creating a dichotomous variable. Here, you have to explicitly make missing data NA </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college2 =</span> <span class="fu">if_else</span>(V201511x<span class="sc">&gt;</span><span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#Explicitly making the values -1/-9 NA </span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college2 =</span> <span class="fu">replace</span>(college2, V201511x <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">1</span>, <span class="cn">NA</span>)) <span class="co">#Removes NA from new college2 variable  </span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#Crosstab between original and new variable to ensure recode success</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using    </span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(V201511x) <span class="sc">%&gt;%</span> <span class="co">#Original Variable </span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(college2)         <span class="co"># New Variable </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+# Groups:   V201511x [8]
+  V201511x                                                        college2     n
+  &lt;dbl+lbl&gt;                                                          &lt;dbl&gt; &lt;int&gt;
+1 -9 [-9. Refused]                                                      NA    33
+2 -8 [-8. Don't know]                                                   NA     1
+3 -2 [-2. Missing, other specify not coded for preliminary relea…       NA    97
+4  1 [1. Less than high school credential]                               0   376
+5  2 [2. High school credential]                                         0  1336
+6  3 [3. Some post-high school, no bachelor's degree]                    0  2790
+7  4 [4. Bachelor's degree]                                              1  2055
+8  5 [5. Graduate degree]                                                1  1592</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create our third new education variable; this one with 3 options</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co"># </span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">college3 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="st">'HS Degree or Less'</span>,</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">2</span>  <span class="sc">~</span> <span class="st">'HS Degree or Less'</span>,</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">3</span>  <span class="sc">~</span> <span class="st">'Some College'</span>,</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">4</span>  <span class="sc">~</span> <span class="st">'College Degree'</span>,</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    V201511x<span class="sc">==</span><span class="dv">5</span>  <span class="sc">~</span> <span class="st">'College Degree'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="working-with-missing-datanon-substantive-responses" class="level2">
+<h2 class="anchored" data-anchor-id="working-with-missing-datanon-substantive-responses">Working with Missing Data/non-Substantive Responses</h2>
+<p>Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as ‘-2’ or ‘99’. If this is the case, you must ensure that R knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.</p>
+<p>If we only want to change a specific value or values to NA without recoding the entire variable, we can use the ‘replace’ function from ‘tidyverse’. We still want to save a new variable since we are transforming the orginial variable in some way but we will not need to do anything else to the variable. Here we recode ‘-9’ to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.</p>
+<p>This code easily handles more complexity as the second recode changes any values &lt;= -1 or &gt;= 101 to system missing as the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trump_feel =</span> <span class="fu">replace</span>(V201152, V201152 <span class="sc">==</span> <span class="sc">-</span><span class="dv">9</span>, <span class="cn">NA</span>)) <span class="co">#Create new variable called 'trump_feel' which equals the original variable 'V201151' but replace all -9 values as NA</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">biden_feel =</span> <span class="fu">replace</span>(V201151, (V201151 <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">|</span> V201151 <span class="sc">&gt;=</span> <span class="dv">101</span>), <span class="cn">NA</span>)) <span class="co">#Create new variable called 'biden_feel' which equals the original variable 'V201151' but replace all -9 values as NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Remember, we already looked at how to make a value system missing using ‘case_when’ when recoding the entire variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA </span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app =</span> <span class="fu">case_when</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">1</span> <span class="sc">~</span> <span class="dv">4</span>,</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">2</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">3</span> <span class="sc">~</span> <span class="dv">2</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    V201129x <span class="sc">==</span><span class="dv">4</span> <span class="sc">~</span> <span class="dv">1</span>, </span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  V201129x <span class="sc">==-</span><span class="dv">2</span> <span class="sc">~</span> <span class="cn">NA_real_</span>)) <span class="co">#This code makes all values of -2 = NA for analysis purposes. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="merging-external-data-into-survey-data" class="level2">
+<h2 class="anchored" data-anchor-id="merging-external-data-into-survey-data">Merging External Data into Survey Data</h2>
+<p>Depending on the sample, sometimes it is possible to link external data - i.e.&nbsp;data not collected in the survey but from some source external to the interview - to individual survey records. This can include things like a student’s grades if you work for a school system or voting records for political poll respondents. In these cases, researchers can utilize these external files to do a variety of interesting analyses. However, the first step is to merge the two files, which is not always easy to do.</p>
+<p>Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual voted tied to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important around who actually turns out to vote versus who says they turn out to vote.</p>
+<p>Let’s go through that process here.</p>
+<p>Step 1, we need to identify the ‘case_id’, which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files and ensure they have the same structure for their ‘case_id’ variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches. Always closely examine what are in your columns before trying to merge.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>vvote <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_VoterValidation.dta'</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(anes<span class="sc">$</span>V200001)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200015 200022 200039 200046 200053 200060</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vvote<span class="sc">$</span>V200001)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200015 200022 200039 200046 200053 200060</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="ot">&lt;-</span> <span class="fu">merge</span>(anes, vvote, <span class="at">by =</span> <span class="st">"V200001"</span>, <span class="at">all =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’ll start by looking at the codebook for the validated vote data which tells us that ‘V200001’ is the name for the ‘case_id’ variable and that it should match the original 2020 ANES name exactly. Using the ‘head’ function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.</p>
+<p>Note, there are 18,430 cases in the ‘vvote’ data frame while there are only 8280 in the ‘anes’ data. That means the vvote data has cases that do not exist in the ‘anes’ data, which is fine. We do not want to merge data that is not included in the ANES file. By including ‘all = FALSE’, we tell R to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="ot">&lt;-</span> <span class="fu">merge</span>(anes, vvote, <span class="at">by =</span> <span class="st">"V200001"</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(anes_vv)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(vvote)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "version"           "V200001"           "val1_addmatch"    
+ [4] "val1_number"       "val1_matchprob"    "val1_turnout16"   
+ [7] "val1_turnout20"    "val1_hh_turnout16" "val1_hh_turnout20"
+[10] "val2_addmatch"     "val2_number"       "val2_matchprob"   
+[13] "val2_match"        "val2_turnout16"    "val2_turnout20"   
+[16] "val2_hh_turnout16" "val2_hh_turnout20" "val2_c1_minor"    
+[19] "val2_c1_major"     "val2_c1_match"     "val2_c2_minor"    
+[22] "val2_c2_major"     "val2_c2_match"    </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Distribution of responses</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(val1_turnout20)         <span class="co"># Y Variable in Crosstab </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  val1_turnout20    n
+1              2  261
+2              3 1605
+3              4 2965
+4              5  933
+5              6 2516</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(val2_turnout20)         <span class="co"># Y Variable in Crosstab </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  val2_turnout20    n
+1              2  424
+2              3 1034
+3              7 6822</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">CrossTable</span>(anes_vv<span class="sc">$</span>val1_turnout20, anes_vv<span class="sc">$</span>val2_turnout20, <span class="at">expected =</span> <span class="cn">FALSE</span>, <span class="at">chisq=</span><span class="cn">TRUE</span>,  <span class="at">prop.c=</span><span class="cn">TRUE</span>, <span class="at">prop.r=</span><span class="cn">FALSE</span>, <span class="at">prop.t=</span><span class="cn">FALSE</span>, <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Cell Contents 
+|-------------------------|
+|                       N | 
+|           N / Col Total | 
+|-------------------------|
+
+=======================================================
+                          anes_vv$val2_turnout20
+anes_vv$val1_turnout20        2       3       7   Total
+-------------------------------------------------------
+2                            67      55     139     261
+                          0.158   0.053   0.020        
+-------------------------------------------------------
+3                           187     710     708    1605
+                          0.441   0.687   0.104        
+-------------------------------------------------------
+4                            82     115    2768    2965
+                          0.193   0.111   0.406        
+-------------------------------------------------------
+5                            22      41     870     933
+                          0.052   0.040   0.128        
+-------------------------------------------------------
+6                            66     113    2337    2516
+                          0.156   0.109   0.343        
+-------------------------------------------------------
+Total                       424    1034    6822    8280
+                          0.051   0.125   0.824        
+=======================================================
+
+Statistics for All Table Factors
+
+Pearson's Chi-squared test 
+------------------------------------------------------------
+Chi^2 = 2492.817      d.f. = 8      p &lt;2e-16 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(anes_vv<span class="sc">$</span>V201529)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$label
+[1] "PRE: Describe R's employment"
+
+$format.stata
+[1] "%12.0g"
+
+$labels
+                                                                     -9. Refused 
+                                                                              -9 
+                                                                -1. Inapplicable 
+                                                                              -1 
+                                           1. For-profit company or organization 
+                                                                               1 
+  2. Non-profit organization (including tax-exempt and charitable organizations) 
+                                                                               2 
+               3. Local government (for example: city or county school district) 
+                                                                               3 
+                     4. State government (including state colleges/universities) 
+                                                                               4 
+                          5. Active duty U.S. Armed Forces or Commissioned Corps 
+                                                                               5 
+                                         6. Federal government civilian employee 
+                                                                               6 
+           7. Owner of non-incorporated business, professional practice, or farm 
+                                                                               7 
+               8. Owner of incorporated business, professional practice, or farm 
+                                                                               8 
+9. Worked without pay in a for-profit family business or farm for 15 hours or mo 
+                                                                               9 
+
+$class
+[1] "haven_labelled" "vctrs_vctr"     "double"        </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="sc">%&gt;%</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(V201529)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   V201529    n
+1       -9  181
+2       -1  234
+3        1 4141
+4        2  920
+5        3  772
+6        4  401
+7        5   49
+8        6  330
+9        7  683
+10       8  423
+11       9  146</code></pre>
+</div>
+</div>
+<p>Now that the files are merged, we can quickly see that in the original ‘anes’ file we had 1775 variables while in the new ‘anes_vv’ merged file we have 1797 variables, or 22 additional. A quick visual inspection of the end of the ‘anes_vv’ file reveals that the variables that were in the ‘vvote’ file are now appended to the end of our original ‘anes’ file. This means our merge was successful, and we can now start to analyze the newly created file.</p>
+<section id="applying-survey-weights-to-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="applying-survey-weights-to-analysis">Applying Survey Weights to Analysis</h4>
+<p>Survey weights make the survey sample’s demographic profile look more like its population while also sometimes accounting for things such as unequal likelihood of being selected to participate. Many publicly accessible large-n surveys will come with associated survey weights that should be applied when conducting analysis. For the most part, provided weights should always be used when analyzing survey data.</p>
+<p>Step 1 to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.</p>
+<p>By reviewing the 2020 ANES codebook, we see that we want to use ‘V200010b’ as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a ‘strata’ weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.</p>
+<p>The fact that we are required to use the post-election survey weight will pose an additional problem that not every respondent who took the pre-election survey returned for the post-election wave. This code requires no missing data in the weighting variable otherwise it will not run. So we first will remove the cases that do not have values in the post-election weight variable.</p>
+<p>We will use the ‘svydesign’ function from the ‘survey’ package to create new weighted data sets for analysis purposes. The new weighted file can then be used in analysis.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>anes_post <span class="ot">&lt;-</span> anes_vv[<span class="fu">complete.cases</span>(anes_vv[, <span class="fu">c</span>(<span class="st">"V200010b"</span>)]), ]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>anes_weighted <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span><span class="dv">1</span>, <span class="at">weights =</span><span class="sc">~</span>V200010b, <span class="at">data =</span> anes_post) <span class="co">#Creates new weighted data for analysis using the population weights only </span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>anes_weighted2 <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">ids =</span> <span class="sc">~</span>V200010c, <span class="at">weights =</span><span class="sc">~</span>V200010b, <span class="at">strata=</span><span class="sc">~</span>V200010d, <span class="at">nest=</span><span class="cn">TRUE</span>, <span class="at">data =</span> anes_post) <span class="co">#For more complex survey designs that includes additional weights including strata and PSUs. PSU weight = 'ids' while 'strata' = strata weight as specified in code book   </span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="co">#Creates new variable for use in analysis </span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>anes_post <span class="ot">&lt;-</span> anes_post <span class="sc">%&gt;%</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trump_feel =</span> <span class="fu">replace</span>(V201152, V201152 <span class="sc">==</span> <span class="sc">-</span><span class="dv">9</span>, <span class="cn">NA</span>)) <span class="co">#Create new variable called 'trump_feel' which equals the original variable 'V201152' but replace all -9 values as NA</span></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a><span class="do">###Analyze the mean of the Trump feeling thermometer measure for the different files </span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>trump_feel, anes_weighted, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co">#Get weighted mean for simple weighting scheme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             mean     SE
+trump_feel 41.289 0.6584</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">svymean</span>(<span class="sc">~</span>trump_feel, anes_weighted2, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="co">#Get weighted mean for complex weighting scheme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             mean     SE
+trump_feel 41.289 0.6973</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(anes_post<span class="sc">$</span>trump_feel, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="co">#Get unweighted mean for sample </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.97184</code></pre>
+</div>
+</div>
+<p>By examining the means across the weighted and unweighted files, we see that the two weighted files return identical means, with slightly different standard errors, but the unweighted mean being 1.3 points lower. The difference between the weighted and unweighted means is why we want to use the survey weights as the weighted data should provide more accurate point estimates.</p>
+</section>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

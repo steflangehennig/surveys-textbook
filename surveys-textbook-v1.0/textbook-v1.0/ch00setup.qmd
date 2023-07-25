@@ -303,7 +303,7 @@ Step 1, we need to identify the 'case_id', which is the column which should prov
 
 ```{r merging}
 
-vvote <- read_dta("C:/Users/Carey/Dropbox/UMass/2023-2024/Survey Analysis Class/Data/anes_timeseries_2020_stata_VoterValidation (1)/anes_timeseries_2020_stata_VoterValidation.dta")
+vvote <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_VoterValidation.dta')
 
 head(anes$V200001)
 head(vvote$V200001)
