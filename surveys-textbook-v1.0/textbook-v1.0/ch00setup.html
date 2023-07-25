@@ -111,22 +111,34 @@ Starting a New Analysis
 <p>You should always start a new analysis with a clean data set, meaning one that has not been previously altered. This allows for easier replication by other researchers and ensures that all of the changes made to variables and cases in your data set can be followed.</p>
 </div>
 </div>
-<p>Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The ‘haven’ package handles this unique aspect well by reading both the number and the variable label into R. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.</p>
-<p>You should always download the code book for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.</p>
+<p>Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The <code>haven</code> package handles this unique aspect well by reading both the number and the variable label into <code>R</code>. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Downloading Codebooks
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You should always download the codebook for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="recoding-variables" class="level2">
 <h2 class="anchored" data-anchor-id="recoding-variables">Recoding Variables</h2>
-<section id="naming-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="naming-conventions">Naming Conventions</h3>
-<p>It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use ‘snake_case’ which means connecting words with underscore ‘_’. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like ‘pres_app’ where pres = presidential and app = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.</p>
+<section id="naming-conventions" class="level4">
+<h4 class="anchored" data-anchor-id="naming-conventions">Naming Conventions</h4>
+<p>It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use ‘snake_case’, which means connecting words with an underscore ‘_’. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like <em>pres_app</em> where <em>pres</em> = presidential and <em>app</em> = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.</p>
 <p>Keep this in mind as we work through this code.</p>
 </section>
-<section id="flipping-order-of-scale" class="level3">
-<h3 class="anchored" data-anchor-id="flipping-order-of-scale">Flipping Order of Scale</h3>
-<p>To simplify, we will focus only on a few variables in the 2020 ANES data. Let’s start with examining how this survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is ‘V201129x’, and it is coded where 1 = Strongly Approve and 4 = Strongly Disapprove. This is a classic example of when we would want to flip the scale so that higher values equals approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.</p>
+<section id="flipping-order-of-scale" class="level4">
+<h4 class="anchored" data-anchor-id="flipping-order-of-scale">Flipping Order of Scale</h4>
+<p>To simplify, we will focus only on a few variables in the 2020 ANES data. Let’s start with examining how the ANES survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is <strong>V201129x</strong>, and it is coded where 1 = <em>Strongly Approve</em> and 4 = <em>Strongly Disapprove</em>. This is a classic example of when we would want to flip the scale so that higher values equal approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.</p>
 <p>First, let’s examine the attributes of the variable so that we can learn more about it before the transformations.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(anes<span class="sc">$</span>V201129x) <span class="co">#This gives you the variable label, class, and value labels for a survey object</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -149,8 +161,8 @@ $labels
                               4 </code></pre>
 </div>
 </div>
-<p>Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in ‘haven_labelled’ format and the labels tells us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.</p>
-<p>Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the ‘tidyverse’.</p>
+<p>Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in <code>haven_labelled</code> format, and the labels tell us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.</p>
+<p>Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the <code>tidyverse</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(V201129x) <span class="sc">%&gt;%</span>                            <span class="co"># Variable we want the distribution for </span></span>
@@ -166,9 +178,22 @@ $labels
 5  4 [4. Disapprove strongly]           4360 52.7%  </code></pre>
 </div>
 </div>
-<p>From this output, we see an important fact - that right now missing data is coded as -2 and if we were to try and analyze this data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results causing us to draw incorrect conclusions. This is why you should always check the frequency distribution of your data prior to analysis.</p>
-<p>We also know from above that 1 = strongly approve while 4 = strongly disapprove. Next, we will flip the scale order while removing the missing data and saving a new variable called ‘pres_app’ for presidential approval.</p>
-<p>Note, that we will use ‘case_when’ here for our recodes rather than explicit ‘recode’ function. This is because ‘case_when’ is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need ‘case_when’ for more complex transformations such as combining two variables into one.</p>
+<p>From this output, we see an important fact: missing data is currently coded as -2 and if we tried to analyze these data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results, causing us to draw incorrect conclusions.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Missing data that is coded in a particular way can bias your results. Always check the frequency distribution of your data prior to analysis.</p>
+</div>
+</div>
+<p>We also know from above that 1 = <em>Strongly Approve</em> while 4 = <em>Strongly Disapprove</em>. Next, we will flip the scale order while removing the missing data and saving a new variable called <em>pres_app</em> for presidential approval.</p>
+<p>Note, that we will use <code>case_when</code> here for recoding rather than the explicit <code>recode</code> function. This is because <code>case_when</code> is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need <code>case_when</code> for more complex transformations such as combining two variables into one.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA </span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app =</span> <span class="fu">case_when</span>(</span>
@@ -230,10 +255,14 @@ Total                      4360          502       759             2603    8224
 ===============================================================================</code></pre>
 </div>
 </div>
-<p>This example showed us how to flip the order of a question scale so that higher values indicates more of whatever the question measures, in this case presidential approval. We named the new variable ‘pres_app’ to keep the label short but also informative of what the question measures then added value labels to ensure we know what each value represents.</p>
-<p>It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks: First, we checked the frequency distribution the new variable to ensure we see what we expect to see. Next, we run a crosstab between our new variable and the original. We expect to see a mirror image in the crosstab which we do. This means our recode was successful and 4=strongly approve while 1=strongly disapprove.</p>
-<p>We then used the ‘haven’ package to label the new ‘pres_app’ with more informative information to ensure we remember what the variable is measuring.</p>
-<p>Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the ‘if_else’ command along with mutate to create a new presidential approval variable ‘pres_app3’, which is the inverse of the original presidential approval variable ‘V201129x’. Here we multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - strongly approve, approve, disapprove, strongly disapprove - so we add 4+1 or five to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.</p>
+<p>This example illustrates how to flip the order of a question scale so that higher values indicate more of whatever the question measures, in this case presidential approval. We named the new variable <em>pres_app</em> to keep the label short but also informative of what the question measures. We then added value labels to ensure we know what each value represents.</p>
+<p>It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks:</p>
+<ol type="1">
+<li>We checked the frequency distribution of the new variable to ensure we see what we expect to see.</li>
+<li>We run a crosstab between our new variable and the original. We should expect to see a mirror image in the crosstab, which we do. This means our recode was successful and 4 = <em>Strongly Approve</em> while 1 = <em>Strongly Disapprove</em>.</li>
+</ol>
+<p>We then used the <code>haven</code> package to label the new <em>pres_app</em> with more informative information to ensure we remember what the variable is measuring.</p>
+<p>Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the <code>if_else</code> command along with <code>mutate</code> to create a new presidential approval variable <em>pres_app3</em>, which is the inverse of the original presidential approval variable <strong>V201129x</strong>. We multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - <em>strongly approve, approve, disapprove, strongly disapprove</em> - so we add 4+1 (5) to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Additional way to flip your scale </span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> </span>
@@ -260,15 +289,15 @@ Total                      4360          502       759             2603    8224
 </div>
 </div>
 </section>
-<section id="combining-two-variables-into-one" class="level3">
-<h3 class="anchored" data-anchor-id="combining-two-variables-into-one">Combining Two Variables into One</h3>
+<section id="combining-two-variables-into-one" class="level4">
+<h4 class="anchored" data-anchor-id="combining-two-variables-into-one">Combining Two Variables into One</h4>
 <p>Now, let’s combine two variables into one. Oftentimes, surveys will ask branching questions that need to be combined for analysis purposes. In fact, the presidential approval measure we just analyzed is the combination of two questions. Most survey firms will not pre-combine these two questions into one so it is important to learn how to do so.</p>
 <p>There are two variables to combine:</p>
 <ul>
-<li><p>V201127 (1= approve &amp; 2=disapprove) #Approve/Disapprove of performance</p></li>
-<li><p>V201128 (1=strongly &amp; 2 = not strongly) #How strongly approve/disapprove of performance</p></li>
+<li><p><strong>V201127</strong> (1= approve &amp; 2=disapprove) #Approve/Disapprove of performance</p></li>
+<li><p><strong>V201128</strong> (1=strongly &amp; 2 = not strongly) #How strongly approve/disapprove of performance</p></li>
 </ul>
-<p>Remember, higher values should equal more approval so we want 4 = strongly approve and 1 = strongly disapprove.</p>
+<p>Remember, higher values should equal more approval so we want 4 = <em>Strongly Approve</em> and 1 = <em>Strongly Disapprove</em>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First run a crosstab between your two existing variables to get the distribution across cells. </span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -343,7 +372,7 @@ Total                      4360          502       759             2603    8224
 5 &lt;NA&gt;                       NA    56</code></pre>
 </div>
 </div>
-<p>Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard/piece of paper first.</p>
+<p>Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard or piece of paper first.</p>
 </section>
 <section id="collapsing-variables-into-smaller-groups" class="level3">
 <h3 class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups">Collapsing Variables into Smaller Groups</h3>

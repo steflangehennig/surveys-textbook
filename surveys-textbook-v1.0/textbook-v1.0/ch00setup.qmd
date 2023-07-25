@@ -39,9 +39,12 @@ We will be importing data from a Stata file downloaded from the [American Nation
 You should always start a new analysis with a clean data set, meaning one that has not been previously altered. This allows for easier replication by other researchers and ensures that all of the changes made to variables and cases in your data set can be followed.
 :::
 
-Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The 'haven' package handles this unique aspect well by reading both the number and the variable label into R. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.
+Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The `haven` package handles this unique aspect well by reading both the number and the variable label into `R`. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.
 
-You should always download the code book for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.
+::: {.callout-tip}
+## Downloading Codebooks
+You should always download the codebook for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.
+:::
 
 ```{r}
 anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
@@ -50,15 +53,15 @@ anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/D
 
 ## Recoding Variables
 
-### Naming Conventions
+#### Naming Conventions
 
-It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use 'snake_case' which means connecting words with underscore '\_'. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like 'pres_app' where pres = presidential and app = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.
+It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use 'snake_case', which means connecting words with an underscore '\_'. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like _pres_app_ where _pres_ = presidential and _app_ = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.
 
 Keep this in mind as we work through this code.
 
-### Flipping Order of Scale
+#### Flipping Order of Scale
 
-To simplify, we will focus only on a few variables in the 2020 ANES data. Let's start with examining how this survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is 'V201129x', and it is coded where 1 = Strongly Approve and 4 = Strongly Disapprove. This is a classic example of when we would want to flip the scale so that higher values equals approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.
+To simplify, we will focus only on a few variables in the 2020 ANES data. Let's start with examining how the ANES survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is **V201129x**, and it is coded where 1 = _Strongly Approve_ and 4 = _Strongly Disapprove_. This is a classic example of when we would want to flip the scale so that higher values equal approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.
 
 First, let's examine the attributes of the variable so that we can learn more about it before the transformations.
 
@@ -68,9 +71,9 @@ attributes(anes$V201129x) #This gives you the variable label, class, and value l
 
 ```
 
-Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in 'haven_labelled' format and the labels tells us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.
+Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in `haven_labelled` format, and the labels tell us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.
 
-Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the 'tidyverse'.
+Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the `tidyverse`.
 
 ```{r}
 
@@ -80,11 +83,15 @@ anes %>%     #Data we are using
 
 ```
 
-From this output, we see an important fact - that right now missing data is coded as -2 and if we were to try and analyze this data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results causing us to draw incorrect conclusions. This is why you should always check the frequency distribution of your data prior to analysis.
+From this output, we see an important fact: missing data is currently coded as -2 and if we tried to analyze these data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results, causing us to draw incorrect conclusions. 
 
-We also know from above that 1 = strongly approve while 4 = strongly disapprove. Next, we will flip the scale order while removing the missing data and saving a new variable called 'pres_app' for presidential approval.
+::: {.callout-important}
+Missing data that is coded in a particular way can bias your results. Always check the frequency distribution of your data prior to analysis.
+:::
 
-Note, that we will use 'case_when' here for our recodes rather than explicit 'recode' function. This is because 'case_when' is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need 'case_when' for more complex transformations such as combining two variables into one.
+We also know from above that 1 = _Strongly Approve_ while 4 = _Strongly Disapprove_. Next, we will flip the scale order while removing the missing data and saving a new variable called _pres_app_ for presidential approval.
+
+Note, that we will use `case_when` here for recoding rather than the explicit `recode` function. This is because `case_when` is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need `case_when` for more complex transformations such as combining two variables into one.
 
 ```{r}
 
@@ -112,13 +119,16 @@ CrossTable(anes$V201129x, anes$pres_app, expected = FALSE, chisq=FALSE,  prop.c=
 
 ```
 
-This example showed us how to flip the order of a question scale so that higher values indicates more of whatever the question measures, in this case presidential approval. We named the new variable 'pres_app' to keep the label short but also informative of what the question measures then added value labels to ensure we know what each value represents.
+This example illustrates how to flip the order of a question scale so that higher values indicate more of whatever the question measures, in this case presidential approval. We named the new variable _pres_app_ to keep the label short but also informative of what the question measures. We then added value labels to ensure we know what each value represents.
 
-It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks: First, we checked the frequency distribution the new variable to ensure we see what we expect to see. Next, we run a crosstab between our new variable and the original. We expect to see a mirror image in the crosstab which we do. This means our recode was successful and 4=strongly approve while 1=strongly disapprove.
+It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks: 
 
-We then used the 'haven' package to label the new 'pres_app' with more informative information to ensure we remember what the variable is measuring.
+1. We checked the frequency distribution of the new variable to ensure we see what we expect to see. 
+2. We run a crosstab between our new variable and the original. We should expect to see a mirror image in the crosstab, which we do. This means our recode was successful and 4 = _Strongly Approve_ while 1 = _Strongly Disapprove_. 
 
-Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the 'if_else' command along with mutate to create a new presidential approval variable 'pres_app3', which is the inverse of the original presidential approval variable 'V201129x'. Here we multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - strongly approve, approve, disapprove, strongly disapprove - so we add 4+1 or five to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.
+We then used the `haven` package to label the new _pres_app_ with more informative information to ensure we remember what the variable is measuring.
+
+Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the `if_else` command along with `mutate` to create a new presidential approval variable _pres_app3_, which is the inverse of the original presidential approval variable **V201129x**. We multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - _strongly approve, approve, disapprove, strongly disapprove_ - so we add 4+1 (5) to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.
 
 ```{r}
 #Additional way to flip your scale 
@@ -136,17 +146,17 @@ anes %>%     #Data we are using
 
 ```
 
-### Combining Two Variables into One
+#### Combining Two Variables into One
 
 Now, let's combine two variables into one. Oftentimes, surveys will ask branching questions that need to be combined for analysis purposes. In fact, the presidential approval measure we just analyzed is the combination of two questions. Most survey firms will not pre-combine these two questions into one so it is important to learn how to do so.
 
 There are two variables to combine:
 
--   V201127 (1= approve & 2=disapprove) #Approve/Disapprove of performance
+  - **V201127** (1= approve & 2=disapprove) #Approve/Disapprove of performance
 
--   V201128 (1=strongly & 2 = not strongly) #How strongly approve/disapprove of performance
+  - **V201128** (1=strongly & 2 = not strongly) #How strongly approve/disapprove of performance
 
-Remember, higher values should equal more approval so we want 4 = strongly approve and 1 = strongly disapprove.
+Remember, higher values should equal more approval so we want 4 = _Strongly Approve_ and 1 = _Strongly Disapprove_.
 
 ```{r}
 #First run a crosstab between your two existing variables to get the distribution across cells. 
@@ -187,9 +197,9 @@ anes %>%     #Data we are using
 
 ```
 
-Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard/piece of paper first.
+Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard or piece of paper first.
 
-### Collapsing Variables into Smaller Groups
+#### Collapsing Variables into Smaller Groups
 
 Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (V201507x) as the example, let's look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.
 
