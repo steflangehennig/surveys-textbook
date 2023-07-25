@@ -83,16 +83,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1>Data Cleaning and Recoding</h1>
 <section id="cleaning-and-recoding-data-prior-to-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis">Cleaning and Recoding Data Prior to Analysis</h2>
-</section>
-<section id="cleaning-and-recoding-data-prior-to-analysis-1" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis-1">Cleaning and Recoding Data Prior to Analysis</h2>
-<p>Anytime you import survey, or really any kind of, data into R, you should always ask yourself what you need to do to get it prepared for analysis. With survey data specifically, there are usually a few things that should always be checked and usually changed prior to conducting any type of analysis.</p>
-<p>We will cover several of them here including the following: - Reordering a survey scale so higher values = more of something - Reorder incorrectly coded ordinal scales - Combine multiple questions into one response - Change the name of a variable to indicate what it measures - Combine multiple options into fewer groups - How to set specific values to NAs - How to apply survey weights</p>
+<p>Anytime you import a survey, or really any kind of data into <code>R</code>, you should always ask yourself what you need to do to get it prepared for analysis. With survey data specifically, there are usually a few things that should always be checked and changed prior to conducting any type of analysis.</p>
+<p>We will cover several of them here, including the following:</p>
+<ul>
+<li>Reordering a survey scale so higher values = more of something</li>
+<li>Reorder incorrectly coded ordinal scales</li>
+<li>Combine multiple questions into one response</li>
+<li>Change the name of a variable to indicate what it measures</li>
+<li>Combine multiple options into fewer groups</li>
+<li>Setting specific values to <em>NAs</em></li>
+<li>Applying survey weights</li>
+</ul>
 </section>
 <section id="importing-data" class="level2">
 <h2 class="anchored" data-anchor-id="importing-data">Importing Data</h2>
-<p>We will be importing data from a Stata file downloaded from the American National Election Survey website for the 2020 presidential election in the United States. This survey interviewed over 8,000 US residents asking over 1,000 questions combined between a pre and post survey.</p>
+<p>We will be importing data from a Stata file downloaded from the <a href="https://electionstudies.org/data-center/2020-time-series-study/">American National Election Survey website</a> for the 2020 presidential election in the United States. This survey interviewed over 8,000 US residents asking over 1,000 questions combined between a pre and post survey.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Starting a New Analysis
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>You should always start a new analysis with a clean data set, meaning one that has not been previously altered. This allows for easier replication by other researchers and ensures that all of the changes made to variables and cases in your data set can be followed.</p>
+</div>
+</div>
 <p>Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The ‘haven’ package handles this unique aspect well by reading both the number and the variable label into R. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.</p>
 <p>You should always download the code book for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.</p>
 <div class="cell">
