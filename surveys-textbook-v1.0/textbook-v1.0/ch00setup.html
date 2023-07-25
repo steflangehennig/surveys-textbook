@@ -374,17 +374,22 @@ Total                      4360          502       759             2603    8224
 </div>
 <p>Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard or piece of paper first.</p>
 </section>
-<section id="collapsing-variables-into-smaller-groups" class="level3">
-<h3 class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups">Collapsing Variables into Smaller Groups</h3>
-<p>Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (V201507x) as the example, let’s look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.</p>
-<p>Start by examining the frequency distribution for the variable you want to transform. For education, we see that ‘less than HS degree’ is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option HS degree. We also see that ‘some college but no degree’ option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.</p>
-<p>First, we will keep the original categories the same but combine the ‘less than HS degree’ with ‘HS degree’ options.</p>
+<section id="collapsing-variables-into-smaller-groups" class="level4">
+<h4 class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups">Collapsing Variables into Smaller Groups</h4>
+<p>Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (<strong>V201507x</strong>) as the example, let’s look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.</p>
+<p>Start by examining the frequency distribution for the variable you want to transform. For education, we see that <em>less than HS degree</em> is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option, <em>HS degree</em>. We also see that <em>some college but no degree</em> option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.</p>
+<p>First, we will keep the original categories the same but combine the <em>less than HS degree</em> with <em>HS degree</em> options.</p>
 <p>Then, we will create a dummy variable for college degree or not (0 or 1):</p>
 <ul>
 <li>College Degree = People with Bachelor’s degree or graduate degree</li>
 <li>No College Degree = People with some college but no degree, HS degree, or no HS degree</li>
 </ul>
-<p>Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all: - College Degree = People with Bachelor’s degree or graduate degree - Some College = People with some college but no degree - High school degree or less = HS degree or no HS degree</p>
+<p>Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all:</p>
+<ul>
+<li>College Degree = People with Bachelor’s degree or graduate degree</li>
+<li>Some College = People with some college but no degree</li>
+<li>High school degree or less = HS degree or no HS degree</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#First look at the age distribution</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>anes <span class="sc">%&gt;%</span>     <span class="co">#Data we are using             </span></span>
@@ -502,9 +507,9 @@ Total                      4360          502       759             2603    8224
 </section>
 <section id="working-with-missing-datanon-substantive-responses" class="level2">
 <h2 class="anchored" data-anchor-id="working-with-missing-datanon-substantive-responses">Working with Missing Data/non-Substantive Responses</h2>
-<p>Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as ‘-2’ or ‘99’. If this is the case, you must ensure that R knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.</p>
-<p>If we only want to change a specific value or values to NA without recoding the entire variable, we can use the ‘replace’ function from ‘tidyverse’. We still want to save a new variable since we are transforming the orginial variable in some way but we will not need to do anything else to the variable. Here we recode ‘-9’ to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.</p>
-<p>This code easily handles more complexity as the second recode changes any values &lt;= -1 or &gt;= 101 to system missing as the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.</p>
+<p>Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as ‘-2’ or ‘99’. If this is the case, you must ensure that <code>R</code> knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.</p>
+<p>If we only want to change a specific value or values to <em>NA</em> without recoding the entire variable, we can use the <code>replace</code> function from <code>tidyverse</code>. We still want to save a new variable since we are transforming the orginal variable in some way but we will not need to do anything else to the variable. Here we recode ‘-9’ to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.</p>
+<p>This code easily handles more complexity as the second recode changes any values &lt;= -1 or &gt;= 101 to system missing since the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">trump_feel =</span> <span class="fu">replace</span>(V201152, V201152 <span class="sc">==</span> <span class="sc">-</span><span class="dv">9</span>, <span class="cn">NA</span>)) <span class="co">#Create new variable called 'trump_feel' which equals the original variable 'V201151' but replace all -9 values as NA</span></span>
@@ -512,7 +517,19 @@ Total                      4360          502       759             2603    8224
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span></span>
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">biden_feel =</span> <span class="fu">replace</span>(V201151, (V201151 <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">|</span> V201151 <span class="sc">&gt;=</span> <span class="dv">101</span>), <span class="cn">NA</span>)) <span class="co">#Create new variable called 'biden_feel' which equals the original variable 'V201151' but replace all -9 values as NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Remember, we already looked at how to make a value system missing using ‘case_when’ when recoding the entire variable.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Remember, we already looked at how to make a value system missing using <code>case_when</code> when recoding the entire variable.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> anes <span class="sc">%&gt;%</span> <span class="co">#This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA </span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pres_app =</span> <span class="fu">case_when</span>(</span>
@@ -526,9 +543,22 @@ Total                      4360          502       759             2603    8224
 <section id="merging-external-data-into-survey-data" class="level2">
 <h2 class="anchored" data-anchor-id="merging-external-data-into-survey-data">Merging External Data into Survey Data</h2>
 <p>Depending on the sample, sometimes it is possible to link external data - i.e.&nbsp;data not collected in the survey but from some source external to the interview - to individual survey records. This can include things like a student’s grades if you work for a school system or voting records for political poll respondents. In these cases, researchers can utilize these external files to do a variety of interesting analyses. However, the first step is to merge the two files, which is not always easy to do.</p>
-<p>Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual voted tied to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important around who actually turns out to vote versus who says they turn out to vote.</p>
+<p>Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual tied their vote to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important questions around who actually turns out to vote versus who says they turned out to vote.</p>
 <p>Let’s go through that process here.</p>
-<p>Step 1, we need to identify the ‘case_id’, which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files and ensure they have the same structure for their ‘case_id’ variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches. Always closely examine what are in your columns before trying to merge.</p>
+<p><strong>Step 1</strong>: we need to identify the <em>case_id</em>, which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files to ensure they have the same structure for their <em>case_id</em> variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Always closely examine what variables are in your columns before trying to merge, as this will influence the quality of your matches.</p>
+</div>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>vvote <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_VoterValidation.dta'</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -542,8 +572,8 @@ Total                      4360          502       759             2603    8224
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="ot">&lt;-</span> <span class="fu">merge</span>(anes, vvote, <span class="at">by =</span> <span class="st">"V200001"</span>, <span class="at">all =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We’ll start by looking at the codebook for the validated vote data which tells us that ‘V200001’ is the name for the ‘case_id’ variable and that it should match the original 2020 ANES name exactly. Using the ‘head’ function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.</p>
-<p>Note, there are 18,430 cases in the ‘vvote’ data frame while there are only 8280 in the ‘anes’ data. That means the vvote data has cases that do not exist in the ‘anes’ data, which is fine. We do not want to merge data that is not included in the ANES file. By including ‘all = FALSE’, we tell R to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.</p>
+<p>We’ll start by looking at the codebook for the validated vote data which tells us that <strong>V200001</strong> is the name for the <em>case_id</em> variable and that it should match the original 2020 ANES name exactly. Using the <code>head</code> function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.</p>
+<p>Note, there are 18,430 cases in the <code>vvote</code> data frame while there are only 8,280 in the <code>anes</code> data. That means the <code>vvote</code> data has cases that do not exist in the <code>anes</code> data, which is fine. We do not want to merge data that is not included in the ANES file. By including <code>all = FALSE</code>, we tell <code>R</code> to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>anes_vv <span class="ot">&lt;-</span> <span class="fu">merge</span>(anes, vvote, <span class="at">by =</span> <span class="st">"V200001"</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(anes_vv)</span>
@@ -666,9 +696,10 @@ $class
 11       9  146</code></pre>
 </div>
 </div>
-<p>Now that the files are merged, we can quickly see that in the original ‘anes’ file we had 1775 variables while in the new ‘anes_vv’ merged file we have 1797 variables, or 22 additional. A quick visual inspection of the end of the ‘anes_vv’ file reveals that the variables that were in the ‘vvote’ file are now appended to the end of our original ‘anes’ file. This means our merge was successful, and we can now start to analyze the newly created file.</p>
-<section id="applying-survey-weights-to-analysis" class="level4">
-<h4 class="anchored" data-anchor-id="applying-survey-weights-to-analysis">Applying Survey Weights to Analysis</h4>
+<p>Now that the files are merged, we can quickly see that in the original <code>anes</code> file we had 1,775 variables while in the new <code>anes_vv</code> merged file we have 1,797 variables, or 22 additional. A quick visual inspection of the end of the <code>anes_vv</code> file reveals that the variables that were in the <code>vvote</code> file are now appended to the end of our original <code>anes</code> file. This means our merge was successful, and we can now start to analyze the newly created file.</p>
+</section>
+<section id="applying-survey-weights-to-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="applying-survey-weights-to-analysis">Applying Survey Weights to Analysis</h2>
 <p>Survey weights make the survey sample’s demographic profile look more like its population while also sometimes accounting for things such as unequal likelihood of being selected to participate. Many publicly accessible large-n surveys will come with associated survey weights that should be applied when conducting analysis. For the most part, provided weights should always be used when analyzing survey data.</p>
 <p>Step 1 to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.</p>
 <p>By reviewing the 2020 ANES codebook, we see that we want to use ‘V200010b’ as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a ‘strata’ weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.</p>
@@ -700,7 +731,6 @@ trump_feel 41.289 0.6973</code></pre>
 </div>
 </div>
 <p>By examining the means across the weighted and unweighted files, we see that the two weighted files return identical means, with slightly different standard errors, but the unweighted mean being 1.3 points lower. The difference between the weighted and unweighted means is why we want to use the survey weights as the weighted data should provide more accurate point estimates.</p>
-</section>
 </section>
 </section>
 

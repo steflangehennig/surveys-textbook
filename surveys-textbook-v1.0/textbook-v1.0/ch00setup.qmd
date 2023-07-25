@@ -201,18 +201,22 @@ Once we run the above code, we see that we successfully created our new variable
 
 #### Collapsing Variables into Smaller Groups
 
-Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (V201507x) as the example, let's look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.
+Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (**V201507x**) as the example, let's look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.
 
-Start by examining the frequency distribution for the variable you want to transform. For education, we see that 'less than HS degree' is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option HS degree. We also see that 'some college but no degree' option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.
+Start by examining the frequency distribution for the variable you want to transform. For education, we see that _less than HS degree_ is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option, _HS degree_. We also see that _some college but no degree_ option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.
 
-First, we will keep the original categories the same but combine the 'less than HS degree' with 'HS degree' options.
+First, we will keep the original categories the same but combine the _less than HS degree_ with _HS degree_ options.
 
 Then, we will create a dummy variable for college degree or not (0 or 1):
 
--   College Degree = People with Bachelor's degree or graduate degree
--   No College Degree = People with some college but no degree, HS degree, or no HS degree
+  - College Degree = People with Bachelor's degree or graduate degree
+  - No College Degree = People with some college but no degree, HS degree, or no HS degree
 
-Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all: - College Degree = People with Bachelor's degree or graduate degree - Some College = People with some college but no degree - High school degree or less = HS degree or no HS degree
+Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all: 
+
+  - College Degree = People with Bachelor's degree or graduate degree 
+  - Some College = People with some college but no degree 
+  - High school degree or less = HS degree or no HS degree
 
 ```{r}
 #First look at the age distribution
@@ -282,11 +286,11 @@ anes <- anes %>% #
 
 ## Working with Missing Data/non-Substantive Responses
 
-Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as '-2' or '99'. If this is the case, you must ensure that R knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.
+Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as '-2' or '99'. If this is the case, you must ensure that `R` knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.
 
-If we only want to change a specific value or values to NA without recoding the entire variable, we can use the 'replace' function from 'tidyverse'. We still want to save a new variable since we are transforming the orginial variable in some way but we will not need to do anything else to the variable. Here we recode '-9' to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.
+If we only want to change a specific value or values to _NA_ without recoding the entire variable, we can use the `replace` function from `tidyverse`. We still want to save a new variable since we are transforming the orginal variable in some way but we will not need to do anything else to the variable. Here we recode '-9' to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.
 
-This code easily handles more complexity as the second recode changes any values \<= -1 or \>= 101 to system missing as the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.
+This code easily handles more complexity as the second recode changes any values \<= -1 or \>= 101 to system missing since the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.
 
 ```{r}
 
@@ -297,8 +301,9 @@ anes <- anes %>%
   mutate(biden_feel = replace(V201151, (V201151 <= -1 | V201151 >= 101), NA)) #Create new variable called 'biden_feel' which equals the original variable 'V201151' but replace all -9 values as NA
 
 ```
-
-Remember, we already looked at how to make a value system missing using 'case_when' when recoding the entire variable.
+::: {.callout-note}
+Remember, we already looked at how to make a value system missing using `case_when` when recoding the entire variable.
+:::
 
 ```{r}
 anes <- anes %>% #This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA 
@@ -314,11 +319,15 @@ anes <- anes %>% #This creates new variable called 'pres_app' where 4 = strongly
 
 Depending on the sample, sometimes it is possible to link external data - i.e. data not collected in the survey but from some source external to the interview - to individual survey records. This can include things like a student's grades if you work for a school system or voting records for political poll respondents. In these cases, researchers can utilize these external files to do a variety of interesting analyses. However, the first step is to merge the two files, which is not always easy to do.
 
-Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual voted tied to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important around who actually turns out to vote versus who says they turn out to vote.
+Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual tied their vote to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important questions around who actually turns out to vote versus who says they turned out to vote.
 
 Let's go through that process here.
 
-Step 1, we need to identify the 'case_id', which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files and ensure they have the same structure for their 'case_id' variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches. Always closely examine what are in your columns before trying to merge.
+To begin, we need to identify the _case_id_, which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files to ensure they have the same structure for their _case_id_ variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches. 
+
+::: {.callout-important}
+Always closely examine what variables are in your columns before trying to merge, as this will influence the quality of your matches.
+:::
 
 ```{r merging}
 
@@ -331,9 +340,9 @@ anes_vv <- merge(anes, vvote, by = "V200001", all = FALSE)
 
 ```
 
-We'll start by looking at the codebook for the validated vote data which tells us that 'V200001' is the name for the 'case_id' variable and that it should match the original 2020 ANES name exactly. Using the 'head' function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.
+We'll start by looking at the codebook for the validated vote data which tells us that **V200001** is the name for the _case_id_ variable and that it should match the original 2020 ANES name exactly. Using the `head` function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.
 
-Note, there are 18,430 cases in the 'vvote' data frame while there are only 8280 in the 'anes' data. That means the vvote data has cases that do not exist in the 'anes' data, which is fine. We do not want to merge data that is not included in the ANES file. By including 'all = FALSE', we tell R to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.
+Note, there are 18,430 cases in the `vvote` data frame while there are only 8,280 in the `anes` data. That means the `vvote` data has cases that do not exist in the `anes` data, which is fine. We do not want to merge data that is not included in the ANES file. By including `all = FALSE`, we tell `R` to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.
 
 ```{r}
 
@@ -354,19 +363,19 @@ anes_vv %>%
 
 ```
 
-Now that the files are merged, we can quickly see that in the original 'anes' file we had 1775 variables while in the new 'anes_vv' merged file we have 1797 variables, or 22 additional. A quick visual inspection of the end of the 'anes_vv' file reveals that the variables that were in the 'vvote' file are now appended to the end of our original 'anes' file. This means our merge was successful, and we can now start to analyze the newly created file.
+Now that the files are merged, we can quickly see that in the original `anes` file we had 1,775 variables while in the new `anes_vv` merged file we have 1,797 variables, or 22 additional. A quick visual inspection of the end of the `anes_vv` file reveals that the variables that were in the `vvote` file are now appended to the end of our original `anes` file. This means our merge was successful, and we can now start to analyze the newly created file.
 
-#### Applying Survey Weights to Analysis
+## Applying Survey Weights in the Analysis
 
 Survey weights make the survey sample's demographic profile look more like its population while also sometimes accounting for things such as unequal likelihood of being selected to participate. Many publicly accessible large-n surveys will come with associated survey weights that should be applied when conducting analysis. For the most part, provided weights should always be used when analyzing survey data.
 
-Step 1 to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.
+The first step to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.
 
-By reviewing the 2020 ANES codebook, we see that we want to use 'V200010b' as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a 'strata' weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.
+By reviewing the 2020 ANES codebook, we see that we want to use **V200010b** as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a `strata` weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.
 
 The fact that we are required to use the post-election survey weight will pose an additional problem that not every respondent who took the pre-election survey returned for the post-election wave. This code requires no missing data in the weighting variable otherwise it will not run. So we first will remove the cases that do not have values in the post-election weight variable.
 
-We will use the 'svydesign' function from the 'survey' package to create new weighted data sets for analysis purposes. The new weighted file can then be used in analysis.
+We will use the `svydesign` function from the `survey` package to create new weighted data sets for analysis purposes. The new weighted file can then be used in analysis.
 
 ```{r}
 anes_post <- anes_vv[complete.cases(anes_vv[, c("V200010b")]), ]
