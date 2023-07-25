@@ -1,0 +1,368 @@
+# Data Cleaning and Recoding
+
+## Cleaning and Recoding Data Prior to Analysis
+
+```{r setup, include=FALSE} 
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{r}
+#| label: load-packages
+#| include: false
+
+library(tidyverse)
+library(haven)
+library(Hmisc)
+library(poliscidata)
+library(descr)
+library(survey)
+```
+
+## Cleaning and Recoding Data Prior to Analysis
+
+Anytime you import survey, or really any kind of, data into R, you should always ask yourself what you need to do to get it prepared for analysis. With survey data specifically, there are usually a few things that should always be checked and usually changed prior to conducting any type of analysis.
+
+We will cover several of them here including the following: - Reordering a survey scale so higher values = more of something - Reorder incorrectly coded ordinal scales - Combine multiple questions into one response - Change the name of a variable to indicate what it measures - Combine multiple options into fewer groups - How to set specific values to NAs - How to apply survey weights
+
+## Importing Data
+
+We will be importing data from a Stata file downloaded from the American National Election Survey website for the 2020 presidential election in the United States. This survey interviewed over 8,000 US residents asking over 1,000 questions combined between a pre and post survey.
+
+You should always start a new analysis with a clean data set, meaning one that has not been previously altered. This allows for easier replication by other researchers and ensures that all of the changes made to variables and cases in your data set can be followed.
+
+Survey data is unique to other types of data because most variables are a combination of numbers and variable labels. Because survey questions require respondents to answer with pre-written scale options, for which there is a corresponding number and value label, it adds an additional complication to simply importing data. The 'haven' package handles this unique aspect well by reading both the number and the variable label into R. This gives us more information about our data that we can use to make informed decisions on how to clean prior to analysis.
+
+You should always download the code book for any available survey data set so that you have access to how each variable was asked along with how the variables are coded.
+
+```{r}
+anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
+
+```
+
+## Recoding Variables
+
+### Naming Conventions
+
+It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use 'snake_case' which means connecting words with underscore '\_'. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like 'pres_app' where pres = presidential and app = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.
+
+Keep this in mind as we work through this code.
+
+### Flipping Order of Scale
+
+To simplify, we will focus only on a few variables in the 2020 ANES data. Let's start with examining how this survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is 'V201129x', and it is coded where 1 = Strongly Approve and 4 = Strongly Disapprove. This is a classic example of when we would want to flip the scale so that higher values equals approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.
+
+First, let's examine the attributes of the variable so that we can learn more about it before the transformations.
+
+```{r Reviewing}
+
+attributes(anes$V201129x) #This gives you the variable label, class, and value labels for a survey object
+
+```
+
+Here, we confirm that the variable we are analyzing is the one we want to analyze per the codebook. The label tells us the question is the presidential job approval one, the class tells us it is in 'haven_labelled' format and the labels tells us the value label for each specific value. We also see that -2 values are non-substantive responses that should be removed from the analysis.
+
+Next, we will get a frequency distribution for the presidential approval rating question to understand its distribution using the 'tidyverse'.
+
+```{r}
+
+anes %>%     #Data we are using             
+  count(V201129x) %>%                            # Variable we want the distribution for 
+  mutate(percent = scales::percent(n / sum(n))) # calculate percent  
+
+```
+
+From this output, we see an important fact - that right now missing data is coded as -2 and if we were to try and analyze this data without cleaning, we would be including that -2 in all calculations. That would lead to bias in our results causing us to draw incorrect conclusions. This is why you should always check the frequency distribution of your data prior to analysis.
+
+We also know from above that 1 = strongly approve while 4 = strongly disapprove. Next, we will flip the scale order while removing the missing data and saving a new variable called 'pres_app' for presidential approval.
+
+Note, that we will use 'case_when' here for our recodes rather than explicit 'recode' function. This is because 'case_when' is more flexible at handling labelled variables like our survey data but does require slightly more code. We also need 'case_when' for more complex transformations such as combining two variables into one.
+
+```{r}
+
+anes <- anes %>% #This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA 
+  mutate(pres_app = case_when(
+    V201129x ==1 ~ 4,
+    V201129x ==2 ~ 3,
+    V201129x ==3 ~ 2,
+    V201129x ==4 ~ 1, 
+  V201129x ==-2 ~ NA_real_)) #This code makes all values of -2 = NA for analysis purposes. 
+
+# Define value labels
+
+value_labels <- c("Strongly Disapprove", "Disapprove", "Approve", "Strongly Approve") #Add value labels to your new measure. Only use this if you need to as it changes the variable type to 'factor' which influences the types of analysis you can do with it. Previously, it was 'numeric'. 
+
+# Assign value labels to the Response variable
+anes$pres_app <- factor(anes$pres_app, levels = 1:4, labels = value_labels)
+
+anes %>%     #Data we are using             
+  count(pres_app) %>%                            # Variable we want the distribution for 
+  mutate(percent = scales::percent(n / sum(n))) # calculate percent 
+
+CrossTable(anes$V201129x, anes$pres_app, expected = FALSE, chisq=FALSE,  prop.c=TRUE, prop.r=FALSE, prop.t=FALSE, prop.chisq = FALSE)
+
+
+```
+
+This example showed us how to flip the order of a question scale so that higher values indicates more of whatever the question measures, in this case presidential approval. We named the new variable 'pres_app' to keep the label short but also informative of what the question measures then added value labels to ensure we know what each value represents.
+
+It is important to examine the distribution of your new variable to ensure nothing went wrong in the recoding process. We did two checks: First, we checked the frequency distribution the new variable to ensure we see what we expect to see. Next, we run a crosstab between our new variable and the original. We expect to see a mirror image in the crosstab which we do. This means our recode was successful and 4=strongly approve while 1=strongly disapprove.
+
+We then used the 'haven' package to label the new 'pres_app' with more informative information to ensure we remember what the variable is measuring.
+
+Next, we will look at one additional way to flip your scale. This is least amount of code but also offers the largest possibility of error. Here we will the 'if_else' command along with mutate to create a new presidential approval variable 'pres_app3', which is the inverse of the original presidential approval variable 'V201129x'. Here we multiply the original value by -1 and then add one more than the total number of scale points. Here, we had 4 total scale points - strongly approve, approve, disapprove, strongly disapprove - so we add 4+1 or five to the scale. This mathematically flips the scale so that the original values of 1=4, 2=3, 3=2, and 4=1. It will always work provided you add the appropriate number of points.
+
+```{r}
+#Additional way to flip your scale 
+anes <- anes %>% 
+  mutate(pres_app3 = if_else(V201129x>=1, (V201129x*-1)+5, NA)) #When original variable >= 1, we will multiply the original variable by -1 and then add 1 more than the total scale points. Since there were 4 scale points in the original scale, we add 5. We also recode anything that was >=1 originally as NA since that reflects a non-substantive response. 
+
+#1 becomes 4 b/c (1*-1)=-1+5=4
+#2 becomes 3 b/c (2*-1)=-2+5=3
+#3 becomes 2 b/c (3*-1)=-3+5=2
+#4 becomes 1 b/c (4*-1)=-4+5=1
+
+anes %>%     #Data we are using             
+  group_by(V201129x)  %>% #Original variable
+  count(pres_app3)         # New variable 
+
+```
+
+### Combining Two Variables into One
+
+Now, let's combine two variables into one. Oftentimes, surveys will ask branching questions that need to be combined for analysis purposes. In fact, the presidential approval measure we just analyzed is the combination of two questions. Most survey firms will not pre-combine these two questions into one so it is important to learn how to do so.
+
+There are two variables to combine:
+
+-   V201127 (1= approve & 2=disapprove) #Approve/Disapprove of performance
+
+-   V201128 (1=strongly & 2 = not strongly) #How strongly approve/disapprove of performance
+
+Remember, higher values should equal more approval so we want 4 = strongly approve and 1 = strongly disapprove.
+
+```{r}
+#First run a crosstab between your two existing variables to get the distribution across cells. 
+
+anes %>%     #Data we are using             
+  group_by(V201128 )  %>% #X Variable in Crosstab 
+  count(V201127)         # Y Variable in Crosstab 
+
+#Next, create your new variable based on the 4 possible combinations using a series of & statements. Be careful.
+
+anes <- anes %>% #This creates new variable called 'pid_x' where higher values=more republican 
+  mutate(pres_app2 = case_when(
+    V201127==1 & V201128 ==1 ~ 4,
+    V201127==1 & V201128 ==2 ~ 3,
+    V201127==2 & V201128 ==2 ~ 2,
+    V201127==2 & V201128 ==1 ~ 1))
+
+#Now, if we want we can make a new factor variable that saves the labels. 
+
+anes <- anes %>% #This creates new variable called 'pres_app2_f' which is a factorized version of the above pres_app2 measure.  
+  mutate(pres_app2_f = case_when(
+    V201127==1 & V201128 ==1 ~ 'Strong Approve',
+    V201127==1 & V201128 ==2 ~ 'Approve',
+    V201127==2 & V201128 ==2 ~ 'Disapprove',
+    V201127==2 & V201128 ==1 ~ 'Strong Disapprove'))
+
+#Check our work against the original variables.
+
+anes %>%     #Data we are using             
+  group_by(V201128, V201127)  %>% #X Variable in Crosstab 
+  count(pres_app2)         # Y Variable in Crosstab  
+
+#Check our work against our previously created variable.
+
+anes %>%     #Data we are using             
+  group_by(pres_app)  %>% #X Variable in Crosstab 
+  count(pres_app2)         # Y Variable in Crosstab  
+
+```
+
+Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard/piece of paper first.
+
+### Collapsing Variables into Smaller Groups
+
+Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (V201507x) as the example, let's look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.
+
+Start by examining the frequency distribution for the variable you want to transform. For education, we see that 'less than HS degree' is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option HS degree. We also see that 'some college but no degree' option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.
+
+First, we will keep the original categories the same but combine the 'less than HS degree' with 'HS degree' options.
+
+Then, we will create a dummy variable for college degree or not (0 or 1):
+
+-   College Degree = People with Bachelor's degree or graduate degree
+-   No College Degree = People with some college but no degree, HS degree, or no HS degree
+
+Lastly, we will create a 3-point scale splitting the no college degree into Some college or No College at all: - College Degree = People with Bachelor's degree or graduate degree - Some College = People with some college but no degree - High school degree or less = HS degree or no HS degree
+
+```{r}
+#First look at the age distribution
+anes %>%     #Data we are using             
+  count(V201511x)         # Variable to analyze 
+
+anes <- anes %>%
+  mutate(college = ifelse(V201511x %in% c(1, 2), 1, V201511x-1)) #Recodes all values from the original education variables that are 1 or 2 to be = 1 and then sets all other values to their original value - 1 t0 keep the order in tact of 1, 2, 3, 4. 
+
+value_labels <- c("HS or Less", "Some College", "College Degree", "Graduate Degree") #Add value labels to your new measure. Only use this if you need to as it changes the variable type to 'factor' which influences the types of analysis you can do with it. Previously, it was 'numeric'. 
+
+# Assign value labels to the Response variable
+anes$college <- factor(anes$college, levels = 1:4, labels = value_labels)
+
+#You should notice that -9 = missing data. -9 will automatically become NA in the new variable if you simply do nothing with it in this code. 
+
+##Second way to recode our college variable; this time to create a dummy variable. 
+anes <- anes %>% # 
+  mutate(college2 = case_when(
+    V201511x==1 ~ 'No College Degree',
+    V201511x==2  ~ 'No College Degree',
+    V201511x==3  ~ 'No College Degree',
+    V201511x==4  ~ 'College Degree',
+    V201511x==5  ~ 'College Degree'))
+
+anes <- anes %>% # 
+  mutate(college2 = case_when(
+    V201511x==1 ~ 0,
+    V201511x==2  ~ 0,
+    V201511x==3  ~ 0,
+    V201511x==4  ~ 1,
+    V201511x==5  ~ 1))
+
+class(anes$college)
+
+#Checks distribution of new variable 
+anes %>%     #Data we are using             
+  count(college)         #  New Variable 
+
+#Crosstab between original and new variable to ensure recode success
+anes %>%     #Data we are using    
+  group_by(V201511x) %>% #Original Variable 
+  count(college)         # New Variable 
+
+###Different approach to creating a dichotomous variable. Here, you have to explicitly make missing data NA 
+anes <- anes %>% 
+  mutate(college2 = if_else(V201511x>3, 1, 0))
+
+anes <- anes %>% #Explicitly making the values -1/-9 NA 
+  mutate(college2 = replace(college2, V201511x <= -1, NA)) #Removes NA from new college2 variable  
+
+#Crosstab between original and new variable to ensure recode success
+anes %>%     #Data we are using    
+  group_by(V201511x) %>% #Original Variable 
+  count(college2)         # New Variable 
+
+#Create our third new education variable; this one with 3 options
+anes <- anes %>% # 
+  mutate(college3 = case_when(
+    V201511x==1 ~ 'HS Degree or Less',
+    V201511x==2  ~ 'HS Degree or Less',
+    V201511x==3  ~ 'Some College',
+    V201511x==4  ~ 'College Degree',
+    V201511x==5  ~ 'College Degree'))
+
+```
+
+## Working with Missing Data/non-Substantive Responses
+
+Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as '-2' or '99'. If this is the case, you must ensure that R knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.
+
+If we only want to change a specific value or values to NA without recoding the entire variable, we can use the 'replace' function from 'tidyverse'. We still want to save a new variable since we are transforming the orginial variable in some way but we will not need to do anything else to the variable. Here we recode '-9' to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.
+
+This code easily handles more complexity as the second recode changes any values \<= -1 or \>= 101 to system missing as the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.
+
+```{r}
+
+anes <- anes %>%
+  mutate(trump_feel = replace(V201152, V201152 == -9, NA)) #Create new variable called 'trump_feel' which equals the original variable 'V201151' but replace all -9 values as NA
+
+anes <- anes %>%
+  mutate(biden_feel = replace(V201151, (V201151 <= -1 | V201151 >= 101), NA)) #Create new variable called 'biden_feel' which equals the original variable 'V201151' but replace all -9 values as NA
+
+```
+
+Remember, we already looked at how to make a value system missing using 'case_when' when recoding the entire variable.
+
+```{r}
+anes <- anes %>% #This creates new variable called 'pres_app' where 4 = strongly approve and 1 = strongly disapprove while setting -2 to NA 
+  mutate(pres_app = case_when(
+    V201129x ==1 ~ 4,
+    V201129x ==2 ~ 3,
+    V201129x ==3 ~ 2,
+    V201129x ==4 ~ 1, 
+  V201129x ==-2 ~ NA_real_)) #This code makes all values of -2 = NA for analysis purposes. 
+```
+
+## Merging External Data into Survey Data
+
+Depending on the sample, sometimes it is possible to link external data - i.e. data not collected in the survey but from some source external to the interview - to individual survey records. This can include things like a student's grades if you work for a school system or voting records for political poll respondents. In these cases, researchers can utilize these external files to do a variety of interesting analyses. However, the first step is to merge the two files, which is not always easy to do.
+
+Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual voted tied to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important around who actually turns out to vote versus who says they turn out to vote.
+
+Let's go through that process here.
+
+Step 1, we need to identify the 'case_id', which is the column which should provide a unique identification number for all individual survey responses. This will be the critical variable that needs to be matched between your main file - for us the 2020 ANES - and the file to be merged - the validated vote file. We need to examine both files and ensure they have the same structure for their 'case_id' variable and ideally that the variable names match. If these two columns do not match exactly, you will only get partial to zero matches. Always closely examine what are in your columns before trying to merge.
+
+```{r merging}
+
+vvote <- read_dta("C:/Users/Carey/Dropbox/UMass/2023-2024/Survey Analysis Class/Data/anes_timeseries_2020_stata_VoterValidation (1)/anes_timeseries_2020_stata_VoterValidation.dta")
+
+head(anes$V200001)
+head(vvote$V200001)
+
+anes_vv <- merge(anes, vvote, by = "V200001", all = FALSE)
+
+```
+
+We'll start by looking at the codebook for the validated vote data which tells us that 'V200001' is the name for the 'case_id' variable and that it should match the original 2020 ANES name exactly. Using the 'head' function, we can quickly verify that indeed these two variables have the same structure and same values for the first few cases. This indicates that it is safe to move forward with merging the two files.
+
+Note, there are 18,430 cases in the 'vvote' data frame while there are only 8280 in the 'anes' data. That means the vvote data has cases that do not exist in the 'anes' data, which is fine. We do not want to merge data that is not included in the ANES file. By including 'all = FALSE', we tell R to only include variables that are in the main file in the merge. This is one reason why it is important to pay attention to which file you are treating as the main file, which will be listed first in the merge code.
+
+```{r}
+
+anes_vv <- merge(anes, vvote, by = "V200001")
+view(anes_vv)
+names(vvote)
+
+#Distribution of responses
+anes_vv %>%     #Data we are using             
+  count(val1_turnout20)         # Y Variable in Crosstab 
+anes_vv %>%     #Data we are using             
+  count(val2_turnout20)         # Y Variable in Crosstab 
+CrossTable(anes_vv$val1_turnout20, anes_vv$val2_turnout20, expected = FALSE, chisq=TRUE,  prop.c=TRUE, prop.r=FALSE, prop.t=FALSE, prop.chisq = FALSE)
+
+attributes(anes_vv$V201529)
+anes_vv %>% 
+  count(V201529)
+
+```
+
+Now that the files are merged, we can quickly see that in the original 'anes' file we had 1775 variables while in the new 'anes_vv' merged file we have 1797 variables, or 22 additional. A quick visual inspection of the end of the 'anes_vv' file reveals that the variables that were in the 'vvote' file are now appended to the end of our original 'anes' file. This means our merge was successful, and we can now start to analyze the newly created file.
+
+#### Applying Survey Weights to Analysis
+
+Survey weights make the survey sample's demographic profile look more like its population while also sometimes accounting for things such as unequal likelihood of being selected to participate. Many publicly accessible large-n surveys will come with associated survey weights that should be applied when conducting analysis. For the most part, provided weights should always be used when analyzing survey data.
+
+Step 1 to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.
+
+By reviewing the 2020 ANES codebook, we see that we want to use 'V200010b' as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a 'strata' weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.
+
+The fact that we are required to use the post-election survey weight will pose an additional problem that not every respondent who took the pre-election survey returned for the post-election wave. This code requires no missing data in the weighting variable otherwise it will not run. So we first will remove the cases that do not have values in the post-election weight variable.
+
+We will use the 'svydesign' function from the 'survey' package to create new weighted data sets for analysis purposes. The new weighted file can then be used in analysis.
+
+```{r}
+anes_post <- anes_vv[complete.cases(anes_vv[, c("V200010b")]), ]
+anes_weighted <- svydesign(ids = ~1, weights =~V200010b, data = anes_post) #Creates new weighted data for analysis using the population weights only 
+anes_weighted2 <- svydesign(ids = ~V200010c, weights =~V200010b, strata=~V200010d, nest=TRUE, data = anes_post) #For more complex survey designs that includes additional weights including strata and PSUs. PSU weight = 'ids' while 'strata' = strata weight as specified in code book   
+
+#Creates new variable for use in analysis 
+anes_post <- anes_post %>%
+  mutate(trump_feel = replace(V201152, V201152 == -9, NA)) #Create new variable called 'trump_feel' which equals the original variable 'V201152' but replace all -9 values as NA
+
+###Analyze the mean of the Trump feeling thermometer measure for the different files 
+svymean(~trump_feel, anes_weighted, na.rm = TRUE) #Get weighted mean for simple weighting scheme
+svymean(~trump_feel, anes_weighted2, na.rm = TRUE) #Get weighted mean for complex weighting scheme
+mean(anes_post$trump_feel, na.rm=TRUE) #Get unweighted mean for sample 
+
+```
+
+By examining the means across the weighted and unweighted files, we see that the two weighted files return identical means, with slightly different standard errors, but the unweighted mean being 1.3 points lower. The difference between the weighted and unweighted means is why we want to use the survey weights as the weighted data should provide more accurate point estimates.
