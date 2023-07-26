@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ch00setup</title>
+<title>Survey Methodologies for Social Scientists - 2&nbsp; Data Cleaning and Recoding</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,32 +57,233 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="ch00setup_files/libs/clipboard/clipboard.min.js"></script>
-<script src="ch00setup_files/libs/quarto-html/quarto.js"></script>
-<script src="ch00setup_files/libs/quarto-html/popper.min.js"></script>
-<script src="ch00setup_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="ch00setup_files/libs/quarto-html/anchor.min.js"></script>
-<link href="ch00setup_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="ch00setup_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="ch00setup_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="ch00setup_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="ch00setup_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./ch02psych_response.html" rel="next">
+<link href="./ch01intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
 
 
 </head>
 
-<body class="fullcontent">
+<body class="nav-sidebar floating">
 
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./part_intro.html">Introduction to Survey Methods</a></li><li class="breadcrumb-item"><a href="./ch00setup.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Cleaning and Recoding</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Survey Methodologies for Social Scientists</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Survey Methods</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch01intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch00setup.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Cleaning and Recoding</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch02psych_response.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Psychology of Survey Response Response</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch03ethics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Survey Ethics</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Survey Design</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch04q_design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Questionnaire Design</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch05modes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Survey Modes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch06sampling.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Survey Sampling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch07weights.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Survey Weighting</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch08measurement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Measurement &amp; Item Scaling</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./part_analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Survey Analysis</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch09hyp_analysis_rep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Learning Objectives</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch10conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#cleaning-and-recoding-data-prior-to-analysis" id="toc-cleaning-and-recoding-data-prior-to-analysis" class="nav-link active" data-scroll-target="#cleaning-and-recoding-data-prior-to-analysis"><span class="header-section-number">2.1</span> Cleaning and Recoding Data Prior to Analysis</a></li>
+  <li><a href="#importing-data" id="toc-importing-data" class="nav-link" data-scroll-target="#importing-data"><span class="header-section-number">2.2</span> Importing Data</a></li>
+  <li><a href="#recoding-variables" id="toc-recoding-variables" class="nav-link" data-scroll-target="#recoding-variables"><span class="header-section-number">2.3</span> Recoding Variables</a></li>
+  <li><a href="#working-with-missing-datanon-substantive-responses" id="toc-working-with-missing-datanon-substantive-responses" class="nav-link" data-scroll-target="#working-with-missing-datanon-substantive-responses"><span class="header-section-number">2.4</span> Working with Missing Data/non-Substantive Responses</a></li>
+  <li><a href="#merging-external-data-into-survey-data" id="toc-merging-external-data-into-survey-data" class="nav-link" data-scroll-target="#merging-external-data-into-survey-data"><span class="header-section-number">2.5</span> Merging External Data into Survey Data</a></li>
+  <li><a href="#applying-survey-weights-in-the-analysis" id="toc-applying-survey-weights-in-the-analysis" class="nav-link" data-scroll-target="#applying-survey-weights-in-the-analysis"><span class="header-section-number">2.6</span> Applying Survey Weights in the Analysis</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Data Cleaning and Recoding</span></h1>
+</div>
 
 
-<section id="data-cleaning-and-recoding" class="level1">
-<h1>Data Cleaning and Recoding</h1>
-<section id="cleaning-and-recoding-data-prior-to-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis">Cleaning and Recoding Data Prior to Analysis</h2>
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="cleaning-and-recoding-data-prior-to-analysis" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="cleaning-and-recoding-data-prior-to-analysis"><span class="header-section-number">2.1</span> Cleaning and Recoding Data Prior to Analysis</h2>
 <p>Anytime you import a survey, or really any kind of data into <code>R</code>, you should always ask yourself what you need to do to get it prepared for analysis. With survey data specifically, there are usually a few things that should always be checked and changed prior to conducting any type of analysis.</p>
 <p>We will cover several of them here, including the following:</p>
 <ul>
@@ -95,8 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Applying survey weights</li>
 </ul>
 </section>
-<section id="importing-data" class="level2">
-<h2 class="anchored" data-anchor-id="importing-data">Importing Data</h2>
+<section id="importing-data" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="importing-data"><span class="header-section-number">2.2</span> Importing Data</h2>
 <p>We will be importing data from a Stata file downloaded from the <a href="https://electionstudies.org/data-center/2020-time-series-study/">American National Election Survey website</a> for the 2020 presidential election in the United States. This survey interviewed over 8,000 US residents asking over 1,000 questions combined between a pre and post survey.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -129,15 +330,15 @@ Downloading Codebooks
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="recoding-variables" class="level2">
-<h2 class="anchored" data-anchor-id="recoding-variables">Recoding Variables</h2>
-<section id="naming-conventions" class="level4">
-<h4 class="anchored" data-anchor-id="naming-conventions">Naming Conventions</h4>
+<section id="recoding-variables" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="recoding-variables"><span class="header-section-number">2.3</span> Recoding Variables</h2>
+<section id="naming-conventions" class="level4" data-number="2.3.0.1">
+<h4 data-number="2.3.0.1" class="anchored" data-anchor-id="naming-conventions"><span class="header-section-number">2.3.0.1</span> Naming Conventions</h4>
 <p>It is important when you start creating new variables to keep a few best practices in mind. First, names should always be lowercase. It is okay to have multiple words in a variable name but you should use ‘snake_case’, which means connecting words with an underscore ‘_’. Next, keep names short but as informative as possible. The name should reflect what the new variable is measuring. So if the new variables measures presidential approval, the name should convey that with something like <em>pres_app</em> where <em>pres</em> = presidential and <em>app</em> = approval. This follows all of the best practices: lowercase, snake_case, and short but informative.</p>
 <p>Keep this in mind as we work through this code.</p>
 </section>
-<section id="flipping-order-of-scale" class="level4">
-<h4 class="anchored" data-anchor-id="flipping-order-of-scale">Flipping Order of Scale</h4>
+<section id="flipping-order-of-scale" class="level4" data-number="2.3.0.2">
+<h4 data-number="2.3.0.2" class="anchored" data-anchor-id="flipping-order-of-scale"><span class="header-section-number">2.3.0.2</span> Flipping Order of Scale</h4>
 <p>To simplify, we will focus only on a few variables in the 2020 ANES data. Let’s start with examining how the ANES survey coded approval ratings of the president of the United States. When we examine the codebook, we find that the approval rating question is <strong>V201129x</strong>, and it is coded where 1 = <em>Strongly Approve</em> and 4 = <em>Strongly Disapprove</em>. This is a classic example of when we would want to flip the scale so that higher values equal approval rather than disapproval. This makes it easier to discuss the variable as we are used to talking about the approval of something rather than its negation, disapproval.</p>
 <p>First, let’s examine the attributes of the variable so that we can learn more about it before the transformations.</p>
 <div class="cell">
@@ -289,8 +490,8 @@ Total                      4360          502       759             2603    8224
 </div>
 </div>
 </section>
-<section id="combining-two-variables-into-one" class="level4">
-<h4 class="anchored" data-anchor-id="combining-two-variables-into-one">Combining Two Variables into One</h4>
+<section id="combining-two-variables-into-one" class="level4" data-number="2.3.0.3">
+<h4 data-number="2.3.0.3" class="anchored" data-anchor-id="combining-two-variables-into-one"><span class="header-section-number">2.3.0.3</span> Combining Two Variables into One</h4>
 <p>Now, let’s combine two variables into one. Oftentimes, surveys will ask branching questions that need to be combined for analysis purposes. In fact, the presidential approval measure we just analyzed is the combination of two questions. Most survey firms will not pre-combine these two questions into one so it is important to learn how to do so.</p>
 <p>There are two variables to combine:</p>
 <ul>
@@ -374,8 +575,8 @@ Total                      4360          502       759             2603    8224
 </div>
 <p>Once we run the above code, we see that we successfully created our new variable combining two separate variables. This is a flexible approach that can be applied to any two or more variables provided you are careful in coding the correct values. For more complex combinations, it can be useful to map it on a whiteboard or piece of paper first.</p>
 </section>
-<section id="collapsing-variables-into-smaller-groups" class="level4">
-<h4 class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups">Collapsing Variables into Smaller Groups</h4>
+<section id="collapsing-variables-into-smaller-groups" class="level4" data-number="2.3.0.4">
+<h4 data-number="2.3.0.4" class="anchored" data-anchor-id="collapsing-variables-into-smaller-groups"><span class="header-section-number">2.3.0.4</span> Collapsing Variables into Smaller Groups</h4>
 <p>Oftentimes, we want to collapse the number of groups in a variable into fewer groups or even into a dummy, otherwise known as dichotomous, variable. Using education (<strong>V201507x</strong>) as the example, let’s look at several ways to collapse groups into fewer options. Remember, since we are doing data transformations, we want to keep the original variable untransformed and save a new one.</p>
 <p>Start by examining the frequency distribution for the variable you want to transform. For education, we see that <em>less than HS degree</em> is only selected 376 times out of the 8,000+ cases. Because it is selected so infrequently, it should definitely be combined with the next option, <em>HS degree</em>. We also see that <em>some college but no degree</em> option is the modal response for the scale. This suggests that, depending on our theory and planned analysis, we should create a few different educational attainment variables.</p>
 <p>First, we will keep the original categories the same but combine the <em>less than HS degree</em> with <em>HS degree</em> options.</p>
@@ -505,8 +706,8 @@ Total                      4360          502       759             2603    8224
 </div>
 </section>
 </section>
-<section id="working-with-missing-datanon-substantive-responses" class="level2">
-<h2 class="anchored" data-anchor-id="working-with-missing-datanon-substantive-responses">Working with Missing Data/non-Substantive Responses</h2>
+<section id="working-with-missing-datanon-substantive-responses" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="working-with-missing-datanon-substantive-responses"><span class="header-section-number">2.4</span> Working with Missing Data/non-Substantive Responses</h2>
 <p>Nearly all survey data will include missing data that should be investigated. Oftentimes, missing data is coded as a real value in your survey such as ‘-2’ or ‘99’. If this is the case, you must ensure that <code>R</code> knows what values should not be included in your analysis otherwise you will introduce bias into your calculations.</p>
 <p>If we only want to change a specific value or values to <em>NA</em> without recoding the entire variable, we can use the <code>replace</code> function from <code>tidyverse</code>. We still want to save a new variable since we are transforming the orginal variable in some way but we will not need to do anything else to the variable. Here we recode ‘-9’ to system missing for a feeling thermometer measure rating how much Americans liked Donald Trump in 2020.</p>
 <p>This code easily handles more complexity as the second recode changes any values &lt;= -1 or &gt;= 101 to system missing since the codebook identifies all these values as non-valid answers. This is another reminder to always work from an up-to-date codebook so that you can catch any potential issues.</p>
@@ -540,8 +741,8 @@ Note
 <span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  V201129x <span class="sc">==-</span><span class="dv">2</span> <span class="sc">~</span> <span class="cn">NA_real_</span>)) <span class="co">#This code makes all values of -2 = NA for analysis purposes. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="merging-external-data-into-survey-data" class="level2">
-<h2 class="anchored" data-anchor-id="merging-external-data-into-survey-data">Merging External Data into Survey Data</h2>
+<section id="merging-external-data-into-survey-data" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="merging-external-data-into-survey-data"><span class="header-section-number">2.5</span> Merging External Data into Survey Data</h2>
 <p>Depending on the sample, sometimes it is possible to link external data - i.e.&nbsp;data not collected in the survey but from some source external to the interview - to individual survey records. This can include things like a student’s grades if you work for a school system or voting records for political poll respondents. In these cases, researchers can utilize these external files to do a variety of interesting analyses. However, the first step is to merge the two files, which is not always easy to do.</p>
 <p>Here, we are going to merge the original 2020 American Election Study Survey with validated voting information collected by a third party vendor. Validated vote data essential is just a public record of if an individual tied their vote to their survey responses, all while keeping their identify confidential to researchers. By merging these files, researchers can then answer important questions around who actually turns out to vote versus who says they turned out to vote.</p>
 <p>Let’s go through that process here.</p>
@@ -698,8 +899,8 @@ $class
 </div>
 <p>Now that the files are merged, we can quickly see that in the original <code>anes</code> file we had 1,775 variables while in the new <code>anes_vv</code> merged file we have 1,797 variables, or 22 additional. A quick visual inspection of the end of the <code>anes_vv</code> file reveals that the variables that were in the <code>vvote</code> file are now appended to the end of our original <code>anes</code> file. This means our merge was successful, and we can now start to analyze the newly created file.</p>
 </section>
-<section id="applying-survey-weights-in-the-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="applying-survey-weights-in-the-analysis">Applying Survey Weights in the Analysis</h2>
+<section id="applying-survey-weights-in-the-analysis" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="applying-survey-weights-in-the-analysis"><span class="header-section-number">2.6</span> Applying Survey Weights in the Analysis</h2>
 <p>Survey weights make the survey sample’s demographic profile look more like its population while also sometimes accounting for things such as unequal likelihood of being selected to participate. Many publicly accessible large-n surveys will come with associated survey weights that should be applied when conducting analysis. For the most part, provided weights should always be used when analyzing survey data.</p>
 <p>The first step to using survey weights is to review the codebook and find what it has to say about its survey weights. While some survey data sets will come with only 1 survey weight, many, like the ANES which has 14 unique weights, will have multiple and utilizing the codebook is imperative in this instance.</p>
 <p>By reviewing the 2020 ANES codebook, we see that we want to use <strong>V200010b</strong> as our primary weight since we are analyzing data collected in the post-election survey wave. In this case, we also want to include a <code>strata</code> weight per the instructions. Not all surveys will include both types of weights but when they do each should be utilized.</p>
@@ -731,11 +932,11 @@ trump_feel 41.289 0.6973</code></pre>
 </div>
 </div>
 <p>By examining the means across the weighted and unweighted files, we see that the two weighted files return identical means, with slightly different standard errors, but the unweighted mean being 1.3 points lower. The difference between the weighted and unweighted means is why we want to use the survey weights as the weighted data should provide more accurate point estimates.</p>
-</section>
+
+
 </section>
 
-</main>
-<!-- /main column -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -969,7 +1170,28 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./ch01intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./ch02psych_response.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Psychology of Survey Response Response</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">Survey Methodologies for Social Scientists (1e) was written by Carey E. Stapleton and Stefani Langehennig.</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">This book was built with <a href="https://quarto.org/">Quarto</a>.</div>
+  </div>
+</footer>
 
 
 

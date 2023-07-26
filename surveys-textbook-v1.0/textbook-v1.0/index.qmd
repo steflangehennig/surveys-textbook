@@ -1,9 +1,15 @@
+<style>
+  body {
+  background-image: ("smss-hex.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+  
+</style>
+
 # Welcome {.unnumbered}
 
 This is the github repository for the work-in-progress first edition of **Survey Methodologies for Social Scientists**.
 
 The goal of this book is to teach you how to do create, conduct, and analyze surveys with R.
 
-## Acknowledgements {.unnumbered}
-
-More to come!
