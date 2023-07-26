@@ -14,17 +14,24 @@ book:
 
   chapters:
     - index.qmd
-    - ch01intro.qmd
-    - ch02psych_response.qmd
-    - ch03ethics.qmd
-    - ch04q_design.qmd
-    - ch05modes.qmd
-    - ch06sampling.qmd
-    - ch07weights.qmd
-    - ch08measurement.qmd
-    - ch09hyp_analysis_rep.qmd
-    - ch10conclusion.qmd
-    - references.qmd
+    - part: part_intro.qmd
+      chapters:
+      - ch01intro.qmd
+      - ch00setup.qmd
+      - ch02psych_response.qmd
+      - ch03ethics.qmd
+    - part: part_design.qmd
+      chapters:
+      - ch04q_design.qmd
+      - ch05modes.qmd
+      - ch06sampling.qmd
+      - ch07weights.qmd
+      - ch08measurement.qmd
+    - part: part_analysis.qmd
+      chapters:
+      - ch09hyp_analysis_rep.qmd
+      - ch10conclusion.qmd
+      - references.qmd
 
 bibliography: references.bib
 
