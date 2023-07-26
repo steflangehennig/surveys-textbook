@@ -9,7 +9,15 @@
 
 # Welcome {.unnumbered}
 
-This is the github repository for the work-in-progress first edition of **Survey Methods for Social Scientists**.
+This is the github repository for the work-in-progress first edition of **Survey Methods for Social Scientists**. 
 
-The goal of this book is to teach you how to do create, conduct, and analyze surveys with R.
+The goal of this book is to teach you how to create, conduct, and analyze surveys with `R`. While the book is primarily geared towards undergraduate students in the social sciences (political science, psychology, sociology, economics, etc.), the practical uses for this book can be extended to any discipline. 
+
+The book is divided into three sections:
+
+1. The Science Behind Survey Methods
+2. Best Practices of Survey Design
+3. Conducting Survey Analyses
+
+Each section comprises multiple chapters that succinctly explain the _why_ behind the method, as well as _how_ to apply the method. Built into each chapter are comprehensive `R` code tutorials alongside practical explanations.
 
