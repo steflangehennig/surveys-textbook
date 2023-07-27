@@ -31,8 +31,11 @@ book:
       - ch08measurement.qmd
     - part: part_analysis.qmd
       chapters:
-      - ch09hyp_analysis_rep.qmd
-      - ch10conclusion.qmd
+      - ch09hypothesis.qmd
+      - ch10analysis.qmd
+      - ch11report.qmd
+    - part: ch12conclusion.qmd
+      chapters: 
       - references.qmd
 
 bibliography: references.bib
