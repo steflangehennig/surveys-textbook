@@ -29,8 +29,8 @@ library(semPlot) #For graphing CFA results
 
 anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
 
-df <- data.frame(anes$V201115, anes$V201116, anes$V201117, anes$V201118, anes$V201119, anes$V201120,
-                 anes$V201121, anes$V201122, anes$V201123  ) #Save the variables you want to include in your factor analysis into a new data frame
+df <- data.frame(anes$V201115, anes$V201116, anes$V201117, anes$V201118, anes$V201119, anes$V201120, anes$V201121, anes$V201122, anes$V201123  ) #Save the variables you want to include in your factor analysis into a new data frame
+
 df[df <= -1] <- NA #Set missing values to NA to not include in analysis
 
 new_names <- c("hope", "afraid", "outrage", "angry", "happy", "worried", "proud", "irritated", "nervous") #Give your variables new informative names 
@@ -42,8 +42,25 @@ skim(df) #Checks the variables in your data frame; evaluate for missing data
 
 ```
 
+#### Step 1: Evaluating Correlations Between Political Emotions
 
+First, we need to check the correlations between your variables - here, political emotions - to see how related each of the individual items are. Below, we create a matrix with all the correlations between the individual items and graph the correlations using a heat-map for easier viewing.
 
+```{r }
+#Step 1: Evaluate correlations 
+cor_matrix<-cor(df, use = "pairwise.complete.obs") #Saves correlation matrix
+
+corrplot(cor_matrix, method = "circle") # Plot correlation matrix as a heatmap
+
+cor_matrix
+###At least 2 distinct and possibly 3 distinct factors from examining 
+```
+
+- *Results indicate 2 and probably 3 unique factors +* Positive Emotions: Happy, Pride, Hope
+
+Results indicate at least two and likely three distinct factors in the political emotions' variables. Three factors would match the dominant belief in the literature on how political emotions are structured (Marcus et al. 2006). The three positive emotions are clearly positively related to each other with smaller and negative coefficients to the other six emotions. For the negative emotions, all six items are positively and significantly related to one another indicating they might all be measuring the same concept. However, closer examination of the results indicates that being afraid is more highly correlated with being worried or nervous than it is anger, outrage, or irritation. That matches the underlying theoretical belief that those three items represent an "anxiety about politics" factor, whereas anger, outrage, and irritation represent an "aversion" factor towards politics.
+
+Conducting a factor analysis will help us better understand how these 9 individual political emotions are related to one another. We will conduct both exploratory and confirmatory factor analysis to illustrate these methods.
 
 
 
