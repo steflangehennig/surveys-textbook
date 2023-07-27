@@ -1,3 +1,10 @@
-# Introduction to Survey Methods
+# The Science of Survey Methods
 
 ## Section Outline
+
+In addition to getting our working environment set up to conduct survey analyses, this section introduces students to the science behind survey methods, including how individuals approach and answer surveys, as well as the ethics behind designing, administering, and synthesizing surveys.
+
+- Chapter 1: Introduction to Survey Methods
+- Chapter 2: Setting Up our Environment for Survey Methods
+- Chapter 3: Psychology of Survey Response
+- Chapter 4: Survey Ethics

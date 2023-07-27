@@ -1,4 +1,4 @@
-# Data Cleaning and Recoding
+# Setting Up our Environment for Survey Methods
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
