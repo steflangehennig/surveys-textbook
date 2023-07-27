@@ -1,5 +1,49 @@
 # Psychology of Survey Response
 
-Outlines the psychology processes that occur when a participant responds to a survey.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
 
-## Learning Objectives
+## Factor Analysis to Understan Political Emotions
+
+We will conduct both exploratory and confirmatory factor analysis using the nationally representative 2020 [American National Election Survey](https://electionstudies.org/data-center/2020-time-series-study/) for our data. In this survey, 9 unique political emotions variables were asked of respondents, and we will use these 9 variables to understand how political emotions are structured. Currently, it is widely believed that three latent emotional factors best explain the structure of political emotions (Marcus et al. 2006) with three primary latent factors: 
+
+1. Aversion to Politics: Measures include anger, outrage, and irritation 
+2. Worry about Politics: Measures include fear, worry, and nervousness 
+3. Enthusiasm about Politics: Measures include happiness, hope, and pride
+
+We will use factor analysis to test whether a three factor solution really is the best way to explain these political emotions.
+
+To start, we read in our data, in this case the 2020 American National Election study. Then we save a new data frame that includes only the nine political emotions variables we want to include in our analysis. We will use this data frame throughout the code. Once we have saved the political emotions variable as a new data frame, we recode all the negative values to _NA_ as these are non-substantive responses which should be removed (as indicated in the associated codebook).
+
+Next, we change the variables names to something that is more informative. This will aid in interpretation of the factor analysis results and should not be skipped. Lastly, we use the `skimr` package to quickly skim the variables in our dataset. We want to see the minimum value = 1 with no negative values, since negative values should be treated as missing data.
+
+```{r setup}
+
+library(haven) #Imports stata file
+library(skimr) #For data evaluation 
+library(psych) #For exploratory factor analysis
+library(corrplot) #To graph correlations 
+library(lavaan) #For confirmatory factor analysis
+library(semPlot) #For graphing CFA results 
+
+anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
+
+df <- data.frame(anes$V201115, anes$V201116, anes$V201117, anes$V201118, anes$V201119, anes$V201120,
+                 anes$V201121, anes$V201122, anes$V201123  ) #Save the variables you want to include in your factor analysis into a new data frame
+df[df <= -1] <- NA #Set missing values to NA to not include in analysis
+
+new_names <- c("hope", "afraid", "outrage", "angry", "happy", "worried", "proud", "irritated", "nervous") #Give your variables new informative names 
+
+# Update column names
+colnames(df) <- new_names #Apply new names to your data frame
+
+skim(df) #Checks the variables in your data frame; evaluate for missing data
+
+```
+
+
+
+
+
+
