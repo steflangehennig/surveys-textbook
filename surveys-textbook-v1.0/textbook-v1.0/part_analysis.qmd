@@ -2,3 +2,9 @@
 
 ## Section Outline
 
+Once we have completed the design of our survey, we are ready to launch the instrument! This means we will have data for which we can analyze. When we conduct a survey, we usually have a research or business objective in mind. Often, we will start with a hypothesis, collect our data, analyze it, and report back on what we found. This section will cover each of those things in depth:
+
+  - Chapter 10: Hypothesis Testing
+  - Chapter 11: Analyzing Survey Data
+  - Chapter 12: Reporting Survey Data
+

@@ -2,3 +2,10 @@
 
 ## Section Outline
 
+With an understanding of the science of survey methods in hand, we are going to start designing our surveys. There are many different approaches to designing surveys, which means there are quite a few things to take into account to ensure you develop a sounds survey instrument. This chapter covers:
+
+  - Chapter 5: Questionnaire Design
+  - Chapter 6: Survey Modes
+  - Chapter 7: Survey Sampling
+  - Chapter 8: Survey Weighting
+  - Chapter 9: Measurement & Item Scaling
