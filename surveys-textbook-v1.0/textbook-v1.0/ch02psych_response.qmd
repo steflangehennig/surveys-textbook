@@ -65,5 +65,22 @@ Results indicate at least two and likely three distinct factors in the political
 
 Conducting a factor analysis will help us better understand how these 9 individual political emotions are related to one another. We will conduct both exploratory and confirmatory factor analysis to illustrate these methods.
 
+### Exploratory Factor Analysis
+
+We'll start the factor analysis with an exploratory factor analysis approach using both principal component factor analysis (pcf) and principal axis factor analysis (paf). We'll compare the results between these two approaches to evaluate differences. PCF handles non-linearity better than PAF approaches, so with many Likert style survey questions that are not normally distributed we utilize the PCF approach.
+
+#### Step 2: Screeplot
+
+```{r scree}
+#Step 2: Evaluate Screeplot - looking for number of factors >= ~1 
+scree(df) #from 'psych' package and graphs scree plot for PCF and PAF approaches 
+```
+
+::: {.callout-tip}
+## Scree Plots
+We use scree plots to visually decide how many factors or components to use in our factor analyses. We usually determine this number by looking at everything that precedes the elbow.
+:::
+
+The scree plot shows eigenvalues from a PCF and a PAF, non-rotated, factor analysis. The PCF shows two clear factors with a third worth looking into whereas the PAF shows one clear factor with a second factor that is close. Knowing what we know from the correlations we examined, we will start with a three factor solution with our exploratory analysis. If two factors does indeed fit the data better than three, the factor analysis will show that.
 
 

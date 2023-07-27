@@ -289,7 +289,10 @@ div.csl-indent {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#factor-analysis-to-understan-political-emotions" id="toc-factor-analysis-to-understan-political-emotions" class="nav-link active" data-scroll-target="#factor-analysis-to-understan-political-emotions"><span class="header-section-number">3.1</span> Factor Analysis to Understan Political Emotions</a></li>
+  <li><a href="#factor-analysis-to-understan-political-emotions" id="toc-factor-analysis-to-understan-political-emotions" class="nav-link active" data-scroll-target="#factor-analysis-to-understan-political-emotions"><span class="header-section-number">3.1</span> Factor Analysis to Understan Political Emotions</a>
+  <ul class="collapse">
+  <li><a href="#exploratory-factor-analysis" id="toc-exploratory-factor-analysis" class="nav-link" data-scroll-target="#exploratory-factor-analysis"><span class="header-section-number">3.1.1</span> Exploratory Factor Analysis</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -573,8 +576,35 @@ nervous   -0.4453810  0.6175571  1.0000000</code></pre>
 <ul>
 <li><em>Results indicate 2 and probably 3 unique factors +</em> Positive Emotions: Happy, Pride, Hope</li>
 </ul>
-<p>Results indicate at least two and likely three distinct factors in the political emotions’ variables. Three factors would match the dominant belief in the literature on how political emotions are structured <span class="citation" data-cites="marcus2006measure">(<a href="references.html#ref-marcus2006measure" role="doc-biblioref">Marcus et al. 2006</a>)</span> (Marcus et al.&nbsp;2006). The three positive emotions are clearly positively related to each other with smaller and negative coefficients to the other six emotions. For the negative emotions, all six items are positively and significantly related to one another indicating they might all be measuring the same concept. However, closer examination of the results indicates that being afraid is more highly correlated with being worried or nervous than it is anger, outrage, or irritation. That matches the underlying theoretical belief that those three items represent an “anxiety about politics” factor, whereas anger, outrage, and irritation represent an “aversion” factor towards politics.</p>
+<p>Results indicate at least two and likely three distinct factors in the political emotions’ variables. Three factors would match the dominant belief in the literature on how political emotions are structured <span class="citation" data-cites="marcus2006measure">(<a href="references.html#ref-marcus2006measure" role="doc-biblioref">Marcus et al. 2006</a>)</span>. The three positive emotions are clearly positively related to each other with smaller and negative coefficients to the other six emotions. For the negative emotions, all six items are positively and significantly related to one another indicating they might all be measuring the same concept. However, closer examination of the results indicates that being afraid is more highly correlated with being worried or nervous than it is anger, outrage, or irritation. That matches the underlying theoretical belief that those three items represent an “anxiety about politics” factor, whereas anger, outrage, and irritation represent an “aversion” factor towards politics.</p>
 <p>Conducting a factor analysis will help us better understand how these 9 individual political emotions are related to one another. We will conduct both exploratory and confirmatory factor analysis to illustrate these methods.</p>
+</section>
+<section id="exploratory-factor-analysis" class="level3" data-number="3.1.1">
+<h3 data-number="3.1.1" class="anchored" data-anchor-id="exploratory-factor-analysis"><span class="header-section-number">3.1.1</span> Exploratory Factor Analysis</h3>
+<p>We’ll start the factor analysis with an exploratory factor analysis approach using both principal component factor analysis (pcf) and principal axis factor analysis (paf). We’ll compare the results between these two approaches to evaluate differences. PCF handles non-linearity better than PAF approaches, so with many Likert style survey questions that are not normally distributed we utilize the PCF approach.</p>
+<section id="step-2-screeplot" class="level4" data-number="3.1.1.1">
+<h4 data-number="3.1.1.1" class="anchored" data-anchor-id="step-2-screeplot"><span class="header-section-number">3.1.1.1</span> Step 2: Screeplot</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Step 2: Evaluate Screeplot - looking for number of factors &gt;= ~1 </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scree</span>(df) <span class="co">#from 'psych' package and graphs scree plot for PCF and PAF approaches </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch02psych_response_files/figure-html/scree-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Scree Plots
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>We use scree plots to visually decide how many factors or components to use in our factor analyses. We usually determine this number by looking at everything that precedes the elbow.</p>
+</div>
+</div>
+<p>The scree plot shows eigenvalues from a PCF and a PAF, non-rotated, factor analysis. The PCF shows two clear factors with a third worth looking into whereas the PAF shows one clear factor with a second factor that is close. Knowing what we know from the correlations we examined, we will start with a three factor solution with our exploratory analysis. If two factors does indeed fit the data better than three, the factor analysis will show that.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -582,6 +612,7 @@ nervous   -0.4453810  0.6175571  1.0000000</code></pre>
 Marcus, George E, Michael MacKuen, Jennifer Wolak, and Luke Keele. 2006. <span>“The Measure and Mismeasure of Emotion.”</span> In <em>Feeling Politics: Emotion in Political Information Processing</em>, 31–45. Springer.
 </div>
 </div>
+</section>
 </section>
 </section>
 
