@@ -179,7 +179,7 @@
     "href": "part_analysis.html#section-outline",
     "title": "Introduction to Survey Analysis",
     "section": "Section Outline",
-    "text": "Section Outline"
+    "text": "Section Outline\nOnce we have completed the design of our survey, we are ready to launch the instrument! This means we will have data for which we can analyze. When we conduct a survey, we usually have a research or business objective in mind. Often, we will start with a hypothesis, collect our data, analyze it, and report back on what we found. This section will cover each of those things in depth:\n\nChapter 10: Hypothesis Testing\nChapter 11: Analyzing Survey Data\nChapter 12: Reporting Survey Data"
   },
   {
     "objectID": "index.html#acknowledgements",
@@ -194,5 +194,33 @@
     "title": "11  Conclusion",
     "section": "11.1 Benefits of Survey Design & Analysis in R",
     "text": "11.1 Benefits of Survey Design & Analysis in R"
+  },
+  {
+    "objectID": "ch09hypothesis.html#learning-objectives",
+    "href": "ch09hypothesis.html#learning-objectives",
+    "title": "10  Hypothesis Testing in Survey Analysis",
+    "section": "10.1 Learning Objectives",
+    "text": "10.1 Learning Objectives"
+  },
+  {
+    "objectID": "ch10analysis.html#learning-objectives",
+    "href": "ch10analysis.html#learning-objectives",
+    "title": "11  Analyzing Survey Data",
+    "section": "11.1 Learning Objectives",
+    "text": "11.1 Learning Objectives"
+  },
+  {
+    "objectID": "ch11report.html#learning-objectives",
+    "href": "ch11report.html#learning-objectives",
+    "title": "12  Reporting Survey Data",
+    "section": "12.1 Learning Objectives",
+    "text": "12.1 Learning Objectives"
+  },
+  {
+    "objectID": "ch12conclusion.html#benefits-of-survey-design-analysis-in-r",
+    "href": "ch12conclusion.html#benefits-of-survey-design-analysis-in-r",
+    "title": "Conclusion",
+    "section": "Benefits of Survey Design & Analysis in R",
+    "text": "Benefits of Survey Design & Analysis in R"
   }
 ]
