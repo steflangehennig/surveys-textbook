@@ -7,7 +7,7 @@ bibliography: references.bib
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ```
 
-## Factor Analysis to Understan Political Emotions
+## Factor Analysis to Understand Political Emotions
 
 We will conduct both exploratory and confirmatory factor analysis using the nationally representative 2020 [American National Election Survey](https://electionstudies.org/data-center/2020-time-series-study/) for our data. In this survey, 9 unique political emotions variables were asked of respondents, and we will use these 9 variables to understand how political emotions are structured. Currently, it is widely believed that three latent emotional factors best explain the structure of political emotions [@marcus2006measure] with three primary latent factors: 
 
