@@ -165,6 +165,107 @@ paf_result_obl #Rotation reveals cleaner factors that are obscured
 
 The results show interesting patterns. Both unrotated models reveal nearly identical results, where as all four rotated results revealed a likely three factor solution. By drawing the same conclusions from the different approaches, that makes it more likely that the three factor solution is best fit for the results.
 
+### Confirmatory Factor Analysis (CFA)
+
+Because we have _a priori_ theory on the appropriate factor structure for these 9 political emotions, we can also use a confirmatory factor analysis to test that three factors does best fit the data.
+
+The `lavaan` package is needed for this type of analysis. Because we are testing _a priori_ theory with this approach, we have to specify which items create which latent factor. First, we will use the three factor solution theory, which suggests we will find:
+
+-   Factor 1 = Outrage, anger, and irritation
+-   Factor 2 = Pride, happiness, and hope
+-   Factor 3 = Being afraid, worried, and nervousness
+
+```{r}
+
+####Confirmatory Factor Analysis
+# Load required packages
+library(lavaan)
+
+# Specify the CFA model; it must include the #
+model <- '
+   # Factor 1
+   Factor1 =~ outrage + angry  + irritated
+   
+   # Factor 2
+   Factor2 =~ proud + happy  + hope
+   
+   # Factor 3
+   Factor3 =~ afraid  + nervous + worried
+'
+
+# Step 3: Fit the CFA model with varimax rotation
+fit <- cfa(model, data = df)
+
+# Step 4: Summarize the results
+summary(fit, standardized = TRUE, fit.measures = TRUE)  #Gives you summary statistics of the CFA
+
+semPaths(fit, "std", whatLabels = "est", edge.label.cex = 0.8) #Graphs the CFA factor loadings
+```
+
+There are several things to evaluate in the results for a confirmatory factor analysis. We are more concerned with model fit here than we are in with exploratory factor analysis since we are testing specific hypotheses. We will evaluate the following CFA model fit using the following parameters:
+
+  - Root Mean Square Error (RMSEA) where lower values = better fitting model.
+  - RMSEA \<=.06 considered good fit
+  - Model RMSEA = .044 which is below the (arbitrary) cut point of .06 to indicate good fitting model
+  - Standardized Root Mean Square Residual (SRMR) which is the standardized version of RMSEA.
+    - SRMR\<=.1 considered good fit
+  - Model SRMR = .018 which is below the (arbitrary) cut point of .1 to indicate a good fitting model
+  - Comparative Fit Index reflects improvement in model fit compared to a null model.
+    - Closer to 1 indicates better fitting model with \>=.9 considered good fit
+  - Model CFI = .991 nearly 1 so indicates very good fitting model
+  - Tucker Lewis Index is similar to CFI and reflects improvement in model fit compared to a null model.
+    - Closer to 1 indicates better fitting model with \>=.9 considered good fit
+  - Model TLI = .989 also higher than .9
+  - AIC and BIC are useful for comparing across nested models so we can compare these values to a two factor solution to see which best fits the data
+    - AIC = 179527;
+    - BIC = 179674
+  - With large sample sizes like we have here, the chi-square calculation will almost always be significant so does not provide valuable information here.
+
+All of the model fit parameters for the three factor solution indicate a good fitting model. This provides initial support that our hypothesized latent emotions do, in fact, exist. However, we should change our model to evaluate if other factor solutions might fit the data better. We will use a two factor solution, combining the six negative emotions and three positive emotions into their own unique factors, and compare those results to the initial results.
+
+First, we create a new model that combines the emotions in the manner previously stated. Then we review the results.
+
+```{r}
+
+model2 <- '
+   # Factor 1
+   Factor1 =~ outrage + angry  + irritated + afraid  + nervous + worried 
+   
+   # Factor 2
+   Factor2 =~ proud + happy  + hope
+   
+
+'
+
+# Step 3: Fit the CFA model with varimax rotation
+fit2 <- cfa(model2, data = df)
+
+# Step 4: Summarize the results
+summary(fit2, standardized = TRUE, fit.measures = TRUE)
+
+semPaths(fit2, "std", whatLabels = "est", edge.label.cex = 0.8) #Graphs the CFA factor loadings
+```
+
+Evaluating the same model fit parameters as before, we can immediately see a worse fitting model compared to the prior three factor solution.
+
+  - RMSEA = .044 with three factor solution vs. .13 in two factor; closer to 0 the better 
+  - SRMR = .018 in three factor vs. .038 in 2 factor; closer to 0 the better
+  - CFI = .991 in three factor vs. .933 in two factor; closer to 1 indicates better fitting model
+  - TLI = .989 in three factor vs. .907 in two factor; closer to 1 indicates better fitting model
+  - AIC =179527 in three factor vs. 182734 in two factor
+  - BIC =179674 in three factor vs. 182867 in two factor
+
+Across all of the mode fit parameters, the three factor solution fits the data better than the two factor solution that combined all the negatively valenced emotions. These results match the results from the exploratory factor analysis as well.
+
+### Conclusions
+
+In this chapter, we imported survey data and conducted various types of factor analysis techniques on political emotions in the United States. The results largely follow the prevailing theoretical belief that there are three distinct emotional latent factors:
+
+  - Aversion to Politics: Measures anger, outrage, and irritation
+  - Worry about Politics: Measures fear, worry, and nervousness
+  - Enthusiasm about Politics: Measures happiness, hope, and pride
+
+
 
 
 

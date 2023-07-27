@@ -292,6 +292,8 @@ div.csl-indent {
   <li><a href="#factor-analysis-to-understan-political-emotions" id="toc-factor-analysis-to-understan-political-emotions" class="nav-link active" data-scroll-target="#factor-analysis-to-understan-political-emotions"><span class="header-section-number">3.1</span> Factor Analysis to Understan Political Emotions</a>
   <ul class="collapse">
   <li><a href="#exploratory-factor-analysis" id="toc-exploratory-factor-analysis" class="nav-link" data-scroll-target="#exploratory-factor-analysis"><span class="header-section-number">3.1.1</span> Exploratory Factor Analysis</a></li>
+  <li><a href="#confirmatory-factor-analysis-cfa" id="toc-confirmatory-factor-analysis-cfa" class="nav-link" data-scroll-target="#confirmatory-factor-analysis-cfa"><span class="header-section-number">3.1.2</span> Confirmatory Factor Analysis (CFA)</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">3.1.3</span> Conclusions</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -334,19 +336,21 @@ div.csl-indent {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot) <span class="co">#To graph correlations </span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan) <span class="co">#For confirmatory factor analysis</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(semPlot) <span class="co">#For graphing CFA results </span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation) <span class="co">#For factor rotation</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(anes<span class="sc">$</span>V201115, anes<span class="sc">$</span>V201116, anes<span class="sc">$</span>V201117, anes<span class="sc">$</span>V201118, anes<span class="sc">$</span>V201119, anes<span class="sc">$</span>V201120, anes<span class="sc">$</span>V201121, anes<span class="sc">$</span>V201122, anes<span class="sc">$</span>V201123  ) <span class="co">#Save the variables you want to include in your factor analysis into a new data frame</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>anes <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">'C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta'</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df[df <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co">#Set missing values to NA to not include in analysis</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(anes<span class="sc">$</span>V201115, anes<span class="sc">$</span>V201116, anes<span class="sc">$</span>V201117, anes<span class="sc">$</span>V201118, anes<span class="sc">$</span>V201119, anes<span class="sc">$</span>V201120, anes<span class="sc">$</span>V201121, anes<span class="sc">$</span>V201122, anes<span class="sc">$</span>V201123  ) <span class="co">#Save the variables you want to include in your factor analysis into a new data frame</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"hope"</span>, <span class="st">"afraid"</span>, <span class="st">"outrage"</span>, <span class="st">"angry"</span>, <span class="st">"happy"</span>, <span class="st">"worried"</span>, <span class="st">"proud"</span>, <span class="st">"irritated"</span>, <span class="st">"nervous"</span>) <span class="co">#Give your variables new informative names </span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>df[df <span class="sc">&lt;=</span> <span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span> <span class="co">#Set missing values to NA to not include in analysis</span></span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Update column names</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> new_names <span class="co">#Apply new names to your data frame</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df) <span class="co">#Checks the variables in your data frame; evaluate for missing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>new_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"hope"</span>, <span class="st">"afraid"</span>, <span class="st">"outrage"</span>, <span class="st">"angry"</span>, <span class="st">"happy"</span>, <span class="st">"worried"</span>, <span class="st">"proud"</span>, <span class="st">"irritated"</span>, <span class="st">"nervous"</span>) <span class="co">#Give your variables new informative names </span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Update column names</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> new_names <span class="co">#Apply new names to your data frame</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">skim</span>(df) <span class="co">#Checks the variables in your data frame; evaluate for missing data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <caption>Data summary</caption>
@@ -605,6 +609,656 @@ Scree Plots
 </div>
 </div>
 <p>The scree plot shows eigenvalues from a PCF and a PAF, non-rotated, factor analysis. The PCF shows two clear factors with a third worth looking into whereas the PAF shows one clear factor with a second factor that is close. Knowing what we know from the correlations we examined, we will start with a three factor solution with our exploratory analysis. If two factors does indeed fit the data better than three, the factor analysis will show that.</p>
+</section>
+<section id="step-3-estimate-the-exploratory-factor-analysis" class="level4" data-number="3.1.1.2">
+<h4 data-number="3.1.1.2" class="anchored" data-anchor-id="step-3-estimate-the-exploratory-factor-analysis"><span class="header-section-number">3.1.1.2</span> Step 3: Estimate the Exploratory Factor Analysis</h4>
+<p>Now, we will estimate a series of factor analyses to illustrate PCF vs.&nbsp;PAF Rotation Types: None, Orthogonal, &amp; Oblique</p>
+<p>Note the slight difference in code between the <code>pcf</code> and the <code>paf</code> approaches. The only difference is using <code>principal</code> for the <code>pcf</code> approach and <code>fa</code> for the <code>paf</code>. We also can indicate which form of rotation we want to perform for each of the factor analyses. Here, we do both no rotation and use varimax for the orthogonal rotations, and oblimin for the oblique rotations. We start with a basic three factor pcf approach without rotation.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pcf_result_no <span class="ot">&lt;-</span> <span class="fu">principal</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"none"</span>) <span class="co">#PCF approach with no rotation</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>pcf_result_no</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = df, nfactors = 3, rotate = "none")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            PC1  PC2   PC3   h2   u2 com
+hope      -0.63 0.57 -0.11 0.74 0.26 2.0
+afraid     0.82 0.21  0.35 0.85 0.15 1.5
+outrage    0.81 0.30 -0.31 0.83 0.17 1.6
+angry      0.82 0.29 -0.29 0.84 0.16 1.5
+happy     -0.72 0.54  0.09 0.81 0.19 1.9
+worried    0.85 0.19  0.26 0.83 0.17 1.3
+proud     -0.68 0.58  0.11 0.82 0.18 2.0
+irritated  0.81 0.22 -0.31 0.80 0.20 1.4
+nervous    0.84 0.19  0.35 0.85 0.15 1.4
+
+                       PC1  PC2  PC3
+SS loadings           5.47 1.28 0.62
+Proportion Var        0.61 0.14 0.07
+Cumulative Var        0.61 0.75 0.82
+Proportion Explained  0.74 0.17 0.08
+Cumulative Proportion 0.74 0.92 1.00
+
+Mean item complexity =  1.6
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.05 
+ with the empirical chi square  1353.7  with prob &lt;  1.3e-282 
+
+Fit based upon off diagonal values = 0.99</code></pre>
+</div>
+</div>
+<p>Let’s evaluate the results. The first thing to review is the <code>SS loadings</code> row of results. The three values shown in that row are the eigenvalues for the 3 unique factors we specified. The first two factors both have eigenvalues &gt;1 while the third factor’s eigenvalue is not quite at 1. We also want to evaluate the proportion of the variance that each factor explains. Factor 1 clearly explains the most (~61%) while the third factor only adds 7% of additional explained variance.</p>
+<p>Next, we’ll review the actual factors and see which measures load on which factor. We see that the six negative emotions all seem to load on Factor 1 while the three positive emotions seem to load on Factor 2. The third factor seems to loosely be related to political anxiety and includes being afraid, worried, and nervous. While Factor 3 is not clearly unique in the unrotated factor analysis, the fact that there are reasonably strong factor loadings indicates that rotation may help to reveal a clearer pattern in the results.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Once you assess which measures load onto which factors, always give the factors a substantive name that is intuitive.</p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fa.diagram</span>(pcf_result_no) <span class="co">#Graphs the relationship</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch02psych_response_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Finally, we can also graph the factor results and see that in the unrotated results all nine emotions load most strongly on Factor 1, even though the positive emotions and negatively related to the negative emotions. This graph takes the absolute value of the factor loadings and matches the highest factor loading for that item to the appropriate latent factor.</p>
+<p>With our knowledge of the correlation matrix and the strong factors loadings from the unrotated pcf model, we will go ahead and rotate our factor analysis results. We will use an orthogonal rotation, varimax, which removes all shared variance between the latent factors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pcf_result_var <span class="ot">&lt;-</span> <span class="fu">principal</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"varimax"</span>) <span class="co">#PCF approach with varimax rotation</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>pcf_result_var <span class="co">#Rotation reveals cleaner factors that are obscured </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = df, nfactors = 3, rotate = "varimax")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            RC1   RC2   RC3   h2   u2 com
+hope      -0.07  0.81 -0.28 0.74 0.26 1.3
+afraid     0.36 -0.23  0.82 0.85 0.15 1.5
+outrage    0.82 -0.19  0.35 0.83 0.17 1.5
+angry      0.82 -0.20  0.37 0.84 0.16 1.5
+happy     -0.27  0.83 -0.19 0.81 0.19 1.3
+worried    0.42 -0.27  0.76 0.83 0.17 1.9
+proud     -0.25  0.86 -0.14 0.82 0.18 1.2
+irritated  0.79 -0.26  0.32 0.80 0.20 1.6
+nervous    0.36 -0.26  0.81 0.85 0.15 1.6
+
+                       RC1  RC2  RC3
+SS loadings           2.54 2.41 2.41
+Proportion Var        0.28 0.27 0.27
+Cumulative Var        0.28 0.55 0.82
+Proportion Explained  0.34 0.33 0.33
+Cumulative Proportion 0.34 0.67 1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.05 
+ with the empirical chi square  1353.7  with prob &lt;  1.3e-282 
+
+Fit based upon off diagonal values = 0.99</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fa.diagram</span>(pcf_result_var) <span class="co">#Graphs the relationship </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch02psych_response_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Let’s review the same three items in this analysis. Starting with the <code>SS loadings</code> we see that the values are much more evenly aligned across the factors with eigenvalues &gt;=1 for all three factors. Because of this, the proportion of total variance explained is also very close across the three factors. This indicates that the rotation was needed and successful in revealing a clearer pattern in the data. There are likely three factors based on these results.</p>
+<p>Next, by examining the factor loadings for each latent factor, we see that the results follow our theoretical beliefs. Anger, outrage, and irritation loaded on Factor 1; hope, happiness, and pride loaded together on Factor 2; and anxiety, worry, and nervousness loaded on Factor 3. When we graph the results we see that clear pattern as well. Generally, the conclusion seems to be that political emotions are structured into three unique latent factors.</p>
+<p>The following code compares the pcf approach used above alongside the paf approach, as well as changes the rotation time to oblimin for the oblique rotational approach.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#General pcf code "principal(data frame, nfactors=x, rotate)"</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#General paf code "fa(data frame, nfactors=x, rotate)"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="do">#####Principal Components Factor Analysis, 3 factor solution with no rotation, orthogonal (varimax) &amp; oblique (oblimin)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>pcf_result_no <span class="ot">&lt;-</span> <span class="fu">principal</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"none"</span>) <span class="co">#PCF approach with no rotation</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>pcf_result_no <span class="co">#Reports same Eigenvalues as reported in Scree Plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = df, nfactors = 3, rotate = "none")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            PC1  PC2   PC3   h2   u2 com
+hope      -0.63 0.57 -0.11 0.74 0.26 2.0
+afraid     0.82 0.21  0.35 0.85 0.15 1.5
+outrage    0.81 0.30 -0.31 0.83 0.17 1.6
+angry      0.82 0.29 -0.29 0.84 0.16 1.5
+happy     -0.72 0.54  0.09 0.81 0.19 1.9
+worried    0.85 0.19  0.26 0.83 0.17 1.3
+proud     -0.68 0.58  0.11 0.82 0.18 2.0
+irritated  0.81 0.22 -0.31 0.80 0.20 1.4
+nervous    0.84 0.19  0.35 0.85 0.15 1.4
+
+                       PC1  PC2  PC3
+SS loadings           5.47 1.28 0.62
+Proportion Var        0.61 0.14 0.07
+Cumulative Var        0.61 0.75 0.82
+Proportion Explained  0.74 0.17 0.08
+Cumulative Proportion 0.74 0.92 1.00
+
+Mean item complexity =  1.6
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.05 
+ with the empirical chi square  1353.7  with prob &lt;  1.3e-282 
+
+Fit based upon off diagonal values = 0.99</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pcf_result_var <span class="ot">&lt;-</span> <span class="fu">principal</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"varimax"</span>) <span class="co">#PCF approach with varimax rotation</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>pcf_result_var <span class="co">#Rotation reveals cleaner factors that are obscured </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = df, nfactors = 3, rotate = "varimax")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            RC1   RC2   RC3   h2   u2 com
+hope      -0.07  0.81 -0.28 0.74 0.26 1.3
+afraid     0.36 -0.23  0.82 0.85 0.15 1.5
+outrage    0.82 -0.19  0.35 0.83 0.17 1.5
+angry      0.82 -0.20  0.37 0.84 0.16 1.5
+happy     -0.27  0.83 -0.19 0.81 0.19 1.3
+worried    0.42 -0.27  0.76 0.83 0.17 1.9
+proud     -0.25  0.86 -0.14 0.82 0.18 1.2
+irritated  0.79 -0.26  0.32 0.80 0.20 1.6
+nervous    0.36 -0.26  0.81 0.85 0.15 1.6
+
+                       RC1  RC2  RC3
+SS loadings           2.54 2.41 2.41
+Proportion Var        0.28 0.27 0.27
+Cumulative Var        0.28 0.55 0.82
+Proportion Explained  0.34 0.33 0.33
+Cumulative Proportion 0.34 0.67 1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.05 
+ with the empirical chi square  1353.7  with prob &lt;  1.3e-282 
+
+Fit based upon off diagonal values = 0.99</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pcf_result_obl <span class="ot">&lt;-</span> <span class="fu">principal</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"oblimin"</span>) <span class="co">#PCF approach with varimax rotation</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>pcf_result_obl <span class="co">#Rotation reveals cleaner factors that are obscured </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Principal Components Analysis
+Call: principal(r = df, nfactors = 3, rotate = "oblimin")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            TC3   TC1   TC2   h2   u2 com
+hope      -0.20  0.19  0.83 0.74 0.26 1.2
+afraid     0.93  0.01  0.02 0.85 0.15 1.0
+outrage    0.04  0.89  0.01 0.83 0.17 1.0
+angry      0.08  0.86  0.00 0.84 0.16 1.0
+happy      0.02 -0.12  0.85 0.81 0.19 1.0
+worried    0.80  0.12 -0.04 0.83 0.17 1.1
+proud      0.09 -0.11  0.89 0.82 0.18 1.0
+irritated  0.01  0.85 -0.08 0.80 0.20 1.0
+nervous    0.91  0.01 -0.02 0.85 0.15 1.0
+
+                       TC3  TC1  TC2
+SS loadings           2.55 2.50 2.32
+Proportion Var        0.28 0.28 0.26
+Cumulative Var        0.28 0.56 0.82
+Proportion Explained  0.35 0.34 0.31
+Cumulative Proportion 0.35 0.69 1.00
+
+ With component correlations of 
+      TC3   TC1   TC2
+TC3  1.00  0.72 -0.51
+TC1  0.72  1.00 -0.46
+TC2 -0.51 -0.46  1.00
+
+Mean item complexity =  1
+Test of the hypothesis that 3 components are sufficient.
+
+The root mean square of the residuals (RMSR) is  0.05 
+ with the empirical chi square  1353.7  with prob &lt;  1.3e-282 
+
+Fit based upon off diagonal values = 0.99</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">#####Principal Axis Factor Analysis, 3 factor solution with no rotation, orthogonal (varimax) &amp; oblique (oblimin)</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>paf_result_no <span class="ot">&lt;-</span> <span class="fu">fa</span>(df, <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate =</span> <span class="st">"none"</span>) <span class="co">#paf model</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>paf_result_no <span class="co">#Reports same Eigenvalues as reported in Scree Plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  minres
+Call: fa(r = df, nfactors = 3, rotate = "none")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            MR1  MR2   MR3   h2   u2 com
+hope      -0.59 0.43 -0.05 0.53 0.47 1.8
+afraid     0.81 0.19  0.26 0.76 0.24 1.3
+outrage    0.79 0.26 -0.25 0.75 0.25 1.4
+angry      0.82 0.26 -0.27 0.81 0.19 1.4
+happy     -0.70 0.50  0.05 0.74 0.26 1.8
+worried    0.84 0.16  0.20 0.76 0.24 1.2
+proud     -0.67 0.55  0.06 0.75 0.25 1.9
+irritated  0.78 0.17 -0.20 0.68 0.32 1.2
+nervous    0.82 0.17  0.29 0.79 0.21 1.3
+
+                       MR1  MR2  MR3
+SS loadings           5.21 0.98 0.37
+Proportion Var        0.58 0.11 0.04
+Cumulative Var        0.58 0.69 0.73
+Proportion Explained  0.79 0.15 0.06
+Cumulative Proportion 0.79 0.94 1.00
+
+Mean item complexity =  1.5
+Test of the hypothesis that 3 factors are sufficient.
+
+df null model =  36  with the objective function =  6.5 with Chi Square =  53763.45
+df of  the model are 12  and the objective function was  0.01 
+
+The root mean square of the residuals (RMSR) is  0 
+The df corrected root mean square of the residuals is  0.01 
+
+The harmonic n.obs is  8255 with the empirical chi square  12.82  with prob &lt;  0.38 
+The total n.obs was  8280  with Likelihood Chi Square =  80.36  with prob &lt;  3.5e-12 
+
+Tucker Lewis Index of factoring reliability =  0.996
+RMSEA index =  0.026  and the 90 % confidence intervals are  0.021 0.032
+BIC =  -27.9
+Fit based upon off diagonal values = 1
+Measures of factor score adequacy             
+                                                   MR1  MR2  MR3
+Correlation of (regression) scores with factors   0.98 0.88 0.79
+Multiple R square of scores with factors          0.95 0.78 0.62
+Minimum correlation of possible factor scores     0.91 0.57 0.24</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>paf_result_var <span class="ot">&lt;-</span> <span class="fu">fa</span>(df, <span class="at">nfactors =</span> <span class="dv">3</span>, <span class="at">rotate =</span> <span class="st">"varimax"</span>) <span class="co">#paf model</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>paf_result_var</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  minres
+Call: fa(r = df, nfactors = 3, rotate = "varimax")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            MR3   MR2   MR1   h2   u2 com
+hope      -0.15  0.67 -0.25 0.53 0.47 1.4
+afraid     0.40 -0.26  0.73 0.76 0.24 1.9
+outrage    0.76 -0.22  0.35 0.75 0.25 1.6
+angry      0.79 -0.23  0.36 0.81 0.19 1.6
+happy     -0.24  0.80 -0.21 0.74 0.26 1.3
+worried    0.45 -0.30  0.69 0.76 0.24 2.1
+proud     -0.21  0.82 -0.17 0.75 0.25 1.2
+irritated  0.68 -0.29  0.36 0.68 0.32 1.9
+nervous    0.39 -0.29  0.75 0.79 0.21 1.8
+
+                       MR3  MR2  MR1
+SS loadings           2.31 2.19 2.07
+Proportion Var        0.26 0.24 0.23
+Cumulative Var        0.26 0.50 0.73
+Proportion Explained  0.35 0.33 0.31
+Cumulative Proportion 0.35 0.69 1.00
+
+Mean item complexity =  1.6
+Test of the hypothesis that 3 factors are sufficient.
+
+df null model =  36  with the objective function =  6.5 with Chi Square =  53763.45
+df of  the model are 12  and the objective function was  0.01 
+
+The root mean square of the residuals (RMSR) is  0 
+The df corrected root mean square of the residuals is  0.01 
+
+The harmonic n.obs is  8255 with the empirical chi square  12.82  with prob &lt;  0.38 
+The total n.obs was  8280  with Likelihood Chi Square =  80.36  with prob &lt;  3.5e-12 
+
+Tucker Lewis Index of factoring reliability =  0.996
+RMSEA index =  0.026  and the 90 % confidence intervals are  0.021 0.032
+BIC =  -27.9
+Fit based upon off diagonal values = 1
+Measures of factor score adequacy             
+                                                   MR3  MR2  MR1
+Correlation of (regression) scores with factors   0.88 0.91 0.87
+Multiple R square of scores with factors          0.78 0.82 0.75
+Minimum correlation of possible factor scores     0.55 0.65 0.51</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>paf_result_obl <span class="ot">&lt;-</span> <span class="fu">fa</span>(df,<span class="at">nfactors =</span> <span class="dv">3</span>,  <span class="at">rotate =</span> <span class="st">"oblimin"</span>) <span class="co">#PCF approach with varimax rotation</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>paf_result_obl <span class="co">#Rotation reveals cleaner factors that are obscured </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Factor Analysis using method =  minres
+Call: fa(r = df, nfactors = 3, rotate = "oblimin")
+Standardized loadings (pattern matrix) based upon correlation matrix
+            MR1   MR3   MR2   h2   u2 com
+hope      -0.16  0.10  0.69 0.53 0.47 1.1
+afraid     0.87  0.01  0.02 0.76 0.24 1.0
+outrage    0.01  0.87  0.02 0.75 0.25 1.0
+angry     -0.01  0.91  0.01 0.81 0.19 1.0
+happy      0.00 -0.04  0.83 0.74 0.26 1.0
+worried    0.77  0.10 -0.03 0.76 0.24 1.0
+proud      0.06 -0.03  0.88 0.75 0.25 1.0
+irritated  0.06  0.73 -0.08 0.68 0.32 1.0
+nervous    0.91 -0.03 -0.01 0.79 0.21 1.0
+
+                       MR1  MR3  MR2
+SS loadings           2.33 2.22 2.02
+Proportion Var        0.26 0.25 0.22
+Cumulative Var        0.26 0.51 0.73
+Proportion Explained  0.35 0.34 0.31
+Cumulative Proportion 0.35 0.69 1.00
+
+ With factor correlations of 
+      MR1   MR3   MR2
+MR1  1.00  0.82 -0.60
+MR3  0.82  1.00 -0.56
+MR2 -0.60 -0.56  1.00
+
+Mean item complexity =  1
+Test of the hypothesis that 3 factors are sufficient.
+
+df null model =  36  with the objective function =  6.5 with Chi Square =  53763.45
+df of  the model are 12  and the objective function was  0.01 
+
+The root mean square of the residuals (RMSR) is  0 
+The df corrected root mean square of the residuals is  0.01 
+
+The harmonic n.obs is  8255 with the empirical chi square  12.82  with prob &lt;  0.38 
+The total n.obs was  8280  with Likelihood Chi Square =  80.36  with prob &lt;  3.5e-12 
+
+Tucker Lewis Index of factoring reliability =  0.996
+RMSEA index =  0.026  and the 90 % confidence intervals are  0.021 0.032
+BIC =  -27.9
+Fit based upon off diagonal values = 1
+Measures of factor score adequacy             
+                                                   MR1  MR3  MR2
+Correlation of (regression) scores with factors   0.96 0.96 0.94
+Multiple R square of scores with factors          0.92 0.92 0.88
+Minimum correlation of possible factor scores     0.84 0.83 0.76</code></pre>
+</div>
+</div>
+<p>The results show interesting patterns. Both unrotated models reveal nearly identical results, where as all four rotated results revealed a likely three factor solution. By drawing the same conclusions from the different approaches, that makes it more likely that the three factor solution is best fit for the results.</p>
+</section>
+</section>
+<section id="confirmatory-factor-analysis-cfa" class="level3" data-number="3.1.2">
+<h3 data-number="3.1.2" class="anchored" data-anchor-id="confirmatory-factor-analysis-cfa"><span class="header-section-number">3.1.2</span> Confirmatory Factor Analysis (CFA)</h3>
+<p>Because we have <em>a priori</em> theory on the appropriate factor structure for these 9 political emotions, we can also use a confirmatory factor analysis to test that three factors does best fit the data.</p>
+<p>The <code>lavaan</code> package is needed for this type of analysis. Because we are testing <em>a priori</em> theory with this approach, we have to specify which items create which latent factor. First, we will use the three factor solution theory, which suggests we will find:</p>
+<ul>
+<li>Factor 1 = Outrage, anger, and irritation</li>
+<li>Factor 2 = Pride, happiness, and hope</li>
+<li>Factor 3 = Being afraid, worried, and nervousness</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="do">####Confirmatory Factor Analysis</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify the CFA model; it must include the #</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">   # Factor 1</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">   Factor1 =~ outrage + angry  + irritated</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">   # Factor 2</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">   Factor2 =~ proud + happy  + hope</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="st">   # Factor 3</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="st">   Factor3 =~ afraid  + nervous + worried</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Fit the CFA model with varimax rotation</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">cfa</span>(model, <span class="at">data =</span> df)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Summarize the results</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)  <span class="co">#Gives you summary statistics of the CFA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 34 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        21
+
+                                                  Used       Total
+  Number of observations                          8217        8280
+
+Model Test User Model:
+                                                      
+  Test statistic                               403.975
+  Degrees of freedom                                24
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                             53418.915
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.993
+  Tucker-Lewis Index (TLI)                       0.989
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -89742.500
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                              179526.999
+  Bayesian (BIC)                            179674.292
+  Sample-size adjusted Bayesian (SABIC)     179607.558
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.044
+  90 Percent confidence interval - lower         0.040
+  90 Percent confidence interval - upper         0.048
+  P-value H_0: RMSEA &lt;= 0.050                    0.996
+  P-value H_0: RMSEA &gt;= 0.080                    0.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.018
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  Factor1 =~                                                            
+    outrage           1.000                               1.078    0.864
+    angry             0.995    0.009  105.099    0.000    1.072    0.891
+    irritated         0.854    0.009   93.941    0.000    0.920    0.829
+  Factor2 =~                                                            
+    proud             1.000                               0.975    0.850
+    happy             0.934    0.011   86.119    0.000    0.911    0.870
+    hope              0.872    0.012   72.027    0.000    0.850    0.731
+  Factor3 =~                                                            
+    afraid            1.000                               1.065    0.864
+    nervous           0.989    0.009  105.111    0.000    1.053    0.880
+    worried           0.959    0.009  105.883    0.000    1.021    0.884
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  Factor1 ~~                                                            
+    Factor2          -0.613    0.016  -39.099    0.000   -0.584   -0.584
+    Factor3           0.962    0.019   49.919    0.000    0.838    0.838
+  Factor2 ~~                                                            
+    Factor3          -0.646    0.016  -40.966    0.000   -0.622   -0.622
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .outrage           0.394    0.009   45.594    0.000    0.394    0.253
+   .angry             0.298    0.007   40.043    0.000    0.298    0.206
+   .irritated         0.385    0.008   50.521    0.000    0.385    0.313
+   .proud             0.366    0.009   38.550    0.000    0.366    0.278
+   .happy             0.266    0.008   34.284    0.000    0.266    0.243
+   .hope              0.631    0.012   53.734    0.000    0.631    0.466
+   .afraid            0.385    0.008   47.547    0.000    0.385    0.254
+   .nervous           0.324    0.007   44.753    0.000    0.324    0.226
+   .worried           0.292    0.007   43.961    0.000    0.292    0.219
+    Factor1           1.161    0.024   47.905    0.000    1.000    1.000
+    Factor2           0.950    0.021   44.977    0.000    1.000    1.000
+    Factor3           1.133    0.024   48.130    0.000    1.000    1.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(fit, <span class="st">"std"</span>, <span class="at">whatLabels =</span> <span class="st">"est"</span>, <span class="at">edge.label.cex =</span> <span class="fl">0.8</span>) <span class="co">#Graphs the CFA factor loadings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch02psych_response_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There are several things to evaluate in the results for a confirmatory factor analysis. We are more concerned with model fit here than we are in with exploratory factor analysis since we are testing specific hypotheses. We will evaluate the following CFA model fit using the following parameters:</p>
+<ul>
+<li>Root Mean Square Error (RMSEA) where lower values = better fitting model.</li>
+<li>RMSEA &lt;=.06 considered good fit</li>
+<li>Model RMSEA = .044 which is below the (arbitrary) cut point of .06 to indicate good fitting model</li>
+<li>Standardized Root Mean Square Residual (SRMR) which is the standardized version of RMSEA.
+<ul>
+<li>SRMR&lt;=.1 considered good fit</li>
+</ul></li>
+<li>Model SRMR = .018 which is below the (arbitrary) cut point of .1 to indicate a good fitting model</li>
+<li>Comparative Fit Index reflects improvement in model fit compared to a null model.
+<ul>
+<li>Closer to 1 indicates better fitting model with &gt;=.9 considered good fit</li>
+</ul></li>
+<li>Model CFI = .991 nearly 1 so indicates very good fitting model</li>
+<li>Tucker Lewis Index is similar to CFI and reflects improvement in model fit compared to a null model.
+<ul>
+<li>Closer to 1 indicates better fitting model with &gt;=.9 considered good fit</li>
+</ul></li>
+<li>Model TLI = .989 also higher than .9</li>
+<li>AIC and BIC are useful for comparing across nested models so we can compare these values to a two factor solution to see which best fits the data
+<ul>
+<li>AIC = 179527;</li>
+<li>BIC = 179674</li>
+</ul></li>
+<li>With large sample sizes like we have here, the chi-square calculation will almost always be significant so does not provide valuable information here.</li>
+</ul>
+<p>All of the model fit parameters for the three factor solution indicate a good fitting model. This provides initial support that our hypothesized latent emotions do fact exist. However, we should change our model to evaluate if other factor solutions might fit the data better. We will use a two factor solution, combining the six negative emotions and three positive emotions into their own unique factors, and compare those results to the initial results.</p>
+<p>First, we create a new model that combines the emotions in the manner previously stated. Then we review the results.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="st">   # Factor 1</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="st">   Factor1 =~ outrage + angry  + irritated + afraid  + nervous + worried </span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="st">   # Factor 2</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="st">   Factor2 =~ proud + happy  + hope</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="st">   </span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Fit the CFA model with varimax rotation</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">cfa</span>(model2, <span class="at">data =</span> df)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Summarize the results</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit2, <span class="at">standardized =</span> <span class="cn">TRUE</span>, <span class="at">fit.measures =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>lavaan 0.6.16 ended normally after 27 iterations
+
+  Estimator                                         ML
+  Optimization method                           NLMINB
+  Number of model parameters                        19
+
+                                                  Used       Total
+  Number of observations                          8217        8280
+
+Model Test User Model:
+                                                      
+  Test statistic                              3614.717
+  Degrees of freedom                                26
+  P-value (Chi-square)                           0.000
+
+Model Test Baseline Model:
+
+  Test statistic                             53418.915
+  Degrees of freedom                                36
+  P-value                                        0.000
+
+User Model versus Baseline Model:
+
+  Comparative Fit Index (CFI)                    0.933
+  Tucker-Lewis Index (TLI)                       0.907
+
+Loglikelihood and Information Criteria:
+
+  Loglikelihood user model (H0)             -91347.871
+  Loglikelihood unrestricted model (H1)             NA
+                                                      
+  Akaike (AIC)                              182733.741
+  Bayesian (BIC)                            182867.007
+  Sample-size adjusted Bayesian (SABIC)     182806.628
+
+Root Mean Square Error of Approximation:
+
+  RMSEA                                          0.130
+  90 Percent confidence interval - lower         0.126
+  90 Percent confidence interval - upper         0.133
+  P-value H_0: RMSEA &lt;= 0.050                    0.000
+  P-value H_0: RMSEA &gt;= 0.080                    1.000
+
+Standardized Root Mean Square Residual:
+
+  SRMR                                           0.038
+
+Parameter Estimates:
+
+  Standard errors                             Standard
+  Information                                 Expected
+  Information saturated (h1) model          Structured
+
+Latent Variables:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  Factor1 =~                                                            
+    outrage           1.000                               1.003    0.804
+    angry             0.989    0.012   85.582    0.000    0.992    0.824
+    irritated         0.876    0.011   80.981    0.000    0.879    0.792
+    afraid            1.022    0.012   86.686    0.000    1.025    0.832
+    nervous           1.005    0.011   88.140    0.000    1.008    0.842
+    worried           0.989    0.011   90.551    0.000    0.992    0.858
+  Factor2 =~                                                            
+    proud             1.000                               0.975    0.850
+    happy             0.934    0.011   86.185    0.000    0.911    0.870
+    hope              0.871    0.012   71.972    0.000    0.849    0.730
+
+Covariances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+  Factor1 ~~                                                            
+    Factor2          -0.624    0.015  -40.925    0.000   -0.638   -0.638
+
+Variances:
+                   Estimate  Std.Err  z-value  P(&gt;|z|)   Std.lv  Std.all
+   .outrage           0.549    0.010   55.378    0.000    0.549    0.353
+   .angry             0.464    0.009   53.993    0.000    0.464    0.321
+   .irritated         0.459    0.008   56.112    0.000    0.459    0.373
+   .afraid            0.467    0.009   53.375    0.000    0.467    0.308
+   .nervous           0.417    0.008   52.478    0.000    0.417    0.291
+   .worried           0.352    0.007   50.739    0.000    0.352    0.264
+   .proud             0.365    0.009   38.520    0.000    0.365    0.278
+   .happy             0.266    0.008   34.247    0.000    0.266    0.242
+   .hope              0.632    0.012   53.789    0.000    0.632    0.467
+    Factor1           1.006    0.023   43.291    0.000    1.000    1.000
+    Factor2           0.951    0.021   44.997    0.000    1.000    1.000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">semPaths</span>(fit2, <span class="st">"std"</span>, <span class="at">whatLabels =</span> <span class="st">"est"</span>, <span class="at">edge.label.cex =</span> <span class="fl">0.8</span>) <span class="co">#Graphs the CFA factor loadings</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="ch02psych_response_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Evaluating the same model fit parameters as before, we can immediately see a worse fitting model compared to the prior three factor solution.</p>
+<ul>
+<li>RMSEA = .044 with three factor solution vs.&nbsp;.13 in two factor; closer to 0 the better -</li>
+<li>SRMR = .018 in three factor vs.&nbsp;.038 in 2 factor; closer to 0 the better -</li>
+<li>CFI = .991 in three factor vs.&nbsp;.933 in two factor, closer to 1 indicates better fitting model</li>
+<li>TLI = .989 in three factor vs.&nbsp;.907 in two factor, closer to 1 indicates better fitting model</li>
+<li>AIC =179527 in three factor vs.&nbsp;182734 in two factor</li>
+<li>BIC =179674 in three factor vs.&nbsp;182867 in two factor</li>
+</ul>
+<p>Across all of the mode fit parameters, the three factor solution fits the data better than the two factor solution that combined all the negatively valenced emotions. These results match the results from the exploratory factor analysis as well.</p>
+</section>
+<section id="conclusions" class="level3" data-number="3.1.3">
+<h3 data-number="3.1.3" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">3.1.3</span> Conclusions</h3>
+<p>In this tutorial, we imported survey data and conducted various types of factor analysis techniques on political emotions in the United States. The results largely follow the prevailing theoretical belief that there are three distinct emotional latent factors:</p>
+<ul>
+<li>Aversion to Politics: Measures anger, outrage, and irritation</li>
+<li>Worry about Politics: Measures fear, worry, and nervousness</li>
+<li>Enthusiasm about Politics: Measures happiness, hope, and pride</li>
+</ul>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
@@ -612,7 +1266,6 @@ Scree Plots
 Marcus, George E, Michael MacKuen, Jennifer Wolak, and Luke Keele. 2006. <span>“The Measure and Mismeasure of Emotion.”</span> In <em>Feeling Politics: Emotion in Political Information Processing</em>, 31–45. Springer.
 </div>
 </div>
-</section>
 </section>
 </section>
 
