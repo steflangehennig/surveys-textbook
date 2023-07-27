@@ -29,6 +29,8 @@ library(psych) #For exploratory factor analysis
 library(corrplot) #To graph correlations 
 library(lavaan) #For confirmatory factor analysis
 library(semPlot) #For graphing CFA results 
+library(GPArotation) #For factor rotation
+
 
 anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
 
@@ -82,5 +84,89 @@ We use scree plots to visually decide how many factors or components to use in o
 :::
 
 The scree plot shows eigenvalues from a PCF and a PAF, non-rotated, factor analysis. The PCF shows two clear factors with a third worth looking into whereas the PAF shows one clear factor with a second factor that is close. Knowing what we know from the correlations we examined, we will start with a three factor solution with our exploratory analysis. If two factors does indeed fit the data better than three, the factor analysis will show that.
+
+#### Step 3: Estimate the Exploratory Factor Analysis
+
+Now, we will estimate a series of factor analyses to illustrate PCF vs. PAF Rotation Types: None, Orthogonal, & Oblique
+
+Note the slight difference in code between the `pcf` and the `paf` approaches. The only difference is using `principal` for the `pcf` approach and `fa` for the `paf`. We also can indicate which form of rotation we want to perform for each of the factor analyses. Here, we do both no rotation and use varimax for the orthogonal rotations, and oblimin for the oblique rotations. We start with a basic three factor pcf approach without rotation.
+
+```{r, pcf estimate}
+
+pcf_result_no <- principal(df,nfactors = 3,  rotate = "none") #PCF approach with no rotation
+
+pcf_result_no
+
+```
+
+Let's evaluate the results. The first thing to review is the `SS loadings` row of results. The three values shown in that row are the eigenvalues for the 3 unique factors we specified. The first two factors both have eigenvalues \>1 while the third factor's eigenvalue is not quite at 1. We also want to evaluate the proportion of the variance that each factor explains. Factor 1 clearly explains the most (\~61%) while the third factor only adds 7% of additional explained variance.
+
+Next, we'll review the actual factors and see which measures load on which factor. We see that the six negative emotions all seem to load on Factor 1 while the three positive emotions seem to load on Factor 2. The third factor seems to loosely be related to political anxiety and includes being afraid, worried, and nervous. While Factor 3 is not clearly unique in the unrotated factor analysis, the fact that there are reasonably strong factor loadings indicates that rotation may help to reveal a clearer pattern in the results.
+
+::: {.callout-important}
+Once you assess which measures load onto which factors, always give the factors a substantive name that is intuitive.
+:::
+
+```{r}
+fa.diagram(pcf_result_no) #Graphs the relationship
+```
+
+Finally, we can also graph the factor results and see that in the unrotated results all nine emotions load most strongly on Factor 1, even though the positive emotions and negatively related to the negative emotions. This graph takes the absolute value of the factor loadings and matches the highest factor loading for that item to the appropriate latent factor.
+
+With our knowledge of the correlation matrix and the strong factors loadings from the unrotated pcf model, we will go ahead and rotate our factor analysis results. We will use an orthogonal rotation, varimax, which removes all shared variance between the latent factors.
+
+```{r}
+
+pcf_result_var <- principal(df,nfactors = 3,  rotate = "varimax") #PCF approach with varimax rotation
+
+pcf_result_var #Rotation reveals cleaner factors that are obscured 
+
+fa.diagram(pcf_result_var) #Graphs the relationship 
+
+```
+
+Let's review the same three items in this analysis. Starting with the `SS loadings` we see that the values are much more evenly aligned across the factors with eigenvalues \>=1 for all three factors. Because of this, the proportion of total variance explained is also very close across the three factors. This indicates that the rotation was needed and successful in revealing a clearer pattern in the data. There are likely three factors based on these results.
+
+Next, by examining the factor loadings for each latent factor, we see that the results follow our theoretical beliefs. Anger, outrage, and irritation loaded on Factor 1; hope, happiness, and pride loaded together on Factor 2; and anxiety, worry, and nervousness loaded on Factor 3. When we graph the results we see that clear pattern as well. Generally, the conclusion seems to be that political emotions are structured into three unique latent factors.
+
+The following code compares the pcf approach used above alongside the paf approach, as well as changes the rotation time to oblimin for the oblique rotational approach.
+
+```{r, factor analysis estimate}
+
+#General pcf code "principal(data frame, nfactors=x, rotate)"
+#General paf code "fa(data frame, nfactors=x, rotate)"
+
+#####Principal Components Factor Analysis, 3 factor solution with no rotation, orthogonal (varimax) & oblique (oblimin)
+pcf_result_no <- principal(df,nfactors = 3,  rotate = "none") #PCF approach with no rotation
+pcf_result_no #Reports same Eigenvalues as reported in Scree Plot
+
+pcf_result_var <- principal(df,nfactors = 3,  rotate = "varimax") #PCF approach with varimax rotation
+
+pcf_result_var #Rotation reveals cleaner factors that are obscured 
+
+pcf_result_obl <- principal(df,nfactors = 3,  rotate = "oblimin") #PCF approach with varimax rotation
+
+pcf_result_obl #Rotation reveals cleaner factors that are obscured 
+
+#####Principal Axis Factor Analysis, 3 factor solution with no rotation, orthogonal (varimax) & oblique (oblimin)
+paf_result_no <- fa(df, nfactors = 3, rotate = "none") #paf model
+
+paf_result_no #Reports same Eigenvalues as reported in Scree Plot
+
+paf_result_var <- fa(df, nfactors = 3, rotate = "varimax") #paf model
+
+paf_result_var
+
+paf_result_obl <- fa(df,nfactors = 3,  rotate = "oblimin") #PCF approach with varimax rotation
+
+paf_result_obl #Rotation reveals cleaner factors that are obscured 
+
+```
+
+The results show interesting patterns. Both unrotated models reveal nearly identical results, where as all four rotated results revealed a likely three factor solution. By drawing the same conclusions from the different approaches, that makes it more likely that the three factor solution is best fit for the results.
+
+
+
+
 
 
