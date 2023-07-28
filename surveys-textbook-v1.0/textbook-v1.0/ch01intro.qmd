@@ -14,6 +14,13 @@ library(ggplot2)
 
 We will begin with using simulations in `R`. Simulations are important to understanding the statistical properties of your data, so it is important that you familiarize yourself with why we do this and how to do this in `R`. 
 
+::: {.callout-tip}
+## Simulation and Probability
+
+Probability helps us understand how frequently an outcome would occur if we observed the random process an infinite number of times. Simulation helps us model this process so we can understand what the "true probability" - which we never know - looks like.
+
+:::
+
 #### Birthday Problem
 In a room of 15 people, what is the probability that 2 people will have the same birthday? This is a classic probability problem with numbers that typically surprise people. 
 
