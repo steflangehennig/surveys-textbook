@@ -75,6 +75,8 @@ corrplot(cor_matrix, method = "color")
 Now that we have a sense of the correlations between our variables of interest, we can compute our Cronbach's Alpha using the `psych` package in `R`. 
 
 ```{r}
+#| eval: false
+
 #Calculate Cronbach's Alpha using 'psych' package
 ##Generic format 'alpha(data, na.rm=TRUE, check.keys=TRUE) 
 #check.keys=TRUE is important as it checks the scale direction and, if necessary, flips the order of the scale prior to running the analysis. This deals with the negative correlation we saw in the correlation matrix. Default = FALSE and code will not run if you have an oppositely signed variable. 
@@ -135,6 +137,8 @@ Examining the correlations, we see that the three new items are not strongly rel
 Next, we re-estimate the alpha level with the three additional variables included. Remember, the initial alpha level was .88 so anything below that would indicate a less reliable scale with items that might not belong.
 
 ```{r}
+#| eval: false
+
 alpha(df, na.rm = TRUE, check.keys=TRUE) #Run the alpha calculation
 ```
 
@@ -202,8 +206,8 @@ anes %>%
   count(racial_resent)
 
 # Create a new df object with updated variables
-df <- anes %>%
-  select(resent_gen, resent_fav, resent_try, resent_deserve, racial_resent) 
+# df <- anes %>%
+  #select(resent_gen, resent_fav, resent_try, resent_deserve, racial_resent) 
 ```
 
 The final check is to correlate the new scale with the individual items. Let's take a look at the correlations and correlation matrix for these updated variables:
