@@ -1,8 +1,230 @@
-# Measurement & Item Scaling
+---
+title: "Measurement & Item Scaling"
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+```
+
+## Computing Cronbach's Alpha
+
+This tutorial will cover calculating Cronbach's Alpha for a unidimensional scale. We will use the 2020 [American National Election Survey](https://electionstudies.org/data-center/2020-time-series-study/) and its scale for "Racial Resentment". This scale is designed to measure feelings of racial animosity towards black Americans in a more indirect way than simply asking respondents if they are racist. It consists of 4 variables:
+
+  1. "Irish, Italian, Jewish and many other minorities overcame prejudice and worked their way up. Blacks should do the same without any special favors."
+  2. "Generations of slavery and discrimination have created conditions that make it difficult for blacks to work their way out of the lower class."
+  3. "Over the past few years, blacks have gotten less than they deserve."
+  4. "It's really a matter of some people not trying hard enough; if blacks would only try harder they could be just as well off as whites."
+
+We test the alpha level for reliability for these four items to better understand if they reliably measure the same underlying latent concept.
+
+Let's start by importing the packages we need, as well as our ANES data. 
+
+```{r}
+library(psych)
+library(corrplot)
+library(tidyverse)
+
+library(haven)
+library(MASS)
+library(survey)
+library(Hmisc)
+library(stats)
+library(skimr) #To quickly review your data
+
+anes <- read_dta('C:/Users/Stefani.Langehennig/OneDrive - University of Denver/Documents/research/surveys-textbook-data/anes_timeseries_2020_stata_20220210.dta')
+
+```
+
+Next, we can subset our data and start exploring some of the trends around our variables of interest.
+
+```{r}
+
+df <- data.frame(anes$V202300, anes$V202301, anes$V202302, anes$V202303)
+
+new_names <- c("resent_gen", "resent_fav", "resent_try", "resent_deserve")#Give variables more informative names 
+
+# Update column names
+colnames(df) <- new_names #Apply names to data frame for analysis
+
+skim(df) #Check for missing data that should be recoded
 
 
-## Learning Objectives
+df[df <= -1] <- NA #Recode negative values to NA for analysis
 
-## Measurement
+skim(df) #Validate that missing data is now treated as NA
 
-## Item Scaling
+```
+
+Let's start by examining the correlation matrix for the individual survey items of interest. All items are correlated at .6 or higher as we should expect if they are measuring the same latent concept. Note that two of the items have negative correlations. This indicates that the variable is reverse coded so that higher levels of the measure is equal to lower levels of racial resentment. This will need to be remembered if combining to create a new latent measure of racial resentment.
+
+```{r}
+# Calculate correlation matrix
+cor_matrix <- cor(df, use = "pairwise.complete.obs")
+
+# Display correlation matrix as a table
+cor_table <- round(cor_matrix, 2)
+
+print(cor_table)
+
+# Plot correlation matrix as a heatmap
+corrplot(cor_matrix, method = "color")
+
+```
+Now that we have a sense of the correlations between our variables of interest, we can compute our Cronbach's Alpha using the `psych` package in `R`. 
+
+```{r}
+#Calculate Cronbach's Alpha using 'psych' package
+##Generic format 'alpha(data, na.rm=TRUE, check.keys=TRUE) 
+#check.keys=TRUE is important as it checks the scale direction and, if necessary, flips the order of the scale prior to running the analysis. This deals with the negative correlation we saw in the correlation matrix. Default = FALSE and code will not run if you have an oppositely signed variable. 
+library(psych)
+
+alpha(df, na.rm = TRUE, check.keys=TRUE) #Run the alpha calculation
+
+```
+
+
+Interpreting alpha is very straightforward. First, we will evaluate the actual alpha level, which here is a robust .88. Remember, alpha ranges from 0 to 1, with higher values indicating a more reliable scale. Based on the Kaiser criterion, the general cut point for a reliable scale is .7 or larger. Alpha of .88 here represents a very strong and internally reliable scale.
+
+The second thing to evaluate are the individual items in the analysis, specifically how alpha would change if it were to be dropped. This metric gives insight into how well each individual item fits the overall latent factor. If alpha goes up with its removal, that indicates the individual item might not truly be part of that concept and should potentially be removed from the scale. If the alpha goes down with its removal, that indicates the individual item is important to the overall latent factor and should be kept in the scale.
+
+For illustration purposes, let's add three additional variables that are not related to the racial resentment scale. If the new items are not related to racial resentment, we will see that removing the new items would result in a higher alpha level. We'll add a series of three questions designed to measure rural resentment, or the perception that Americans who live in rural parts of the country are being overlooked and have too little influence in politics. These three questions measure: 
+
+  - How much assistance rural areas get from government 
+  - How much influence rural areas have in government 
+  - How much respect rural people get from others
+
+Note, this is entirely for pedagogical purposes. I do not believe these two concepts to be related. Like before, let's go through our steps of subsetting the data and checking out our correlations.
+
+```{r}
+df <- data.frame(anes$V202300, anes$V202301, anes$V202302, anes$V202303, anes$V202276x , anes$V202279x , anes$V202282x)
+
+skim(df)
+
+new_names <- c("resent_gen", "resent_fav", "resent_try", "resent_deserve", "rural_assist", "rural_influence", "rural_respect")#Give variables more informative names 
+
+# Update column names
+colnames(df) <- new_names #Apply names to data frame for analysis
+
+skim(df) #Check for missing data that should be recoded
+
+
+df[df <= -1] <- NA #Recode negative values to NA for analysis
+
+skim(df) #Validate that missing data is now treated as NA
+
+```
+```{r}
+#Run correlations between the items in the proposed scale
+# Calculate correlation matrix
+cor_matrix <- cor(df, use = "pairwise.complete.obs")
+
+# Display correlation matrix as a table
+cor_table <- round(cor_matrix, 2)
+
+print(cor_table)
+
+# Plot correlation matrix as a heatmap
+corrplot(cor_matrix, method = "color")
+
+```
+
+Examining the correlations, we see that the three new items are not strongly related to the existing racial resentment items and even have relatively weak correlations between each other. This will help illustrate how to identify items that do not belong in a scale.
+
+Next, we re-estimate the alpha level with the three additional variables included. Remember, the initial alpha level was .88 so anything below that would indicate a less reliable scale with items that might not belong.
+
+```{r}
+alpha(df, na.rm = TRUE, check.keys=TRUE) #Run the alpha calculation
+```
+
+The first thing to note is that the overall alpha of this new seven item scale is lower, \~.79, than the original .88 results indicating a less reliable scale. The new items included have harmed the reliability of the scale overall. 
+
+Next, we look at the alpha level if each item were removed. The four initial items included in the racial resentment scale all have alpha levels lower than the overall alpha, which indicates the scale would be worse if any of them were removed. That is what we expected to happen. For the other three items, the alpha levels would either stay the same or get larger if each individual one was removed, indicating that these new items probably do not fit the overall latent concept of racial resentment.
+
+Coupling these findings with the small correlations and the lack of theory, we would conclude that the rural resentment questions do not measure the same concept as racial resentment.
+
+The final step to know is how to combine existing survey questions into a scale. The easiest way, provided they are on the exact same scale (which generally should be the case), is to combine them and divide by the total number of items in the scale. For the racial resentment scale, we would sum across the four items and then divide by 4, since there are 4 items in the scale. However, this is when we must flip the scale so that higher values equal the same thing.
+
+::: {.callout-important}
+
+Always check the coding scheme for your variables. Some variables may be coded in different directions ("reverse coded"). Not having variables coded in the same direction can introduce bias into your analyses and result in wrong conclusions.
+
+:::
+
+We start by creating new variables for each of the four racial resentment questions. First, we examine the codebook and determine that the resentment favoritism and try harder questions are reverse coded so that must be accounted for when creating the new measures. We simply flip the scale direction while saving a new measure in the existing `anes` data frame.
+
+```{r}
+#Working out of the original data frame, anes, so we can save the new variable there for analysis purposes. 
+
+anes <- anes %>% #This creates new variable 
+  mutate(resent_gen = case_when(
+    V202300 ==1 ~ 1,
+    V202300 ==2 ~ 2,
+    V202300 ==3 ~ 3,
+    V202300 ==4 ~ 4,
+    V202300 ==5 ~ 5
+  ))
+
+anes <- anes %>% #Note the reverse coding
+  mutate(resent_fav = case_when(
+    V202301 ==1 ~ 5,
+    V202301 ==2 ~ 4,
+    V202301 ==3 ~ 3,
+    V202301 ==4 ~ 2,
+    V202301 ==5 ~ 1
+  ))
+
+anes <- anes %>%  #Note the reverse coding 
+  mutate(resent_try = case_when(
+    V202302 ==1 ~ 5,
+    V202302 ==2 ~ 4,
+    V202302 ==3 ~ 3,
+    V202302 ==4 ~ 2,
+    V202302 ==5 ~ 1
+  ))
+
+anes <- anes %>%
+  mutate(resent_deserve = case_when(
+    V202303 ==1 ~ 1,
+    V202303 ==2 ~ 2,
+    V202303 ==3 ~ 3,
+    V202303 ==4 ~ 4,
+    V202303 ==5 ~ 5
+  ))
+
+#With the new variables coded in same direction, we create the new scale 'racial_resent'
+anes <- anes %>%
+  mutate(racial_resent = (resent_gen + resent_fav + resent_try + resent_deserve) / 4) #Add across individual items and divide by the total number of items. Note this uses casewise deletion so any case that did not answer each question is removed from the calculation 
+
+summary(anes$racial_resent) #Examine the 
+anes %>% 
+  count(racial_resent)
+
+# Create a new df object with updated variables
+df <- anes %>%
+  select(resent_gen, resent_fav, resent_try, resent_deserve, racial_resent) 
+```
+
+The final check is to correlate the new scale with the individual items. Let's take a look at the correlations and correlation matrix for these updated variables:
+
+```{r}
+
+# Calculate the correlation matrix
+cor_matrix <- cor(df, use = "complete.obs") #Note "complete.obs" removes any case with a NA value  
+
+# View the correlation matrix
+print(cor_matrix)
+
+# Graph the results
+corrplot(cor_matrix, method = "color")
+
+```
+
+Lastly, we want to examine the newly created measure to ensure that it was created appropriately. Since the recoding approach we took kept the original scale in tact of 1-5, we should see 1 as the minimum value and 5 as the maximum. That is what we see in the results. We also see values between the whole numbers such as 1.25 and 1.5 since the denominator in our recode was 4. All of these indicators look good.
+
+Based on the correlations above, the new scale should be highly, but not perfectly, correlated with each of the individual items. That is exactly what we see here. The correlation is at least .84 between the new scale and the individual items but none are perfectly correlated. This indicates that our new scale was created successfully and is now ready to be analyzed.
+
+
+
+
