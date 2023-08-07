@@ -13,5 +13,78 @@ library(tidyverse)
 set.seed(1964)
 
 ```
+
 ## Analyzing Dichotomous Dependent Variables
-We are going use the binomial distribution to simulate a dichotomous dependent variable, _y_, with a known relationship to an independent variable, _x_. We will then estimate the relationship using OLS, logistic, and probit regressions and compare the results. Along the way, we will talk about the differences in the modeling approaches.
+
+We are going use the binomial distribution to simulate a dichotomous dependent variable, _y_, with a known relationship to an independent variable, _x_. We will then estimate the relationship using OLS, logistic, and probit regressions and compare the results. Along the way, we will talk about the differences in the modeling approaches. 
+
+Let's start with simulating some data for our analysis.
+
+```{r simulate data}
+# Create X as a sequence from 1 to 11
+X <- 1:11
+
+# Define the probabilities for Y = 1 at each X value with steeper relationship in middle and flatter at edges
+probabilities <- c(0.95, .925, .875, 0.8, .7, 0.5, 0.3, 0.2, 0.125, .075, 0.05)
+
+# Simulate data with binomial distribution for Y
+sample <- 1000  # Number of trials for each x 
+
+# Create an empty data frame to store the results
+simulated_data <- data.frame(X = numeric(),
+                             Y = numeric(),
+                             stringsAsFactors = FALSE)
+
+# Simulate Y=1 probabilistically for each X value iteration
+for (i in 1:sample) {
+  # Sample Y=1 probabilistically at each X value
+  simulated_Y <- sapply(probabilities, function(p) sample(c(0, 1), size = 1, prob = c(1 - p, p))) #Probabilistically draw 1 | 0 at the specified probability level 
+  
+  # Create a data frame for the current iteration
+  iteration_data <- data.frame(x = X, y = simulated_Y)
+  
+  # Append the current iteration data to the main data frame
+  simulated_data <- rbind(simulated_data, iteration_data)
+}
+
+head(simulated_data) #Look at first few cases 
+
+```
+### Reviewing Simulated Data
+
+Using the `group_by` function from the `tidyverse` package, we check the probability that Y = 1 at each X level to see if the simulation worked as hoped. The results show that it did with P(Y=1∣X )roughly following the population parameters stipulated earlier.
+
+```{r pressure, echo=FALSE}
+simulated_data %>%
+  group_by(x) %>%
+  summarize(mean_y = mean(y))
+
+```
+### Estimating Regression Models
+
+With our simulated data, now we'll estimate three separate regressions changing the Generalized Linear Model (GLM) type using: _Logistic, Probit,_ and _OLS_.
+
+The two models, logistic and probit, are designed to work with dichotomous DVs and should work better with our simulated data compared to the OLS estimator (which assumes a normal distribution). We use GLMs to estimate all three models, including the OLS, to more easily compare model fit across estimators. Both the logitistic and probit models use the `family=binomial` argument in the code but have the different link functions to account for the different calculations. The OLS GLM model uses the _Gaussian_ distribution family with the standard _identity_ link function.
+
+We estimate each of the three models than compare the results using the `stargazer` package. 
+
+```{r modeling}
+# Logistic regression
+logit <- glm(y ~ x , data = simulated_data, family = binomial(link = "logit"))
+summary(logit)
+
+# Probit regression
+probit <- glm(y ~ x , data = simulated_data, family = binomial(link = "probit"))
+summary(probit)
+
+# OLS regression
+ols <- glm(y ~ x, data = simulated_data, family = gaussian(link = "identity"))
+summary(ols)
+
+# Compare results
+stargazer(ols, logit, probit, type="text")
+```
+
+
+
+
