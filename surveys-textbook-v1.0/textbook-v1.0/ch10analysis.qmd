@@ -84,7 +84,9 @@ summary(ols)
 # Compare results
 stargazer(ols, logit, probit, type="text")
 ```
+The results show that _x_ is a significant predictor of _y_ across all three model estimation strategies, which it should be given the data generating process that created these data. However, the coefficients are interpreted differently in each of the three models. For the OLS model, the coefficient of -.105 reflects a linear estimation of how _x_ is related to _y_ so that for every 1 unit increase in _x_, regardless of where on the _x_ scale you are, results in a .105, or 10.5%, decrease in the probability of _Y_. The OLS model is assuming a linear relationship and is creating the coefficient that best describes the linear relationship between _x_ and _y_.
 
+The coefficients on the logistic and probit models do not assume linearity, meaning that the impact of _x_ on values of _y_ will vary depending on where on the _x_ scale you are. With _x_ values closer to the middle of the scale, the relationship will be stronger so that a 1 unit increase in _x_ results in the largest possible change in _y_ With _x_ values closer to either its maximum or minimum, the relationship between _x_ and _y_ will be weaker so that a 1 unit increase in _x_ results in a smaller change in _y_.
 
 
 
