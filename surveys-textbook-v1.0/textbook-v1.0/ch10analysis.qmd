@@ -153,5 +153,46 @@ Before we graph the results, let's examine the table with the differences in pre
 
 For instance, moving from x=1 to x=2 resulted in a predicted probability decrease of .033 in the _y_ estimate. While still larger than the true DGP result of -.023, it is much closer than the OLS estimate of -.106. The probit results showed a similar decrease as the logistic result of -.038. At the middle of the _x_ scale, moving from x=5 to x=6 resulted in a decrease of .153 and .142 for logistic/probit estimators respectively, which is a much steeper estimated relationship than at the extremes. This pattern of results matches the DGP much more closely because both logistic and probit estimators are designed to work with the type of distribution that created the dependent variable (the binomial distribution).
 
+#### Graphing the Results
+
+Let's finish by visually examining the results saved in the `new_data_combo` data frame using `ggplot2`. We'll compare the predicted values for each estimator by graphing.  
+
+```{r}
+
+ggplot(new_data_combo, aes(x = x)) +
+  geom_line(aes(y = predicted_ols), color = "red", size = .75, linetype="dashed") +
+  geom_line(aes(y = predicted_logit), color = "black", size = .75) +
+  geom_line(aes(y = predicted_probit), color = "grey", size = .75) +
+  labs(title = "Predicted Values by Estimator") +
+  theme_minimal()
+
+```
+
+This plot visually reflects the discussion from above. The OLS estimator is a linear line, whereas the logistic and probit lines are steeper in the middle of the data and flatter at the extremes, just like it should be based on the underlying DGP.
+
+One thing to note is that we do not have confidence intervals on the graph at this point. Let's focus on the logistic result and graph the predicted probabilities with 95% confidence intervals on the plot to help with our inference.
+
+```{r}
+#Using 'predict' function, we save the predicted values/probabilities at X=seq(1:11, by 1) 
+new_data_logit <- expand.grid(x = seq(1, 11, 1))
+logit_n<-predict(logit, newdata = new_data_logit,  type = "response", se.fit = TRUE, interval = "confidence", level = 0.95) #Saves predicted probabilities
+
+logit_n$ci_lower <- logit_n$fit - 1.96 * logit_n$se #Calculates lower bound 
+logit_n$ci_upper <- logit_n$fit + 1.96 * logit_n$se #Calculates upper bound
+logit_n$x <- 1:11 #Sets the x variable 
+logit_n<-as.data.frame(logit_n) #Creates a data frame for graphing 
+
+# Create the plot
+ggplot(logit_n, aes(x = x, y = fit)) +
+  geom_line(color = "black", linewidth=.5) +                          # Line plot for predicted probabilities
+  geom_ribbon(aes(ymin = ci_lower, ymax = ci_upper), alpha = 0.5, fill = "grey") +  # CI ribbon
+  labs(x = "x", y = "Predicted Probability", title = "Predicted Probability with 95% CI") +
+  theme_minimal() + scale_x_continuous(breaks = 1:11) +
+  geom_hline(yintercept = 0.5, linetype = "dashed", color = "red") 
+
+```
+
+
+
 
 
