@@ -240,7 +240,39 @@ ggplot(binned_data, aes(x = bins, y = mean_residual)) +
 
 ```
 
+The residuals plot above shows the bins along with the 95% confidence interval for the average prediction. Generally, we are looking for any systematic pattern in our data to suggest that we have a misspecified model - omitted variable bias, etc. - or a IV that is need of transformation.
 
+Here, we see some significant misses - at _x=5_ and _x=7_ - but in general there is no systematic pattern on our misses. This indicates that our model is generally well performing and we do not need to add additional predictors or transform our IV. We should expect this since we created the data with known parameters.
+
+Next, we will examine the classification accuracy for the logistic results, but once again the code will work the same on the estimated probit model. Classification accuracy will tell us how much better our predictions are versus simply guessing 0 \| 1 depending on whichever one is more prevalent in the data. In our simulated data, y = .495 or simply a coin flip. Guessing 0 would mean we were correct 1-.495 or 50.5% of the time. Hopefully, our model is able to increase our prediction accuracy over simply guessing the average.
+
+Calculating classification accuracy is fairly straightforward. First, we calculate the null percent correct - i.e. the mean of _y_ - which was .505 for our simulated data. Then we calculate the accuracy of the predicted _y_ to see if we improve on simply guessing the mean. Note, we should since we created the DGP for this set of data.
+
+```{r}
+
+#Create new vector with 0|1 predictions from the model
+predicted_class <- ifelse(simulated_data$predicted_probs >= 0.5, 1, 0)
+
+# Compare the predicted binary outcomes to the actual y 
+actual_class <- simulated_data$y
+
+# Calculate the classification accuracy
+accuracy <- mean(predicted_class == actual_class)
+print(accuracy)
+
+# Calculate the classification accuracy improvement
+accuracy_improve <- accuracy-mean(simulated_data$y)
+print(accuracy_improve)
+
+```
+
+Looking at the classification accuracy results, we see a value of .814 which means we correctly predicted the value of _y_ 81.4% of the time. Since the naive guessing approach would have results in us being accurate .505, we also calculate the improvement accuracy, which gives us a value of .323. This value means that adding _x_ to our logistic model predicting _y_ improved our model by 32.2% over guessing the mean. That is an impressive improvement and one that you are not likely to see in real-world data.
+
+### Conclusions
+
+In this tutorial, we reviewed analyzing a binary DV. We showed that using a linear probability model results in a worse fitting model and with predictions outside the bounds of reality. This was to be expected since OLS is an estimate for a normally distributed DV and not a binary one.
+
+We also reviewed how to estimate logistic and probit models, evaluate the results, translate the coefficients into predicted probabilities, graph predicted probabilities with confidence intervals, and finally how to evaluate the model fit.
 
 
 
