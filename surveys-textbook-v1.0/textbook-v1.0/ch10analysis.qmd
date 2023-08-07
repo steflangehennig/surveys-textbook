@@ -192,6 +192,54 @@ ggplot(logit_n, aes(x = x, y = fit)) +
 
 ```
 
+Above, we graphed the predicted probability of y = 1 at each value of _x_ from our logistic model. The black line represents the average predicted probability of _y_ at that level of _x_ while the light grey bar reflects the 95% confidence interval. Because we have 11,000 cases in our data, the confidence intervals are really tight (close) around the point estimate. This will not be the case with real-world data that typically has much smaller sample sizes.
+
+#### Evaluating Model Fit \*Note that we will evaluate model fit here on the logistic results but the approach stays identical if you have estimated a probit model.
+
+Unlike with an OLS estimator, the residuals (predicted _y_ - actual _y_), do not give us good information with a binary DV. Instead, we create binned residuals plots to understand if we are systematically over or under-estimating _y_ at different levels of our predictor.
+
+First, let's calculate and graph conventional residuals to understand why they are not informative.
+
+```{r traditional residuals}
+# Fitted values
+fv.logit <- logit$fitted.values  # Gets fitted values at each X
+
+y.logit <- logit$y # The dependent variable (i.e., actual values)
+
+# Residual plot
+plot(fv.logit, y.logit - fv.logit, pch = 19)
+abline(h = 0, lwd = 2, lty = 3)
+```
+
+Since _Y_ is binary, the traditional residuals are not informative, as they are simply the differences between the average predicted value at each _x_ versus the actual value of _y_ at each _x_. What we really want to know is if we consistently predict _y_ at each level of _x_.
+
+For this, we will use binned residuals plots. Binned residuals divide the data into categories (bins) based on their fitted values then plot the average residual against the average fitted value by bin.
+
+```{r binned residuals}
+
+# Create bins based on the range of x
+simulated_data$predicted_probs<-predict(logit, type="response")
+simulated_data$residuals <- simulated_data$y - simulated_data$predicted_probs
+simulated_data$bins <- cut(simulated_data$x, breaks = c(0:12))
+
+# Summarize the residuals for each bin
+binned_data <- simulated_data %>%
+  group_by(bins) %>%
+  summarize(
+    mean_residual = mean(residuals),
+    ci_lower = mean_residual - 1.96 * sd(residuals) / sqrt(n()),
+    ci_upper = mean_residual + 1.96 * sd(residuals) / sqrt(n())
+  )
+
+#Create a plot to visualize the mean residuals and their CIs
+ggplot(binned_data, aes(x = bins, y = mean_residual)) +
+  geom_point(color = "black", size = 3) +      # Dot graph with points
+  geom_errorbar(aes(ymin = ci_lower, ymax = ci_upper), width = 0.2, position = position_dodge(width = 0.5)) +  # CIs
+  labs(x = "Bins of x", y = "Avg Binned Residual", title = "Binned Residuals with 95% CI") +
+  theme_minimal() + geom_hline(yintercept=0, linetype="dashed",color="red")
+
+```
+
 
 
 
