@@ -100,8 +100,58 @@ With these data, the logistic model seems to fit the best as it has the lowest v
 
 Next, let's calculate the predicted probability/value of _y_ at each value of _x_ across the three estimators and compare how well the predictions fit the underlying data generating process.
 
+#### Calculating Predicted Probabilities by Model Type
+
+Using the `predict` function, we first create a new data frame with the appropriate _x_ values before saving the predict probabilities (values) from each of the three models in the new file. Then we will append the actual probabilities from the population for each value of _x_ to check the model fit.
+
+```{r}
+#Creates new data frames and saves individual predicted values/probabilities into them
+# For OLS
+new_data_ols <- expand.grid(x = seq(1, 11, 1))
+ols_n<-predict(ols, newdata = new_data_ols,  type = "response", se.fit = TRUE, interval = "confidence", level = 0.95)
+
+# For logistic
+new_data_logit <- expand.grid(x = seq(1, 11, 1))
+logit_n<-predict(logit, newdata = new_data_logit,  type = "response", se.fit = TRUE, interval = "confidence", level = 0.95)
+
+# For probit
+new_data_probit <- expand.grid(x = seq(1, 11, 1))
+probit_n<-predict(probit, newdata = new_data_probit,  type = "response", se.fit = TRUE, interval = "confidence", level = 0.95)
+
+#Using 'predict' function, we save the predicted values/probabilities at X=seq(1:11, by 1) 
+new_data_combo <- expand.grid(x = seq(1, 11, 1)) #Create new data frame to save results 
+
+new_data_combo$predicted_ols <- ols_n$fit  #Save OLS predicted values 
+
+new_data_combo$predicted_logit <- logit_n$fit #Save logit predicted probabilities
+
+new_data_combo$predicted_probit <- probit_n$fit  #Save probit predicted probabilities 
+
+#Calculates mean predicted values by x for each model then combines 
+c<-simulated_data %>% #
+  group_by(x) %>%
+  summarize(mean_y = mean(y))
+new_data_combo <- merge(new_data_combo, c, by = "x")
+
+#Calculates the change in predicted y at each 1 unit increase in x
+log_delta <- diff(new_data_combo$predicted_logit)
+prob_delta <- diff(new_data_combo$predicted_probit)
+ols_delta <- diff(new_data_combo$predicted_ols)
+act_delta <- diff(new_data_combo$mean_y)
+
+print (new_data_combo)
+
+# Create a new data frame with the differences
+differences <- data.frame(y = act_delta, log = log_delta, prob = prob_delta, ols=ols_delta)
+print(differences)
+```
 
 
+The first table shows the predicted probability - i.e. P(Y = 1 \| X) for each of the three estimators and the true DGP that we created. Notice that when X=1 the predicted values for _y_ for the logistic and probit models are close to 1 but not quite exactly 1, whereas the predicted value for the OLS estimator is 1.03. This prediction is out-of-bounds of possibilities, as it is impossible to have a probability \>1 like this for our outcome of interest. This illustrates one reason why running linear probability models is not advised here. 
+
+Before we graph the results, let's examine the table with the differences in predicted _y_ for the three different models at each 1 unit increase in _x_. The OLS model, as mentioned, assumes the same change in _y_ of -.106 at each _x_. The logistic, probit, and, most importantly, the true DGP results reveal a non-linear relationship between _x_ and _y_ whereby the change in _y_ at the extremes is much less steep than compared to the middle of the _x_ scale.
+
+For instance, moving from x=1 to x=2 resulted in a predicted probability decrease of .033 in the _y_ estimate. While still larger than the true DGP result of -.023, it is much closer than the OLS estimate of -.106. The probit results showed a similar decrease as the logistic result of -.038. At the middle of the _x_ scale, moving from x=5 to x=6 resulted in a decrease of .153 and .142 for logistic/probit estimators respectively, which is a much steeper estimated relationship than at the extremes. This pattern of results matches the DGP much more closely because both logistic and probit estimators are designed to work with the type of distribution that created the dependent variable (the binomial distribution).
 
 
 
