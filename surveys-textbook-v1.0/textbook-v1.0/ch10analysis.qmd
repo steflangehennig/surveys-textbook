@@ -1,5 +1,5 @@
 ---
-title: "Survey Analysis: Logit & Probit"
+title: "Survey Analysis: Logitistic & Probit Regression"
 bibliography: references.bib
 ---
 
@@ -14,3 +14,4 @@ set.seed(1964)
 
 ```
 ## Analyzing Dichotomous Dependent Variables
+We are going use the binomial distribution to simulate a dichotomous dependent variable, _y_, with a known relationship to an independent variable, _x_. We will then estimate the relationship using OLS, logistic, and probit regressions and compare the results. Along the way, we will talk about the differences in the modeling approaches.
