@@ -1,3 +1,16 @@
-# Analyzing Survey Data
+---
+title: "Survey Analysis: Logit & Probit"
+bibliography: references.bib
+---
 
-## Learning Objectives
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+
+library(ggplot2)
+library(stargazer)
+library(MASS)
+library(tidyverse)
+set.seed(1964)
+
+```
+## Analyzing Dichotomous Dependent Variables
