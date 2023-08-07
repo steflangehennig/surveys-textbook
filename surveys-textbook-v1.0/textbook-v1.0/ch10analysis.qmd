@@ -84,9 +84,24 @@ summary(ols)
 # Compare results
 stargazer(ols, logit, probit, type="text")
 ```
+#### Synthesizing Model Results
+
 The results show that _x_ is a significant predictor of _y_ across all three model estimation strategies, which it should be given the data generating process that created these data. However, the coefficients are interpreted differently in each of the three models. For the OLS model, the coefficient of -.105 reflects a linear estimation of how _x_ is related to _y_ so that for every 1 unit increase in _x_, regardless of where on the _x_ scale you are, results in a .105, or 10.5%, decrease in the probability of _Y_. The OLS model is assuming a linear relationship and is creating the coefficient that best describes the linear relationship between _x_ and _y_.
 
 The coefficients on the logistic and probit models do not assume linearity, meaning that the impact of _x_ on values of _y_ will vary depending on where on the _x_ scale you are. With _x_ values closer to the middle of the scale, the relationship will be stronger so that a 1 unit increase in _x_ results in the largest possible change in _y_ With _x_ values closer to either its maximum or minimum, the relationship between _x_ and _y_ will be weaker so that a 1 unit increase in _x_ results in a smaller change in _y_.
+
+For the logistic model, the coefficient values represent the logged odds. This is important to know so that you do not immediately start to interpret the coefficient values like it is an OLS coefficient. We can easily interpret direction of relationship and significance with the logged odds, but to understand the substantive impact, we should convert to predicted probabilities, which we will do below.
+
+For the probit model, the coefficient values represents the change in the z-score for each 1-unit increase in _x_. In same manner as logitistic models, we can easily interpret direction of relationship and significance between _x_ and _y_ in the probit model but not the substantive impact. We will convert to predicted probabilities for that as well.
+
+Since each of the three models are estimated using GLMs on the exact same data, we can evaluate which of the three estimators are the best with these data. We will can evaluate both the log-likelihood result and the AIC. Remember, for both results, a lower value indicates a better fitting model.
+
+With these data, the logistic model seems to fit the best as it has the lowest value on both the AIC and the log-likelihood result. Probit performs worse than logistic model, but better than the OLS results. This is to be expected since the logistic and probit models are designed to worked on a binary DV whereas OLS is designed for a normally distributed DV.
+
+Next, let's calculate the predicted probability/value of _y_ at each value of _x_ across the three estimators and compare how well the predictions fit the underlying data generating process.
+
+
+
 
 
 
