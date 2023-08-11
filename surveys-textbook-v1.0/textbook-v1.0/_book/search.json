@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Survey Methods for Social Scientists",
     "section": "",
-    "text": "Welcome\nThis is the github repository for the work-in-progress first edition of Survey Methods for Social Scientists.\nThe goal of this book is to teach you how to create, conduct, and analyze surveys with R. While the book is primarily geared towards undergraduate students in the social sciences (political science, psychology, sociology, economics, etc.), the practical uses for this book can be extended to any discipline.\nThe book is divided into three sections:\n\nThe Science Behind Survey Methods\nBest Practices of Survey Design\nConducting Survey Analyses\n\nEach section comprises multiple chapters that succinctly explain the why behind the method, as well as how to apply the method. Built into each chapter are comprehensive R code tutorials alongside practical explanations."
+    "text": "Welcome\nThis is the github repository for the work-in-progress first edition of Survey Methods for Social Scientists.\nThe goal of this book is to teach you how to create, conduct, and analyze surveys with R. While the book is primarily geared towards undergraduate students in the social sciences (political science, psychology, sociology, economics, etc.), the practical uses for this book can be extended to any discipline.\nThe book is divided into three sections:\nEach section comprises multiple chapters that succinctly explain the why behind the method, as well as how to apply the method. Built into each chapter are comprehensive R code tutorials alongside practical explanations."
   },
   {
     "objectID": "ch01intro.html",
@@ -271,5 +271,12 @@
     "title": "The Science of Survey Methods",
     "section": "Recommended Resources",
     "text": "Recommended Resources\nIn addition to the content in this book, we recommend consulting the following resources on R, survey methods, and other things:\n\nhere\nhere\nhere"
+  },
+  {
+    "objectID": "index.html#required-software-and-packages",
+    "href": "index.html#required-software-and-packages",
+    "title": "Survey Methods for Social Scientists",
+    "section": "Required Software and Packages",
+    "text": "Required Software and Packages\nTo do survey analysis, we will use a programming language called R, which is run through an IDE called RStudio. Once using the R programming language, we can call on a number of packages, which are simply a bundle of functions and/or data that make doing analyses easier and more efficient.\n\nInstalling R and RStudio\nR (version 4.3.x and above) and Rstudio are required to do the exercises throughout the book. You’ll need to download and install both, which you can find instructions on here:\n\nR download\nR Studio download\n\nIf you are new to R, Andrew Heiss has culled a list of excellent resources to help you get started and master your R programming skills. Check them out here!\n\n\nInstalling Required Packages\nWe will use a number of packages to help us work with survey data. One of the most important packages we will use is called the tidyverse, which is a compilation of multiple packages that share a common syntax and work together seamlessly. To install the tidyverse (or any package), you can use the following code:\n\ninstall.packages(\"tidyverse\")\n\nAfter you have installed the package, you must explicitly load (“call”) the package by using the library() function. If you do not do this, you will not be able to access the functions in the package.\n\nlibrary(tidyverse)\n\n\n\n\n\n\n\nInstalling and loading packages\n\n\n\nYou only need to use install.packages() once unless you update your R with a newer version. Each time you close or restart RStudio, however, you must explicitly load in each package using the library() function.\n\n\nAs we move through each chapter of the book, we will install and load many different packages that help us with the task at hand. We will use the process outlined here to do so."
   }
 ]

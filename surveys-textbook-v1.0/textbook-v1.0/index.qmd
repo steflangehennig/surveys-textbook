@@ -21,3 +21,45 @@ The book is divided into three sections:
 
 Each section comprises multiple chapters that succinctly explain the _why_ behind the method, as well as _how_ to apply the method. Built into each chapter are comprehensive `R` code tutorials alongside practical explanations.
 
+## Required Software and Packages
+
+To do survey analysis, we will use a programming language called `R`, which is run through an IDE called `RStudio`. Once using the `R` programming language, we can call on a number of _packages_, which are simply a bundle of functions and/or data that make doing analyses easier and more efficient. 
+
+### Installing `R` and `RStudio`
+
+`R` (version 4.3.x and above) and `Rstudio` are required to do the exercises throughout the book. You'll need to download and install both, which you can find instructions on here:
+
+- [R download](https://cran.r-project.org/)
+- [R Studio download](https://posit.co/download/rstudio-desktop/)
+
+If you are new to `R`, [Andrew Heiss](https://www.andrewheiss.com/) has culled a list of excellent resources to help you get started and master your `R` programming skills. [Check them out here!](https://datavizs22.classes.andrewheiss.com/resource/r/)
+
+
+### Installing Required Packages
+We will use a number of packages to help us work with survey data. One of the most important packages we will use is called the `tidyverse`, which is a compilation of multiple packages that share a common syntax and work together seamlessly. To install the `tidyverse` (or any package), you can use the following code:
+
+```{r}
+#| eval: false
+install.packages("tidyverse")
+```
+
+After you have installed the package, you must explicitly load ("call") the package by using the `library()` function. If you do not do this, you will not be able to access the functions in the package. 
+
+```{r}
+#| warning: false
+library(tidyverse)
+```
+
+::: {.callout-tip}
+## Installing and loading packages
+
+You only need to use `install.packages()` once unless you update your `R` with a newer version. Each time you close or restart `RStudio`, however, you must explicitly load in each package using the `library()` function. 
+
+:::
+
+As we move through each chapter of the book, we will install and load many different packages that help us with the task at hand. We will use the process outlined here to do so. 
+
+
+
+
+

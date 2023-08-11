@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -237,7 +271,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a>
+  <ul class="collapse">
+  <li><a href="#required-software-and-packages" id="toc-required-software-and-packages" class="nav-link" data-scroll-target="#required-software-and-packages">Required Software and Packages</a>
+  <ul class="collapse">
+  <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio" class="nav-link" data-scroll-target="#installing-r-and-rstudio">Installing <code>R</code> and <code>RStudio</code></a></li>
+  <li><a href="#installing-required-packages" id="toc-installing-required-packages" class="nav-link" data-scroll-target="#installing-required-packages">Installing Required Packages</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -293,8 +334,46 @@ ul.task-list li input[type="checkbox"] {
 <li>Conducting Survey Analyses</li>
 </ol>
 <p>Each section comprises multiple chapters that succinctly explain the <em>why</em> behind the method, as well as <em>how</em> to apply the method. Built into each chapter are comprehensive <code>R</code> code tutorials alongside practical explanations.</p>
+<section id="required-software-and-packages" class="level2">
+<h2 class="anchored" data-anchor-id="required-software-and-packages">Required Software and Packages</h2>
+<p>To do survey analysis, we will use a programming language called <code>R</code>, which is run through an IDE called <code>RStudio</code>. Once using the <code>R</code> programming language, we can call on a number of <em>packages</em>, which are simply a bundle of functions and/or data that make doing analyses easier and more efficient.</p>
+<section id="installing-r-and-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="installing-r-and-rstudio">Installing <code>R</code> and <code>RStudio</code></h3>
+<p><code>R</code> (version 4.3.x and above) and <code>Rstudio</code> are required to do the exercises throughout the book. You’ll need to download and install both, which you can find instructions on here:</p>
+<ul>
+<li><a href="https://cran.r-project.org/">R download</a></li>
+<li><a href="https://posit.co/download/rstudio-desktop/">R Studio download</a></li>
+</ul>
+<p>If you are new to <code>R</code>, <a href="https://www.andrewheiss.com/">Andrew Heiss</a> has culled a list of excellent resources to help you get started and master your <code>R</code> programming skills. <a href="https://datavizs22.classes.andrewheiss.com/resource/r/">Check them out here!</a></p>
+</section>
+<section id="installing-required-packages" class="level3">
+<h3 class="anchored" data-anchor-id="installing-required-packages">Installing Required Packages</h3>
+<p>We will use a number of packages to help us work with survey data. One of the most important packages we will use is called the <code>tidyverse</code>, which is a compilation of multiple packages that share a common syntax and work together seamlessly. To install the <code>tidyverse</code> (or any package), you can use the following code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>After you have installed the package, you must explicitly load (“call”) the package by using the <code>library()</code> function. If you do not do this, you will not be able to access the functions in the package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Installing and loading packages
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You only need to use <code>install.packages()</code> once unless you update your <code>R</code> with a newer version. Each time you close or restart <code>RStudio</code>, however, you must explicitly load in each package using the <code>library()</code> function.</p>
+</div>
+</div>
+<p>As we move through each chapter of the book, we will install and load many different packages that help us with the task at hand. We will use the process outlined here to do so.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
