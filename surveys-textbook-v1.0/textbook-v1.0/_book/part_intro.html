@@ -116,13 +116,13 @@ ul.task-list li input[type="checkbox"] {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch01intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Basics of Survey Methods</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./ch00setup.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setting Up our Environment for Survey Methods</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Setting Up our Environment</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -191,16 +191,33 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch09hyp_analysis_rep.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Learning Objectives</span></span></a>
+  <a href="./ch09hypothesis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Hypothesis Testing in Survey Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ch10conclusion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Conclusion</span></span></a>
+  <a href="./ch10analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Survey Analysis: Logitistic &amp; Probit Regression</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ch11report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Reporting Survey Data</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./ch12conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Conclusion</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
@@ -220,6 +237,8 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#section-outline" id="toc-section-outline" class="nav-link active" data-scroll-target="#section-outline">Section Outline</a></li>
+  <li><a href="#required-software-and-packages" id="toc-required-software-and-packages" class="nav-link" data-scroll-target="#required-software-and-packages">Required Software and Packages</a></li>
+  <li><a href="#recommended-resources" id="toc-recommended-resources" class="nav-link" data-scroll-target="#recommended-resources">Recommended Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -247,10 +266,28 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="section-outline">Section Outline</h2>
 <p>In addition to getting our working environment set up to conduct survey analyses, this section introduces students to the science behind survey methods, including how individuals approach and answer surveys, as well as the ethics behind designing, administering, and synthesizing surveys.</p>
 <ul>
-<li>Chapter 1: Introduction to Survey Methods</li>
-<li>Chapter 2: Setting Up our Environment for Survey Methods</li>
+<li>Chapter 1: Introduction and Basics of Survey Methods</li>
+<li>Chapter 2: Setting Up our Environment</li>
 <li>Chapter 3: Psychology of Survey Response</li>
 <li>Chapter 4: Survey Ethics</li>
+</ul>
+</section>
+<section id="required-software-and-packages" class="level2">
+<h2 class="anchored" data-anchor-id="required-software-and-packages">Required Software and Packages</h2>
+<p><code>R</code> (version 4.3.x and above) and <code>Rstudio</code> are required to do the exercises throughout the book. You’ll need to download and install both, which you can find instructions on here:</p>
+<ul>
+<li><a href="https://cran.r-project.org/">R download</a></li>
+<li><a href="https://posit.co/download/rstudio-desktop/">R Studio download</a></li>
+</ul>
+<p>If you are new to <code>R</code>, <a href="https://www.andrewheiss.com/">Andrew Heiss</a> has culled a list of excellent resources to help you get started and master your <code>R</code> programming skills. <a href="https://datavizs22.classes.andrewheiss.com/resource/r/">Check them out here!</a></p>
+</section>
+<section id="recommended-resources" class="level2">
+<h2 class="anchored" data-anchor-id="recommended-resources">Recommended Resources</h2>
+<p>In addition to the content in this book, we recommend consulting the following resources on <code>R</code>, survey methods, and other things:</p>
+<ul>
+<li>here</li>
+<li>here</li>
+<li>here</li>
 </ul>
 
 
@@ -498,7 +535,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="./ch01intro.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction and Basics of Survey Methods</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

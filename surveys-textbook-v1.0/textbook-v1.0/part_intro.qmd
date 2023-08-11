@@ -8,3 +8,20 @@ In addition to getting our working environment set up to conduct survey analyses
 -   Chapter 2: Setting Up our Environment
 -   Chapter 3: Psychology of Survey Response
 -   Chapter 4: Survey Ethics
+
+## Required Software and Packages
+
+`R` (version 4.3.x and above) and `Rstudio` are required to do the exercises throughout the book. You'll need to download and install both, which you can find instructions on here:
+
+- [R download](https://cran.r-project.org/)
+- [R Studio download](https://posit.co/download/rstudio-desktop/)
+
+If you are new to `R`, [Andrew Heiss](https://www.andrewheiss.com/) has culled a list of excellent resources to help you get started and master your `R` programming skills. [Check them out here!](https://datavizs22.classes.andrewheiss.com/resource/r/)
+
+## Recommended Resources
+
+In addition to the content in this book, we recommend consulting the following resources on `R`, survey methods, and other things:
+
+-   here
+-   here
+-   here
