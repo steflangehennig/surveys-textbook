@@ -57,7 +57,7 @@ You only need to use `install.packages()` once unless you update your `R` with a
 
 :::
 
-As we move through each chapter of the book, we will install and load many different packages that help us with the task at hand. We will use the process outlined here to do so. 
+As we move through each chapter of the book, we will install and load many different packages that help us with the task at hand. We will use the process outlined here to do so.
 
 
 
