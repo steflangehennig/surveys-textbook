@@ -53,7 +53,7 @@ library(tidyverse)
 ::: {.callout-tip}
 ## Installing and loading packages
 
-You only need to use `install.packages()` once unless you update your `R` with a newer version. Each time you close or restart `RStudio`, however, you must explicitly load in each package using the `library()` function. 
+You only need to use `install.packages()` once unless you update your `R` with a newer version. Each time you close or restart `RStudio`, however, you must explicitly load in each package using the `library()` function. It is helpful to load your packages at the top of your `R` script before you get started coding. 
 
 :::
 
