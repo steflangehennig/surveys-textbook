@@ -43,7 +43,7 @@ We will use a number of packages to help us work with survey data. One of the mo
 install.packages("tidyverse")
 ```
 
-After you have installed the package, you must explicitly load ("call") the package by using the `library()` function. If you do not do this, you will not be able to access the functions in the package.  
+After you have installed the package, you must explicitly load ("call") the package by using the `library()` function. If you do not do this, you will not be able to access the functions in the package.
 
 ```{r}
 #| warning: false
