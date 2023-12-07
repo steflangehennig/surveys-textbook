@@ -5,5 +5,5 @@
 </p>
 
 
-Quarto book project for survey methodologies textbook with Carey E. Stapleton. Table of contents coming soon.
+Quarto book project for survey methodologies textbook with Carey E. Stapleton. Table of contents coming soon. 
 
